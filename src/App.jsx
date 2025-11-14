@@ -70,28 +70,57 @@ export default function LoginSignupAnimation() {
           margin-bottom: 1.5rem;
         }
 
-        .input-wrapper input {
-          width: 100%;
-          background: rgba(255, 255, 255, 0.03);
-          border: none;
-          border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-          padding: 1rem ;
-          color: white;
-          font-size: 1rem;
-          transition: all 0.3s ease;
-          border-radius: 30px;
+        // .input-wrapper input {
+        //   width: 100%;
+        //   background: linear-gradient(180deg, #4AA8FF 0%, #2D8CFF 100%);
+        //   border: none;
+        //   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        //   padding: 1rem ;
+        //   color: white;
+        //   font-size: 1rem;
+        //   transition: all 0.3s ease;
+        //   border-radius: 30px;
           
-        }
+        // }
 
-        .input-wrapper input:focus {
-          outline: none;
-          border-bottom-color: #ff6b35;
-          background: rgba(255, 255, 255, 0.05);
-        }
+        // .input-wrapper input:focus {
+        //   outline: none;
+        //   border-bottom-color: #ff6b35;
+        //   background: rgba(255, 255, 255, 0.05);
+        // }
 
-        .input-wrapper input::placeholder {
-          color: rgba(255, 255, 255, 0.5);
-        }
+        // .input-wrapper input::placeholder {
+        //   color: rgba(255, 255, 255, 0.5);
+        // }
+
+        .input-wrapper input {
+  width: 100%;
+  background: linear-gradient(180deg, #4AA8FF 0%, #2D8CFF 100%);
+  border: none;
+  padding: 1rem;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+}
+
+/* Focus effect with border glow + keeps gradient */
+.input-wrapper input:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(66, 153, 225, 0.8); /* subtle glow */
+  border: 2px solid rgba(255, 255, 255, 0.35);
+}
+
+/* Placeholder */
+.input-wrapper input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Optional: stronger typing visibility */
+.input-wrapper input:not(:placeholder-shown) {
+  background: linear-gradient(180deg, #3294ff 0%, #1f7eff 100%);
+}
+
 
         .input-icon {
           position: absolute;
@@ -104,7 +133,7 @@ export default function LoginSignupAnimation() {
         .login-btn {
           width: 100%;
           padding: 1rem;
-          background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+          background: linear-gradient(180deg, #4AA8FF 0%, #2D8CFF 100%);
           border: none;
           border-radius: 50px;
           color: white;
@@ -135,7 +164,7 @@ export default function LoginSignupAnimation() {
         }
 
         .toggle-link {
-          color: #ff6b35;
+          color: #000;
           cursor: pointer;
           font-weight: 600;
           transition: color 0.3s ease;
@@ -149,7 +178,7 @@ export default function LoginSignupAnimation() {
 
       <div className="w-full max-w-5xl">
         <div className="container relative">
-          <div className="relative bg-[#0f1419] rounded-2xl overflow-hidden shadow-2xl border border-orange-500/30">
+          <div className="relative bg-[#FFFFFF] rounded-2xl overflow-hidden shadow-2xl border border-orange-500/30">
             <div className="grid md:grid-cols-2 min-h-[550px] relative">
               {/* Login Form */}
               <div
@@ -162,7 +191,7 @@ export default function LoginSignupAnimation() {
                   zIndex: showLogin ? 2 : 1,
                 }}
               >
-                <h2 className="text-white text-4xl font-bold mb-10 tracking-wide">
+                <h2 className="text-[#000000] text-4xl font-bold mb-10 tracking-wide">
                   Login
                 </h2>
 
@@ -204,7 +233,7 @@ export default function LoginSignupAnimation() {
                   zIndex: !showLogin ? 2 : 1,
                 }}
               >
-                <h2 className="text-white text-4xl font-bold mb-10 tracking-wide">
+                <h2 className="text-[#000000] text-4xl font-bold mb-10 tracking-wide">
                   Register
                 </h2>
 
@@ -237,7 +266,7 @@ export default function LoginSignupAnimation() {
 
               {/* Info Panel - Login */}
               <div
-                className={`bg-gradient-to-br from-orange-600 via-orange-500 to-orange-600 p-8 md:p-10 hidden md:flex flex-col  items-end text-right transition-all duration-700 absolute inset-0 ${
+                className={`bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 p-8 md:p-10 hidden md:flex flex-col  items-end text-right transition-all duration-700 absolute inset-0 ${
                   !showLogin ? "opacity-0" : "opacity-100"
                 }`}
                 style={{
@@ -249,21 +278,21 @@ export default function LoginSignupAnimation() {
                 }}
               >
                 <div className="max-w-sm">
-                  <h2 className="text-white text-5xl font-black mb-6 tracking-tight leading-tight">
+                  <h2 className="text-white text-5xl font-black mb-3 tracking-tight leading-tight">
                     WELCOME
                     <br />
                     BACK!
                   </h2>
-                  <p className="text-white text-center text-opacity-95 text-xs leading-relaxed font-light">
-                    We are happy to have you with us again. If you need
-                    anything, we are here to help.
+                  <p className="text-white  text-opacity-95 text-base leading-relaxed font-light">
+                    We are happy to have <br /> you with us again. If <br /> you
+                    need anything, we <br /> are here to help.
                   </p>
                 </div>
               </div>
 
               {/* Info Panel - Register */}
               <div
-                className={`bg-gradient-to-br from-orange-600 via-orange-500 to-orange-600 p-8 md:p-12 hidden md:flex flex-col  items-start text-left transition-all duration-700 absolute inset-0 ${
+                className={`bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 p-8 md:p-12 hidden md:flex flex-col  items-start text-left transition-all duration-700 absolute inset-0 ${
                   isActive && !showLogin ? "opacity-100" : "opacity-0"
                 }`}
                 style={{
@@ -276,12 +305,13 @@ export default function LoginSignupAnimation() {
                 }}
               >
                 <div className="max-w-sm">
-                  <h2 className="text-white text-5xl font-black mb-6 tracking-tight leading-tight">
+                  <h2 className="text-white text-5xl font-black mb-3 tracking-tight leading-tight">
                     WELCOME!
                   </h2>
                   <p className="text-white text-opacity-95 text-base leading-relaxed font-light">
-                    We're delighted to have you here. If you need any
-                    assistance, feel free to reach out.
+                    We're delighted to <br /> have you here. If you <br /> need
+                    any assistance,
+                    <br /> feel free to reach out.
                   </p>
                 </div>
               </div>
