@@ -16,7 +16,7 @@ export default function LoginSignupAnimation() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0e1a] via-[#1a1f35] to-[#0f1419] flex items-center justify-center p-4">
+    <div className="min-h-screen  flex items-center justify-center p-4">
       <style>{`
         @keyframes slideIn {
           from {
@@ -178,7 +178,7 @@ export default function LoginSignupAnimation() {
 
       <div className="w-full max-w-5xl">
         <div className="container relative">
-          <div className="relative bg-[#FFFFFF] rounded-2xl overflow-hidden shadow-2xl border border-orange-500/30">
+          <div className="relative bg-[#FFFFFF] rounded-2xl overflow-hidden  border border-[rgba(45,140,255,0.4)] shadow-[0_0_10px_rgba(45,140,255,0.6),0_0_20px_rgba(45,140,255,0.4),0_0_40px_rgba(45,140,255,0.3),0_0_80px_rgba(45,140,255,0.2)]">
             <div className="grid md:grid-cols-2 min-h-[550px] relative">
               {/* Login Form */}
               <div
