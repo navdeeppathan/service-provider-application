@@ -257,7 +257,8 @@ export default function LoginSignupAnimation() {
                   <Lock className="input-icon" size={20} />
                 </div>
 
-                <button className="login-btn" style={{ "--li": 3 }}>
+                <button className="login-btn" style={{ "--li": 3 }}
+                 onClick={() => navigate("/admindashboard")}>
                   Register
                 </button>
 
