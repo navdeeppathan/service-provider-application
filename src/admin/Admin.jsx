@@ -203,7 +203,7 @@ export default function Admin() {
   <div className="grid grid-cols-3 gap-4">
 
     {/* 1st Rank */}
-    <div className="bg-white rounded-2xl p-4 text-black text-center">
+    <div className="bg-green-100 rounded-2xl p-4 text-black text-center">
       <img
         src="https://i.pravatar.cc/80?img=5"
         alt="profile"
@@ -220,7 +220,7 @@ export default function Admin() {
     </div>
 
     {/* 2nd Rank */}
-    <div className="bg-purple-500 rounded-2xl p-4 text-white text-center">
+    <div className="bg-[#cda9ec] rounded-2xl p-4 text-white text-center">
       <img
         src="https://i.pravatar.cc/80?img=12"
         alt="profile"
@@ -237,7 +237,7 @@ export default function Admin() {
     </div>
 
     {/* 3rd Rank */}
-    <div className="bg-yellow-500 rounded-2xl p-4 text-white text-center">
+    <div className="bg-[#e4cc89] rounded-2xl p-4 text-white text-center">
       <img
         src="https://i.pravatar.cc/80?img=20"
         alt="profile"
