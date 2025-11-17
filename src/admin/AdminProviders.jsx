@@ -1,84 +1,129 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import http from "../service/http"; // axios wrapper
+import Swal from "sweetalert2";
 
 export default function AdminProviders() {
+  const [providers, setProviders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [status, setStatus] = useState("all");
 
-  const providers = [
-    {
-      id: 1,
-      name: "Rahul Kumar",
-      service: "Electrician",
-      phone: "9876543210",
-      status: "active",
-      rating: 4.8,
-      jobs: 45
-    },
-    {
-      id: 2,
-      name: "Vijay Singh",
-      service: "Plumber",
-      phone: "8899776655",
-      status: "inactive",
-      rating: 4.5,
-      jobs: 32
-    },
-    {
-      id: 3,
-      name: "Aman Yadav",
-      service: "Carpenter",
-      phone: "9988776655",
-      status: "active",
-      rating: 4.9,
-      jobs: 58
-    },
-    {
-      id: 4,
-      name: "Rohit Verma",
-      service: "Electrician",
-      phone: "9911223344",
-      status: "inactive",
-      rating: 4.3,
-      jobs: 28
-    },
-  ];
+  useEffect(() => {
+    fetchProviders();
+  }, []);
 
+  const fetchProviders = async () => {
+    try {
+      const res = await http.get("/admin/providers");
+      setProviders(res.data.data);
+    } catch (error) {
+      console.error("Error fetching providers:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ⭐ APPROVE PROVIDER
+  const approveProvider = async (id) => {
+    try {
+      await http.post(`/admin/provider/approve/${id}`);
+      Swal.fire("Provider Approved Successfully!");
+      fetchProviders();
+    } catch (error) {
+      console.error("Approve Error:", error);
+      Swal.fire("Error approving provider.");
+    }
+  };
+
+  // ⭐ REJECT PROVIDER
+  const rejectProvider = async (id) => {
+    try {
+      await http.post(`/admin/provider/reject/${id}`);
+      Swal.fire("Provider Rejected Successfully!");
+      fetchProviders();
+    } catch (error) {
+      console.error("Reject Error:", error);
+      Swal.fire("Error rejecting provider.");
+    }
+  };
+
+  // Dynamic categories from business_name
+  const serviceCategories = [...new Set(providers.map((p) => p.business_name))];
+
+  // Apply Filters
   const filteredProviders = providers.filter((p) => {
     const matchesSearch =
-      p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.phone.includes(search.toLowerCase());
-    const matchesCategory = category === "all" ? true : p.service === category;
-    const matchesStatus = status === "all" ? true : p.status === status;
+      p.user?.name?.toLowerCase().includes(search.toLowerCase()) ||
+      p.user?.phone.includes(search);
+
+    const matchesCategory =
+      category === "all" ? true : p.business_name === category;
+
+    const matchesStatus =
+      status === "all" ? true : p.approved_status === status;
+
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
-  const serviceIcons = {
-    Electrician: "⚡",
-    Plumber: "🔧",
-    Carpenter: "🪚"
-  };
-
   return (
     <div className="min-h-screen">
+
       {/* HEADER */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Service Providers</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          Service Providers
+        </h1>
         <p className="text-gray-600">Manage and monitor all service providers</p>
+      </div>
+       {/* STATS CARDS */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-indigo-600 p-5 rounded-2xl text-white">
+          <div className="text-sm opacity-90">Total Providers</div>
+          <div className="text-3xl font-bold">{providers.length}</div>
+        </div>
+
+        <div className="bg-green-600 p-5 rounded-2xl text-white">
+          <div className="text-sm opacity-90">Approved</div>
+          <div className="text-3xl font-bold">
+            {providers.filter((p) => p.approved_status === "approved").length}
+          </div>
+        </div>
+
+        
+
+        <div className="bg-red-600 p-5 rounded-2xl text-white">
+          <div className="text-sm opacity-90">Rejected</div>
+          <div className="text-3xl font-bold">
+            {providers.filter((p) => p.approved_status === "rejected").length}
+          </div>
+        </div>
       </div>
 
       {/* FILTERS */}
       <div className="bg-white p-5 rounded-2xl shadow-lg mb-6 border border-gray-100">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
           {/* Search */}
           <div className="relative">
-            <svg className="absolute left-3 top-3 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <svg
+              className="absolute left-3 top-3 w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
             </svg>
+
             <input
               type="text"
               placeholder="Search by name or phone..."
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -86,128 +131,141 @@ export default function AdminProviders() {
 
           {/* Category Filter */}
           <select
-            className="px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white"
+            className="px-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-indigo-500"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="all">All Services</option>
-            <option value="Electrician">⚡ Electrician</option>
-            <option value="Plumber">🔧 Plumber</option>
-            <option value="Carpenter">🪚 Carpenter</option>
+            {serviceCategories.map((cat, i) => (
+              <option key={i} value={cat}>
+                {cat}
+              </option>
+            ))}
           </select>
 
           {/* Status Filter */}
           <select
-            className="px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white"
+            className="px-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-indigo-500"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
             <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
           </select>
         </div>
       </div>
 
-      {/* STATS CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 p-5 rounded-2xl shadow-lg text-white">
-          <div className="text-sm opacity-90 mb-1">Total Providers</div>
-          <div className="text-3xl font-bold">{providers.length}</div>
+     
+
+      {/* LOADING */}
+      {loading && (
+        <div className="text-center py-20 text-gray-500 text-lg">
+          Loading providers...
         </div>
-        <div className="bg-gradient-to-br from-green-500 to-green-600 p-5 rounded-2xl shadow-lg text-white">
-          <div className="text-sm opacity-90 mb-1">Active</div>
-          <div className="text-3xl font-bold">{providers.filter(p => p.status === 'active').length}</div>
-        </div>
-        <div className="bg-gradient-to-br from-amber-500 to-amber-600 p-5 rounded-2xl shadow-lg text-white">
-          <div className="text-sm opacity-90 mb-1">Avg Rating</div>
-          <div className="text-3xl font-bold">4.6</div>
-        </div>
-        <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-5 rounded-2xl shadow-lg text-white">
-          <div className="text-sm opacity-90 mb-1">Total Jobs</div>
-          <div className="text-3xl font-bold">{providers.reduce((sum, p) => sum + p.jobs, 0)}</div>
-        </div>
-      </div>
+      )}
 
       {/* PROVIDERS TABLE */}
-      <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
-                <th className="text-left p-5 text-sm font-semibold text-gray-700 uppercase tracking-wider">Provider</th>
-                <th className="text-left p-5 text-sm font-semibold text-gray-700 uppercase tracking-wider">Service</th>
-                <th className="text-left p-5 text-sm font-semibold text-gray-700 uppercase tracking-wider">Contact</th>
-                <th className="text-left p-5 text-sm font-semibold text-gray-700 uppercase tracking-wider">Rating</th>
-                <th className="text-left p-5 text-sm font-semibold text-gray-700 uppercase tracking-wider">Jobs</th>
-                <th className="text-left p-5 text-sm font-semibold text-gray-700 uppercase tracking-wider">Status</th>
-                <th className="text-left p-5 text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
+      {!loading && (
+        <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-gray-100 border-b border-gray-200">
+                  <th className="p-5 text-left">Provider</th>
+                  <th className="p-5 text-left">Business</th>
+                  <th className="p-5 text-left">City</th>
+                  <th className="p-5 text-left">Phone</th>
+                  <th className="p-5 text-left">Experience</th>
+                  <th className="p-5 text-left">Status</th>
+                  <th className="p-5 text-left">Actions</th>
+                </tr>
+              </thead>
 
-            <tbody className="divide-y divide-gray-100">
-              {filteredProviders.map((provider) => (
-                <tr key={provider.id} className="hover:bg-indigo-50 transition-colors duration-150">
-                  <td className="p-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center text-white font-semibold">
-                        {provider.name.charAt(0)}
+              <tbody className="divide-y divide-gray-100">
+                {filteredProviders.map((p) => (
+                  <tr key={p.id} className="hover:bg-indigo-50 transition">
+                    {/* Provider */}
+                    <td className="p-5">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center">
+                          {p.user.name.charAt(0)}
+                        </div>
+                        <div className="font-semibold text-gray-800">
+                          {p.user.name}
+                        </div>
                       </div>
-                      <div className="font-semibold text-gray-800">{provider.name}</div>
-                    </div>
-                  </td>
-                  <td className="p-5">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl">{serviceIcons[provider.service]}</span>
-                      <span className="text-gray-700">{provider.service}</span>
-                    </div>
-                  </td>
-                  <td className="p-5">
-                    <div className="text-gray-600">{provider.phone}</div>
-                  </td>
-                  <td className="p-5">
-                    <div className="flex items-center gap-1">
-                      <span className="text-yellow-500">★</span>
-                      <span className="font-semibold text-gray-800">{provider.rating}</span>
-                    </div>
-                  </td>
-                  <td className="p-5">
-                    <div className="text-gray-700 font-medium">{provider.jobs}</div>
-                  </td>
-                  <td className="p-5">
-                    <span
-                      className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold ${
-                        provider.status === "active"
-                          ? "bg-green-100 text-green-700 border border-green-200"
-                          : "bg-red-100 text-red-700 border border-red-200"
-                      }`}
-                    >
-                      <span className={`w-1.5 h-1.5 rounded-full mr-2 ${
-                        provider.status === "active" ? "bg-green-500" : "bg-red-500"
-                      }`}></span>
-                      {provider.status}
-                    </span>
-                  </td>
-                  <td className="p-5">
-                    <button className="px-4 py-2 text-sm font-medium rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-200 hover:shadow-lg">
-                      View Details
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                    </td>
 
-              {filteredProviders.length === 0 && (
-                <tr>
-                  <td colSpan="7" className="p-12 text-center">
-                    <div className="text-gray-400 text-lg">No providers found</div>
-                    <div className="text-gray-500 text-sm mt-2">Try adjusting your search criteria</div>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                    {/* Business */}
+                    <td className="p-5">{p.business_name}</td>
+
+                    {/* City */}
+                    <td className="p-5">{p.city}</td>
+
+                    {/* Phone */}
+                    <td className="p-5">{p.user.phone}</td>
+
+                    {/* Experience */}
+                    <td className="p-5">{p.experience_years} yrs</td>
+
+                    {/* Status */}
+                    <td className="p-5">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                          p.approved_status === "approved"
+                            ? "bg-green-100 text-green-700"
+                            : p.approved_status === "pending"
+                            ? "bg-amber-100 text-amber-700"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {p.approved_status}
+                      </span>
+                    </td>
+
+                    {/* ACTION BUTTONS */}
+                    <td className="p-5 flex gap-2">
+                      {/* Approve */}
+                      {p.approved_status !== "approved" && (
+                        <button
+                          onClick={() => approveProvider(p.id)}
+                          className="px-4 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700"
+                        >
+                          Approve
+                        </button>
+                      )}
+
+                      {/* Reject */}
+                      {p.approved_status !== "rejected" && (
+                        <button
+                          onClick={() => rejectProvider(p.id)}
+                          className="px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700"
+                        >
+                          Reject
+                        </button>
+                      )}
+
+                      {/* View Details */}
+                      {/* <button className="px-4 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700">
+                        View Details
+                      </button> */}
+                    </td>
+                  </tr>
+                ))}
+
+                {filteredProviders.length === 0 && (
+                  <tr>
+                    <td colSpan="7" className="p-12 text-center text-gray-400">
+                      No providers found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

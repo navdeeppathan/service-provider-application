@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { User, Mail, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import http from "../service/http";
+import Swal from "sweetalert2";
 
 export default function LoginSignupAnimation() {
   const [isActive, setIsActive] = useState(false);
@@ -14,6 +16,103 @@ export default function LoginSignupAnimation() {
   const showLoginForm = () => {
     setIsActive(false);
     setTimeout(() => setShowLogin(true), 50);
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await http.post("/login", {
+        email: formData.email,
+        password: formData.password,
+      });
+
+      const user = res.data.user;
+      const token = res.data.token;
+      console.log("res",res);
+      
+
+      // Save token and user data
+      localStorage.setItem("token", token);
+      localStorage.setItem("userData", JSON.stringify(user));
+      localStorage.setItem("loginTime", Date.now());
+
+      // Role-wise handling
+      switch (user.role) {
+        case "admin": // Admin
+          localStorage.setItem("asAdmin", 1);
+          Swal.fire({
+            icon: "success",
+            title: "Welcome Admin!",
+            text: "Login Successful",
+            confirmButtonColor: "#0A3D8F",
+          });
+          navigate("/admindashboard");
+          break;
+
+        case "provider": // 
+          localStorage.setItem("asProvider", 1);
+          Swal.fire({
+            icon: "success",
+            title: "Welcome Provider!",
+            text: "Login Successful",
+            confirmButtonColor: "#0A3D8F",
+          });
+          navigate("/providerdashboard");
+          break;
+
+        case "user": // user
+          localStorage.setItem("asUser", 1);
+          Swal.fire({
+            icon: "success",
+            title: "Welcome User!",
+            text: "Login Successful",
+            confirmButtonColor: "#0A3D8F",
+          });
+          navigate("/home");
+          window.location.reload();
+
+          break;
+
+        default:
+          Swal.fire({
+            icon: "warning",
+            title: "Unknown Role",
+            text: "Please contact support.",
+            confirmButtonColor: "#0A3D8F",
+          });
+          navigate("/");
+          break;
+      }
+
+    } catch (error) {
+     
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response?.data?.message || "Invalid email or password!",
+        confirmButtonColor: "#0A3D8F",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -197,19 +296,36 @@ export default function LoginSignupAnimation() {
                 </h2>
 
                 <div className="input-wrapper" style={{ "--li": 0 }}>
-                  <input type="text" placeholder="Username" />
+                  <input
+                    placeholder="Email@exp.com"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
                   <User className="input-icon" size={20} />
                 </div>
 
                 <div className="input-wrapper" style={{ "--li": 1 }}>
-                  <input type="password" placeholder="Password" />
-                  <Lock className="input-icon" size={20} />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="••••••••"
+                  />
+                  <Lock
+                    className="input-icon"
+                    size={20}
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
                 </div>
 
                 <button
-                  onClick={() => navigate("/home")}
                   className="login-btn"
                   style={{ "--li": 2 }}
+                  onClick={handleSubmit}
+                  disabled={loading}
                 >
                   Login
                 </button>
@@ -257,8 +373,11 @@ export default function LoginSignupAnimation() {
                   <Lock className="input-icon" size={20} />
                 </div>
 
-                <button className="login-btn" style={{ "--li": 3 }}
-                 onClick={() => navigate("/admindashboard")}>
+                <button
+                  className="login-btn"
+                  style={{ "--li": 3 }}
+                  onClick={() => navigate("/admindashboard")}
+                >
                   Register
                 </button>
 

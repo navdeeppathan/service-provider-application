@@ -1,69 +1,87 @@
 import { useEffect, useState, useRef } from "react";
+import http from "../service/http";
 
 export default function Admin() {
+
+ const [stats, setStats] = useState(null); // for API data
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+  const fetchDashboard = async () => {
+    try {
+      const response = await http.get("/admin/dashboard");
+
+      console.log("Dashboard Data:", response.data);
+      setStats(response.data);
+    } catch (err) {
+      console.error("API Error:", err);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
   return (
     <div className=" min-h-screen">
 
-      {/* TOP STATS ROW */}
      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 
-  {/* Schools */}
-  <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-[#EB5757] flex items-center">
-  <div className="flex items-center gap-4 w-full">
+        {/* Schools = Providers */}
+        <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-[#EB5757] flex items-center">
+          <div className="flex items-center gap-4 w-full">
+            <div className="text-[#EB5757] text-4xl">🏫</div>
+            <div className="h-10 w-[2px] bg-gray-300"></div>
 
-    {/* Icon */}
-    <div className="text-[#EB5757] text-4xl">🏫</div>
+            <div>
+              <p className="text-gray-500 text-sm">Total Providers</p>
+              <h2 className="text-xl font-bold">{stats?.approved_providers}</h2>
+            </div>
+          </div>
+        </div>
 
-    {/* Vertical Divider */}
-    <div className="h-10 w-[2px] bg-gray-300"></div>
+        {/* Students = Users */}
+        <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-[#4F4DBF] flex items-center">
+          <div className="flex items-center gap-4">
+            <div className="text-[#4F4DBF] text-4xl">👥</div>
+            <div className="h-10 w-[2px] bg-gray-300"></div>
 
-    {/* Text */}
-    <div>
-      <p className="text-gray-500 text-sm">Schools</p>
-      <h2 className="text-xl font-bold">6000</h2>
-    </div>
+            <div>
+              <p className="text-gray-500 text-sm">Total Users</p>
+              <h2 className="text-xl font-bold">{stats?.total_users}</h2>
+            </div>
+          </div>
+        </div>
 
-  </div>
-</div>
+        {/* Teachers = Bookings */}
+        <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-[#F2C94C] flex items-center">
+          <div className="flex items-center gap-4">
+            <div className="text-[#F2C94C] text-4xl">👨‍🏫</div>
+            <div className="h-10 w-[2px] bg-gray-300"></div>
 
+            <div>
+              <p className="text-gray-500 text-sm">Total Bookings</p>
+              <h2 className="text-xl font-bold">{stats?.total_bookings}</h2>
+            </div>
+          </div>
+        </div>
 
-  {/* Students */}
-  <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-[#4F4DBF] flex items-center justify-between">
-    <div className="flex items-center gap-4">
-      <div className="text-[#4F4DBF] text-4xl">👥</div>
-        <div className="h-10 w-[2px] bg-gray-300"></div>
-      <div>
-        <p className="text-gray-500 text-sm">Students</p>
-        <h2 className="text-xl font-bold">24542</h2>
+        {/* Parents = Payment */}
+        <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-[#27AE60] flex items-center">
+          <div className="flex items-center gap-4">
+            <div className="text-[#27AE60] text-4xl">👪</div>
+            <div className="h-10 w-[2px] bg-gray-300"></div>
+
+            <div>
+              <p className="text-gray-500 text-sm">Total Payments</p>
+              <h2 className="text-xl font-bold">₹{stats?.total_payments}</h2>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-  </div>
 
-  {/* Teachers */}
-  <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-[#F2C94C] flex items-center justify-between">
-    <div className="flex items-center gap-4">
-      <div className="text-[#F2C94C] text-4xl">👨‍🏫</div>
-        <div className="h-10 w-[2px] bg-gray-300"></div>
-      <div>
-        <p className="text-gray-500 text-sm">Teachers</p>
-        <h2 className="text-xl font-bold">5000</h2>
-      </div>
-    </div>
-  </div>
-
-  {/* Parents */}
-  <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-[#27AE60] flex items-center justify-between">
-    <div className="flex items-center gap-4">
-      <div className="text-[#27AE60] text-4xl">👪</div>
-        <div className="h-10 w-[2px] bg-gray-300"></div>
-      <div>
-        <p className="text-gray-500 text-sm">Parents</p>
-        <h2 className="text-xl font-bold">10000</h2>
-      </div>
-    </div>
-  </div>
-
-</div>
 
 
       {/* SECOND GRID ROW */}

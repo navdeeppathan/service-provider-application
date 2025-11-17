@@ -17,36 +17,69 @@ import ProviderUsers from "./provider/ProviderUsers";
 import ProviderProviders from "./provider/ProviderProviders";
 import ProviderBookings from "./provider/ProviderBookings";
 import ProviderPayments from "./provider/ProviderPayments";
+import ProtectedRoute from "./middleware/ProtectedRoute";
+import PublicRoute from "./middleware/PublicRoute";
+import AdminCategory from "./admin/AdminCategory";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LoginSignupAnimation />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/details" element={<ServiceDetails />} />
-        <Route path="/categories" element={<CategoriesPage />} />
+   <BrowserRouter>
+  <Routes>
+    {/* PUBLIC ROUTES */}
+    <Route
+      path="/"
+      element={
+        <PublicRoute>
+          <LoginSignupAnimation />
+        </PublicRoute>
+      }
+    />
 
-        <Route path="/admindashboard" element={<AdminDashboard />}>
-          <Route index element={<Admin />} />
-          <Route path="profile" element={<AdminProfile />} />
-          <Route path="users" element={<AdminUsers />} />
-          <Route path="providers" element={<AdminProviders />} />
-          <Route path="bookings" element={<AdminBookings />} />
-          <Route path="payments" element={<AdminPayments />} />
-        </Route>
-        <Route path="/providerdashboard" element={<ProviderDashboard />}>
-          <Route index element={<Provider />} />
-          <Route path="profile" element={<ProviderProfile />} />
-          <Route path="users" element={<ProviderUsers />} />
-          <Route path="providers" element={<ProviderProviders />} />
-          <Route path="bookings" element={<ProviderBookings />} />
-          <Route path="payments" element={<ProviderPayments />} />
-        </Route>
+    <Route path="/home" element={<Home />} />
+    <Route path="/details" element={<ServiceDetails />} />
+    <Route path="/categories" element={<CategoriesPage />} />
 
-        <Route path="*" element={<LoginSignupAnimation />} />
-      </Routes>
-    </BrowserRouter>
+    {/* ADMIN ROUTES */}
+    <Route
+      path="/admindashboard"
+      element={
+        <ProtectedRoute role="admin">
+          <AdminDashboard />
+        </ProtectedRoute>
+      }
+    >
+      <Route index element={<Admin />} />
+      <Route path="profile" element={<AdminProfile />} />
+      <Route path="users" element={<AdminUsers />} />
+      <Route path="providers" element={<AdminProviders />} />
+      <Route path="bookings" element={<AdminBookings />} />
+      <Route path="payments" element={<AdminPayments />} />
+      <Route path="category" element={<AdminCategory />} />
+     
+    </Route>
+
+    {/* PROVIDER ROUTES */}
+    <Route
+      path="/providerdashboard"
+      element={
+        <ProtectedRoute role="provider">
+          <ProviderDashboard />
+        </ProtectedRoute>
+      }
+    >
+      <Route index element={<Provider />} />
+      <Route path="profile" element={<ProviderProfile />} />
+      <Route path="users" element={<ProviderUsers />} />
+      <Route path="providers" element={<ProviderProviders />} />
+      <Route path="bookings" element={<ProviderBookings />} />
+      <Route path="payments" element={<ProviderPayments />} />
+    </Route>
+
+    {/* DEFAULT */}
+    <Route path="*" element={<LoginSignupAnimation />} />
+  </Routes>
+</BrowserRouter>
+
   );
 }
 

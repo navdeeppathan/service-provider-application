@@ -1,6 +1,6 @@
-import api from "../../service/api";
+import api from "../service/api";
 
-const institutehttp = {
+const http = {
   get: (url, config = {}) => api.get(url, config),
   post: (url, data, config = {}) => api.post(url, data, config),
   put: (url, data, config = {}) => api.put(url, data, config),
@@ -8,4 +8,4 @@ const institutehttp = {
   delete: (url, config = {}) => api.delete(url, config),
 };
 
-export default institutehttp;
+export default http;
