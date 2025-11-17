@@ -203,7 +203,7 @@ export default function Admin() {
   <div className="grid grid-cols-3 gap-4">
 
     {/* 1st Rank */}
-    <div className="bg-green-500 rounded-2xl p-4 text-white text-center">
+    <div className="bg-white rounded-2xl p-4 text-black text-center">
       <img
         src="https://i.pravatar.cc/80?img=5"
         alt="profile"
