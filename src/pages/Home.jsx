@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Header from "../utils/Header";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay, FreeMode } from "swiper/modules";
+import {Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import { useNavigate } from "react-router-dom";
 import Footer from "../utils/Footer";
 
@@ -165,9 +166,59 @@ const serviceCategories = [
   
 ];
 
+const images = [
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1586105251261-72a756497a11?q=80&w=1200&auto=format&fit=crop",
+    // "https://images.unsplash.com/photo-1598023695159-8f7c6d46cddd?q=80&w=1200&auto=format&fit=crop",
+  ];
+
 
   return (
     <>
+    <style>
+      {
+        `
+        .custom-prev,
+.custom-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  width: 40px;
+  // height: 46px;
+  // border-radius: 50%;
+  // background: white;
+  // box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  // border: 2px solid #3b82f6;
+}
+
+.custom-prev {
+  left: -40px;
+}
+
+.custom-next {
+  right: -40px;
+}
+
+.custom-prev::after,
+.custom-next::after {
+  font-size: 20px;
+  color: #3b82f6;
+  font-weight: bold;
+}
+  horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+    /* bottom: var(--swiper-pagination-bottom, 8px); */
+    /* top: var(--swiper-pagination-top, auto); */
+    /* left: 0; */
+    /* width: 100%; */
+    display: none;
+}
+
+        `
+      }
+    </style>
+    
       <Header />
 
       <main className="main mt-10">
@@ -261,7 +312,7 @@ const serviceCategories = [
               </div>
 
               {/* RIGHT IMAGE */}
-              <div
+              {/* <div
                 className="flex justify-center"
                 data-aos="zoom-out"
                 data-aos-delay="300"
@@ -271,7 +322,36 @@ const serviceCategories = [
                   alt="Homexa service"
                   className="rounded-lg shadow-lg w-full hover:scale-[1.03] transition-transform duration-500"
                 />
-              </div>
+              </div> */}
+
+               <div
+      className="flex justify-center"
+      data-aos="zoom-out"
+      data-aos-delay="300"
+    >
+      <Swiper
+        spaceBetween={20}
+        slidesPerView={1}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+        pagination={{ clickable: true }}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="w-full"
+      >
+        {images.map((img, index) => (
+          <SwiperSlide key={index}>
+            <img
+              src={img}
+              className="rounded-lg shadow-lg w-full h-[400px] hover:scale-[1.03] transition-transform duration-500"
+              alt="Homexa slider"
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
             </div>
           </div>
         </section>
@@ -282,59 +362,68 @@ const serviceCategories = [
 
 
        
+<section id="services" className="py-20 bg-[#F1F7FC] px-10">
+  <div className="container mx-auto px-4 text-center" data-aos="fade-up">
+    <h2 className="text-3xl font-bold text-gray-900 mb-3">Our Services</h2>
+    <p className="text-gray-600 max-w-2xl mx-auto">
+      Comprehensive home services — verified professionals, transparent pricing, and guaranteed results.
+    </p>
+  </div>
 
-        <section id="services" className="py-20 bg-[#F1F7FC] px-10">
-          <div
-            className="container mx-auto px-4 text-center"
-            data-aos="fade-up"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Our Services</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-             Comprehensive home services — verified professionals, transparent pricing, and guaranteed results.
-            </p>
+  <div
+    className="container mx-auto px-4 mt-12"
+    data-aos="fade-up"
+    data-aos-delay="100"
+  >
+    <div className="relative">
+  {/* CUSTOM ARROWS */}
+  <button className="swiper-button-prev custom-prev"></button>
+  <button className="swiper-button-next custom-next"></button>
+
+  <Swiper
+    slidesPerView={1}
+    spaceBetween={25}
+    pagination={{ clickable: true }}
+    navigation={{
+      nextEl: ".custom-next",
+      prevEl: ".custom-prev",
+    }}
+    breakpoints={{
+      640: { slidesPerView: 2 },
+      768: { slidesPerView: 3 },
+      1024: { slidesPerView: 4 },
+    }}
+    modules={[Pagination, Navigation]}
+    className="mySwiper"
+  >
+    {allServices.map((service, index) => (
+      <SwiperSlide key={index}>
+        <article className="relative h-[280px] min-h-[280px] flex flex-col justify-between text-center p-8 shadow-md border border-gray-200 rounded-2xl bg-white hover:shadow-lg transition">
+          <div>
+            <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-3xl mx-auto mb-4">
+              <i className={service.icon}></i>
+            </span>
+
+            <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+
+            <p className="text-gray-600 text-sm leading-relaxed">{service.decs}</p>
           </div>
 
-          <div
-            className="container mx-auto px-4 mt-12"
-            data-aos="fade-up"
-            data-aos-delay="100"
+          <a
+            href="/"
+            className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
           >
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-center">
-              {allServices.map((service, index) => (
-              <article
-                className="relative text-center p-8 shadow-sm border border-gray-200 rounded-xl hover:shadow-lg transition bg-white"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                <span className="w-15 h-15 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-2xl mx-auto mb-4">
-                  <i className={service.icon}></i>
-                </span>
+            <i className="bi bi-arrow-up-right"></i>
+          </a>
+        </article>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
 
-                <h3 className="text-xl font-semibold mb-3">
-                  <a
-                    href="/"
-                    className="hover:text-blue-600"
-                  >
-                    {service.title}
-                  </a>
-                </h3>
+  </div>
+</section>
 
-                <p className="text-gray-600 mb-6">
-                  {service.decs}
-                </p>
-
-                <a
-                  href="/"
-                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
-                >
-                  <i className="bi bi-arrow-up-right"></i>
-                </a>
-              </article>
-      ))}
-             
-            </div>
-          </div>
-        </section>
 
        <section id="alt-services" className="py-20 bg-white px-10">
   <div className="container mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
@@ -489,7 +578,7 @@ const serviceCategories = [
             <i className="bi bi-telephone-fill text-blue-600 text-xl"></i>
             <div>
               <p className="text-gray-500 text-sm">Call us anytime</p>
-              <p className="font-semibold text-gray-900">+123 456-789</p>
+              <p className="font-semibold text-gray-900">+91 95753 70343</p>
             </div>
           </div>
 
