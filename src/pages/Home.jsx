@@ -166,7 +166,7 @@ const Home = () => {
               >
                 {/* Heading */}
                 <h2 className="text-[3rem] md:text-[3.3rem] sm:text-[2.5rem] xs:text-[2rem] font-semibold leading-[1.2] text-gray-900">
-                  Strategic Solutions for Business Growth
+                  Smarter Services for Every Home
                 </h2>
 
                 {/* Paragraph */}

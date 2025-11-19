@@ -1,3 +1,6 @@
+
+
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +9,8 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("home"); 
+
 
   const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -34,7 +39,7 @@ export default function Header() {
 
           {/* Logo */}
           <a href="/">
-            <img src="./newlogo.jpeg" alt="Logo" className="w-[100px] " />
+            <img src="./Newlogo.png" alt="Logo" className="w-[100px] " />
           </a>
 
           {/* Desktop Menu */}
@@ -45,12 +50,18 @@ export default function Header() {
                 <li key={item} className="group relative">
                   <a
                     href={`#${item}`}
+                    onClick={() => setActive(item)}
                     className="hover:text-[#036DDA] transition"
                   >
                     {item.charAt(0).toUpperCase() + item.slice(1)}
                   </a>
+                   <span
+                    className={`content-[''] absolute h-[2px] bottom-[-15px] left-0 
+                      bg-[#036DDA] transition-all duration-300
+                      ${active === item ? "visible w-full" : "invisible w-0 group-hover:visible group-hover:w-full"}
+                    `}
+                  ></span>
 
-                  <span className="absolute w-0 h-[2px] bg-[#036DDA] left-0 bottom-[-8px] transition-all group-hover:w-full"></span>
                 </li>
               ))}
 
