@@ -16,91 +16,62 @@ const Footer = () => {
     <>
      
 
-      <footer id="footer" className="bg-gray-900 text-gray-300  ">
-        <div className="bg-gray-800 py-10">
-          <div className="container mx-auto px-4">
-            <div className="flex justify-center text-center">
-              <div className="max-w-xl">
-                <h4 className="text-2xl font-semibold text-white">
-                  Join Our Newsletter
-                </h4>
-                <p className="mt-2 text-gray-400">
-                  Subscribe to our newsletter and receive the latest news about
-                  our products and services!
-                </p>
-
-                <form className="mt-5">
-                  <div className="flex flex-col sm:flex-row items-center gap-3">
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Enter your email"
-                      className="w-full px-4 py-3 rounded-lg bg-gray-700 text-gray-200 outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <input
-                      type="submit"
-                      value="Subscribe"
-                      className="px-6 py-3 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700 transition"
-                    />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+      <footer id="footer" className="bg-[#F1F7FC] text-black shadow-md ">
+       
 
         <div className="container mx-auto px-15 py-14">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             <div>
-              <a href="#" className="text-3xl font-bold text-white">
-                eBusiness
+              <a href="/" className="text-3xl font-bold text-black">
+            <img src="./Newlogo.png" alt="Logo" className="w-[100px] " />
+                
               </a>
 
               <div className="mt-5">
-                <p>A108 Adam Street</p>
-                <p>New York, NY 535022</p>
+                <p>Homexa Service HQ</p>
+                <p>Mumbai, India 535022</p>
                 <p className="mt-3">
-                  <strong>Phone:</strong> <span>+1 5589 55488 55</span>
+                  <strong>Phone:</strong> <span>+91 95753 70343</span>
                 </p>
                 <p>
-                  <strong>Email:</strong> <span>info@example.com</span>
+                  <strong>Email:</strong> <span>support@honexa.in</span>
                 </p>
               </div>
             </div>
 
             <div>
-              <h4 className="text-xl font-semibold text-white mb-4">
+              <h4 className="text-xl font-semibold text-black mb-4">
                 Useful Links
               </h4>
               <ul className="space-y-3">
                 <li>
                   <a
                     href="#"
-                    className="flex items-center gap-2 hover:text-white transition"
+                    className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
                     <i className="bi bi-chevron-right"></i> Home
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="flex items-center gap-2 hover:text-white transition"
+                    href="#about"
+                    className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
                     <i className="bi bi-chevron-right"></i> About us
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="flex items-center gap-2 hover:text-white transition"
+                    href="#services"
+                    className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
                     <i className="bi bi-chevron-right"></i> Services
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="flex items-center gap-2 hover:text-white transition"
+                    href="#services"
+                    className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
                     <i className="bi bi-chevron-right"></i> Terms of service
                   </a>
@@ -109,47 +80,48 @@ const Footer = () => {
             </div>
 
             <div>
-              <h4 className="text-xl font-semibold text-white mb-4">
+              <h4 className="text-xl font-semibold text-black mb-4">
                 Our Services
               </h4>
               <ul className="space-y-3">
                 <li>
                   <a
-                    href="#"
-                    className="flex items-center gap-2 hover:text-white transition"
+                    href="#services"
+                    className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
-                    <i className="bi bi-chevron-right"></i> Web Design
+                    <i className="bi bi-chevron-right"></i> Home Cleaning
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="flex items-center gap-2 hover:text-white transition"
+                    href="#services"
+                    className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
-                    <i className="bi bi-chevron-right"></i> Web Development
+                    <i className="bi bi-chevron-right"></i> AC Repair & Service
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="flex items-center gap-2 hover:text-white transition"
+                    href="#services"
+                    className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
-                    <i className="bi bi-chevron-right"></i> Product Management
+                    <i className="bi bi-chevron-right"></i> Electrician Services
+
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="flex items-center gap-2 hover:text-white transition"
+                    href="#services"
+                    className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
-                    <i className="bi bi-chevron-right"></i> Marketing
+                    <i className="bi bi-chevron-right"></i> Solar Panel Service
                   </a>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-xl font-semibold text-white mb-4">
+              <h4 className="text-xl font-semibold text-black mb-4">
                 Follow Us
               </h4>
               <p className="text-gray-400 mb-4">
@@ -160,25 +132,25 @@ const Footer = () => {
               <div className="flex gap-3">
                 <a
                   href="#"
-                  className="text-gray-400 text-xl hover:text-white transition"
+                  className="text-gray-400 text-xl hover:text-[#5678D0] transition"
                 >
                   <i className="bi bi-twitter-x"></i>
                 </a>
                 <a
                   href="#"
-                  className="text-gray-400 text-xl hover:text-white transition"
+                  className="text-gray-400 text-xl hover:text-[#5678D0] transition"
                 >
                   <i className="bi bi-facebook"></i>
                 </a>
                 <a
                   href="#"
-                  className="text-gray-400 text-xl hover:text-white transition"
+                  className="text-gray-400 text-xl hover:text-[#5678D0] transition"
                 >
                   <i className="bi bi-instagram"></i>
                 </a>
                 <a
                   href="#"
-                  className="text-gray-400 text-xl hover:text-white transition"
+                  className="text-gray-400 text-xl hover:text-[#5678D0] transition"
                 >
                   <i className="bi bi-linkedin"></i>
                 </a>
@@ -191,14 +163,14 @@ const Footer = () => {
           <div className="container mx-auto px-4 text-center">
             <p>
               © <span>Copyright</span>{" "}
-              <strong className="px-1 text-white">HOMEXA</strong>{" "}
+              <strong className="px-1 text-black">HOMEXA</strong>{" "}
               <span>All Rights Reserved</span>
             </p>
 
-            <div className="text-gray-400 text-sm mt-2">
+            <div className="text-gray-800 text-sm mt-2">
               Designed by{" "}
               <a
-                href="https://bootstrapmade.com/"
+                href="https://homexa.infoharry.in/"
                 className="text-blue-400 hover:text-blue-300"
               >
                 HOMEXA

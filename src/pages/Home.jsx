@@ -81,6 +81,7 @@ const Home = () => {
   { id: 19, key: "solar_service", title: "Solar Panel Service", decs:"Solar maintenance, cleaning & inverter check.", icon:"bi bi-sun", img:"https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1200&auto=format&fit=crop" },
 
 
+  { id: 21, key: "interior_design", title: "Interior Design", decs:"Modern interior designing for home & office.", icon:"bi bi-layers", img:"https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1200&auto=format&fit=crop" },
 
   { id: 22, key: "garden_maintenance", title: "Garden & Lawn Care", decs:"Plant care, trimming, landscaping & maintenance.", icon:"bi bi-tree", img:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop" },
 ];
@@ -169,10 +170,10 @@ const serviceCategories = [
     <>
       <Header />
 
-      <main className="main mt-20">
+      <main className="main mt-10">
         <section
           id="hero"
-          className="pt-[121px] pb-[119px] relative overflow-hidden bg-white px-10"
+          className="pt-[80px] pb-[20px] relative overflow-hidden bg-white px-10"
         >
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
@@ -277,7 +278,102 @@ const serviceCategories = [
 
         
 
-        <section id="about" className="py-20 bg-[#F1F7FC] px-6 md:px-10">
+       
+
+
+       
+
+        <section id="services" className="py-20 bg-[#F1F7FC] px-10">
+          <div
+            className="container mx-auto px-4 text-center"
+            data-aos="fade-up"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Our Services</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+             Comprehensive home services — verified professionals, transparent pricing, and guaranteed results.
+            </p>
+          </div>
+
+          <div
+            className="container mx-auto px-4 mt-12"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-center">
+              {allServices.map((service, index) => (
+              <article
+                className="relative text-center p-8 shadow-sm border border-gray-200 rounded-xl hover:shadow-lg transition bg-white"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <span className="w-15 h-15 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-2xl mx-auto mb-4">
+                  <i className={service.icon}></i>
+                </span>
+
+                <h3 className="text-xl font-semibold mb-3">
+                  <a
+                    href="/"
+                    className="hover:text-blue-600"
+                  >
+                    {service.title}
+                  </a>
+                </h3>
+
+                <p className="text-gray-600 mb-6">
+                  {service.decs}
+                </p>
+
+                <a
+                  href="/"
+                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
+                >
+                  <i className="bi bi-arrow-up-right"></i>
+                </a>
+              </article>
+      ))}
+             
+            </div>
+          </div>
+        </section>
+
+       <section id="alt-services" className="py-20 bg-white px-10">
+  <div className="container mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
+    <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+      {serviceCategories.map((service, index) => (
+        <div key={service.id} data-aos="zoom-in" data-aos-delay={(index + 1) * 100}>
+          <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
+
+            {/* Header */}
+            <div className="p-6 border-b border-gray-100 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
+                <i className={service.icon}></i>
+              </div>
+              <h4 className="text-lg font-semibold">{service.title}</h4>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 flex-grow">
+              <p className="text-gray-600 mb-4">{service.decs}</p>
+              <div className="rounded-lg overflow-hidden">
+                <img src={service.img} alt={service.title} className="w-full h-[200px]" />
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="p-6 border-t border-gray-100">
+              <a href="#" className="text-blue-600 font-medium hover:underline inline-flex items-center gap-1">
+                Explore Service <i className="bi bi-arrow-up-right"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+ <section id="about" className="py-20 bg-[#F1F7FC] px-6 md:px-10">
   {/* Section Title */}
   <div className="container mx-auto text-center mb-12" data-aos="fade-up">
    <h2 className="relative text-3xl font-semibold text-gray-900 w-fit mx-auto pb-4
@@ -432,8 +528,7 @@ const serviceCategories = [
   </div>
 </section>
 
-
-        <section id="stats" className="py-20 bg-white px-10">
+ <section id="stats" className="py-20 bg-white px-10">
           <div
             className="container mx-auto px-4"
             data-aos="fade-up"
@@ -539,98 +634,8 @@ const serviceCategories = [
           </div>
         </section>
 
-        <section id="services" className="py-20 bg-white px-10">
-          <div
-            className="container mx-auto px-4 text-center"
-            data-aos="fade-up"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Our Services</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-             Comprehensive home services — verified professionals, transparent pricing, and guaranteed results.
-            </p>
-          </div>
 
-          <div
-            className="container mx-auto px-4 mt-12"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-center">
-              {allServices.map((service, index) => (
-              <article
-                className="relative text-center p-8 shadow-sm border border-gray-200 rounded-xl hover:shadow-lg transition bg-white"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                <span className="w-15 h-15 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-2xl mx-auto mb-4">
-                  <i className={service.icon}></i>
-                </span>
-
-                <h3 className="text-xl font-semibold mb-3">
-                  <a
-                    href="/"
-                    className="hover:text-blue-600"
-                  >
-                    {service.title}
-                  </a>
-                </h3>
-
-                <p className="text-gray-600 mb-6">
-                  {service.decs}
-                </p>
-
-                <a
-                  href="/"
-                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
-                >
-                  <i className="bi bi-arrow-up-right"></i>
-                </a>
-              </article>
-      ))}
-             
-            </div>
-          </div>
-        </section>
-
-       <section id="alt-services" className="py-20 bg-white px-10">
-  <div className="container mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
-    <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-      {serviceCategories.map((service, index) => (
-        <div key={service.id} data-aos="zoom-in" data-aos-delay={(index + 1) * 100}>
-          <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
-
-            {/* Header */}
-            <div className="p-6 border-b border-gray-100 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
-                <i className={service.icon}></i>
-              </div>
-              <h4 className="text-lg font-semibold">{service.title}</h4>
-            </div>
-
-            {/* Content */}
-            <div className="p-6 flex-grow">
-              <p className="text-gray-600 mb-4">{service.decs}</p>
-              <div className="rounded-lg overflow-hidden">
-                <img src={service.img} alt={service.title} className="w-full h-[200px]" />
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="p-6 border-t border-gray-100">
-              <a href="#" className="text-blue-600 font-medium hover:underline inline-flex items-center gap-1">
-                Explore Service <i className="bi bi-arrow-up-right"></i>
-              </a>
-            </div>
-
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-
-        <section id="features" className="py-20 bg-white px-10">
+        <section id="features" className="py-20 bg-[#F1F7FC] px-10">
           <div
             className="container mx-auto px-4 text-center mb-12"
             data-aos="fade-up"
@@ -1041,7 +1046,7 @@ const serviceCategories = [
           </div>
         </section>
 
-        <section id="call-to-action" className="py-20 bg-white relative px-10">
+        <section id="call-to-action" className="py-20 bg-[#F1F7FC] relative px-10">
           <div
             className="container mx-auto px-4"
             data-aos="fade-up"
@@ -1181,7 +1186,7 @@ const serviceCategories = [
           </div>
         </section>
 
-        <section id="portfolio" className="py-20 bg-gray-50 px-10">
+        <section id="portfolio" className="py-20 bg-white px-10">
           <div
             className="container mx-auto px-4 mb-10 text-center"
             data-aos="fade-up"
@@ -1259,7 +1264,7 @@ const serviceCategories = [
           </div>
         </section>
 
-        <section id="pricing" className="py-20 bg-gray-50 px-10">
+        <section id="pricing" className="py-20 bg-[#F1F7FC] px-10">
           <div
             className="container mx-auto px-4 text-center mb-12"
             data-aos="fade-up"
@@ -1497,7 +1502,7 @@ const serviceCategories = [
           </div>
         </section>
 
-        <section id="team" className="py-20 bg-white px-10">
+        <section id="team" className="py-20 bg-[#F1F7FC] px-10">
           <div
             className="container mx-auto px-4 text-center mb-14"
             data-aos="fade-up"
@@ -1530,9 +1535,9 @@ const serviceCategories = [
                       loading="lazy"
                     />
 
-                    <div className="absolute top-3 right-3 bg-[#5678D0] text-white text-sm px-3 py-1 rounded-full shadow">
+                    {/* <div className="absolute bottom-3 right-3 bg-[#5678D0] text-white text-sm px-3 py-1 rounded-full shadow">
                       {member.role}
-                    </div>
+                    </div> */}
 
                     <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-4 opacity-0 hover:opacity-100 transition-opacity">
                       <a
@@ -1560,6 +1565,9 @@ const serviceCategories = [
                     <h4 className="text-xl font-semibold text-gray-800">
                       {member.name}
                     </h4>
+                    <div className=" bg-[#5678D0] text-white text-sm px-3 py-1 rounded-full shadow">
+                      {member.role}
+                    </div>
                     <p className="text-gray-600 mt-2 text-sm">{member.desc}</p>
                   </div>
                 </div>
@@ -1568,7 +1576,7 @@ const serviceCategories = [
           </div>
         </section>
 
-        <section id="contact" className="py-20 bg-gray-50 px-10">
+        <section id="contact" className="py-20 bg-white px-10">
           <div
             className="container mx-auto px-4 text-center mb-14"
             data-aos="fade-up"
@@ -1645,8 +1653,8 @@ const serviceCategories = [
                       <h4 className="text-lg font-semibold text-gray-800">
                         Email Address
                       </h4>
-                      <p className="text-gray-600">support@gmail.com</p>
-                      <p className="text-gray-600">helphomexa@gmail.com</p>
+                      <p className="text-gray-600">help@honexa.in</p>
+                      <p className="text-gray-600">support@honexa.in</p>
                     </div>
                   </div>
                 </div>
