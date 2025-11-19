@@ -149,6 +149,35 @@ const Home = () => {
   },
 ];
 
+const serviceCategories = [
+  {
+    id: 1,
+    category: "home-cleaning",
+    title: "Professional Home Cleaning",
+    decs: "Complete home cleaning including floors, windows, dusting and sanitation using eco-friendly supplies.",
+    icon: "bi bi-house-check",
+    img: "/home_cleing.jpg"
+  },
+  {
+    id: 2,
+    category: "deep-cleaning",
+    title: "Deep Cleaning Service",
+    decs: "Intensive cleaning for kitchen, bathroom, and entire house to remove stains, grease, and germs.",
+    icon: "bi bi-badge-ad",
+    img: "/deep cleaning.jpg"
+  },
+  {
+    id: 3,
+    category: "bathroom-cleaning",
+    title: "Bathroom Cleaning",
+    decs: "Tiles, commode, faucets, shower and glass cleaning with anti-bacterial treatment for freshness.",
+    icon: "bi bi-droplet-half",
+    img: "/bathroom cleaning.webp"
+  },
+  
+];
+
+
   return (
     <>
       <Header />
@@ -576,157 +605,43 @@ const Home = () => {
           </div>
         </section>
 
-        <section id="alt-services" className="py-20 bg-white px-10">
-          <div
-            className="container mx-auto px-4"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
-              <div className="" data-aos="zoom-in" data-aos-delay="100">
-                <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
-                  <div className="p-6 border-b border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
-                      <i className="bi bi-shield-check"></i>
-                    </div>
-                    <h4 className="text-lg font-semibold">
-                      Consectetur adipiscing
-                    </h4>
-                  </div>
+       <section id="alt-services" className="py-20 bg-white px-10">
+  <div className="container mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
+    <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+      {serviceCategories.map((service, index) => (
+        <div key={service.id} data-aos="zoom-in" data-aos-delay={(index + 1) * 100}>
+          <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
 
-                  <div className="p-6 flex-grow">
-                    <p className="text-gray-600 mb-4">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore.
-                    </p>
-
-                    <div className="rounded-lg overflow-hidden">
-                      <img
-                        src="./img/services/services-1.webp"
-                        alt="Security Services"
-                        className="w-full h-auto"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="p-6 border-t border-gray-100">
-                    <a
-                      href="#"
-                      className="text-blue-600 font-medium hover:underline inline-flex items-center gap-1"
-                    >
-                      Explore Service <i className="bi bi-arrow-up-right"></i>
-                    </a>
-                  </div>
-                </div>
+            {/* Header */}
+            <div className="p-6 border-b border-gray-100 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
+                <i className={service.icon}></i>
               </div>
+              <h4 className="text-lg font-semibold">{service.title}</h4>
+            </div>
 
-              <div className="" data-aos="zoom-in" data-aos-delay="200">
-                <div className="border border-blue-600 rounded-xl shadow-md hover:shadow-lg transition bg-white h-full flex flex-col">
-                  <div className="p-6 border-b border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
-                      <i className="bi bi-cpu"></i>
-                    </div>
-                    <h4 className="text-lg font-semibold">Sed do eiusmod</h4>
-                  </div>
-
-                  <div className="p-6 flex-grow">
-                    <p className="text-gray-600 mb-4">
-                      Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                      laboris nisi ut aliquip ex ea commodo.
-                    </p>
-
-                    <div className="rounded-lg overflow-hidden">
-                      <img
-                        src="./img/services/services-2.webp"
-                        alt="Technology Solutions"
-                        className="w-full h-auto"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="p-6 border-t border-gray-100">
-                    <a
-                      href="#"
-                      className="text-blue-600 font-medium hover:underline inline-flex items-center gap-1"
-                    >
-                      Explore Service <i className="bi bi-arrow-up-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="" data-aos="zoom-in" data-aos-delay="300">
-                <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
-                  <div className="p-6 border-b border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
-                      <i className="bi bi-rocket-takeoff"></i>
-                    </div>
-                    <h4 className="text-lg font-semibold">Tempor incididunt</h4>
-                  </div>
-
-                  <div className="p-6 flex-grow">
-                    <p className="text-gray-600 mb-4">
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur.
-                    </p>
-
-                    <div className="rounded-lg overflow-hidden">
-                      <img
-                        src="./img/services/services-3.webp"
-                        alt="Innovation Services"
-                        className="w-full h-auto"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="p-6 border-t border-gray-100">
-                    <a
-                      href="#"
-                      className="text-blue-600 font-medium hover:underline inline-flex items-center gap-1"
-                    >
-                      Explore Service <i className="bi bi-arrow-up-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="" data-aos="zoom-in" data-aos-delay="400">
-                <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
-                  <div className="p-6 border-b border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
-                      <i className="bi bi-puzzle"></i>
-                    </div>
-                    <h4 className="text-lg font-semibold">Ut labore dolore</h4>
-                  </div>
-
-                  <div className="p-6 flex-grow">
-                    <p className="text-gray-600 mb-4">
-                      Excepteur sint occaecat cupidatat non proident, sunt in
-                      culpa qui officia deserunt mollit anim.
-                    </p>
-
-                    <div className="rounded-lg overflow-hidden">
-                      <img
-                        src="./img/services/services-4.webp"
-                        alt="Strategic Planning"
-                        className="w-full h-auto"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="p-6 border-t border-gray-100">
-                    <a
-                      href="#"
-                      className="text-blue-600 font-medium hover:underline inline-flex items-center gap-1"
-                    >
-                      Explore Service <i className="bi bi-arrow-up-right"></i>
-                    </a>
-                  </div>
-                </div>
+            {/* Content */}
+            <div className="p-6 flex-grow">
+              <p className="text-gray-600 mb-4">{service.decs}</p>
+              <div className="rounded-lg overflow-hidden">
+                <img src={service.img} alt={service.title} className="w-full h-[200px]" />
               </div>
             </div>
+
+            {/* Footer */}
+            <div className="p-6 border-t border-gray-100">
+              <a href="#" className="text-blue-600 font-medium hover:underline inline-flex items-center gap-1">
+                Explore Service <i className="bi bi-arrow-up-right"></i>
+              </a>
+            </div>
+
           </div>
-        </section>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
         <section id="features" className="py-20 bg-white px-10">
           <div
