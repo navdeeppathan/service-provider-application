@@ -165,7 +165,7 @@ const Home = () => {
                 data-aos-delay="200"
               >
                 {/* Heading */}
-                <h2 className="text-[3.5rem] md:text-[3.3rem] sm:text-[2.5rem] xs:text-[3rem] font-semibold leading-[1.2] text-gray-900">
+                <h2 className="text-[3rem] md:text-[3.3rem] sm:text-[2.5rem] xs:text-[2rem] font-semibold leading-[1.2] text-gray-900">
                   Strategic Solutions for Business Growth
                 </h2>
 
@@ -181,14 +181,14 @@ const Home = () => {
                 <div className="flex flex-wrap gap-4 md:flex-row sm:flex-col">
                   <a
                     href="#contact"
-                    className="px-6 py-3 rounded-md font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow transition"
+                    className="px-6 py-3 rounded-md font-semibold bg-[#5678D0] hover:bg-blue-700 text-white shadow transition"
                   >
                     Get a Free Consultation
                   </a>
 
                   <a
                     href="#services"
-                    className="px-6 py-3 rounded-md font-semibold border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition"
+                    className="px-6 py-3 rounded-md font-semibold border-2 border-blue-600 text-blue-600 hover:bg-[#5678D0] hover:text-white transition"
                   >
                     Our Services
                   </a>
@@ -267,7 +267,7 @@ const Home = () => {
   <div className="container mx-auto text-center mb-12" data-aos="fade-up">
    <h2 className="relative text-3xl font-semibold text-gray-900 w-fit mx-auto pb-4
   after:content-[''] after:absolute after:block after:w-[50px] after:h-[3px]
-  after:bg-blue-600 after:left-0 after:right-0 after:bottom-0 after:mx-auto">
+  after:bg-[#5678D0] after:left-0 after:right-0 after:bottom-0 after:mx-auto">
   About
 </h2>
 
@@ -407,7 +407,7 @@ const Home = () => {
         </div>
 
         {/* Experience Badge */}
-        <div className="mt-10 bg-blue-600 text-white w-max px-6 py-4 rounded-xl shadow-lg animate-float">
+        <div className="mt-10 bg-[#5678D0] text-white w-max px-6 py-4 rounded-xl shadow-lg animate-float">
           <h3 className="text-3xl font-bold">
             15+ <span className="font-normal text-lg">Years</span>
           </h3>
@@ -549,7 +549,7 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
-                <span className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl mx-auto mb-4">
+                <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-2xl mx-auto mb-4">
                   <i className="bi bi-palette"></i>
                 </span>
 
@@ -569,7 +569,7 @@ const Home = () => {
 
                 <a
                   href="/"
-                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition"
+                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
                 >
                   <i className="bi bi-arrow-up-right"></i>
                 </a>
@@ -580,7 +580,7 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="150"
               >
-                <span className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl mx-auto mb-4">
+                <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-2xl mx-auto mb-4">
                   <i className="bi bi-gem"></i>
                 </span>
 
@@ -600,7 +600,7 @@ const Home = () => {
 
                 <a
                   href="/"
-                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition"
+                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
                 >
                   <i className="bi bi-arrow-up-right"></i>
                 </a>
@@ -611,7 +611,7 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
-                <span className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl mx-auto mb-4">
+                <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-2xl mx-auto mb-4">
                   <i className="bi bi-megaphone"></i>
                 </span>
 
@@ -631,7 +631,7 @@ const Home = () => {
 
                 <a
                   href="/"
-                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition"
+                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
                 >
                   <i className="bi bi-arrow-up-right"></i>
                 </a>
@@ -642,7 +642,7 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="250"
               >
-                <span className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl mx-auto mb-4">
+                <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-2xl mx-auto mb-4">
                   <i className="bi bi-code-slash"></i>
                 </span>
 
@@ -661,7 +661,7 @@ const Home = () => {
 
                 <a
                   href="/"
-                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition"
+                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
                 >
                   <i className="bi bi-arrow-up-right"></i>
                 </a>
@@ -672,7 +672,7 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="300"
               >
-                <span className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl mx-auto mb-4">
+                <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-2xl mx-auto mb-4">
                   <i className="bi bi-graph-up"></i>
                 </span>
 
@@ -692,7 +692,7 @@ const Home = () => {
 
                 <a
                   href="/"
-                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition"
+                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
                 >
                   <i className="bi bi-arrow-up-right"></i>
                 </a>
@@ -703,7 +703,7 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="350"
               >
-                <span className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl mx-auto mb-4">
+                <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-2xl mx-auto mb-4">
                   <i className="bi bi-camera-video"></i>
                 </span>
 
@@ -723,7 +723,7 @@ const Home = () => {
 
                 <a
                   href="/"
-                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition"
+                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
                 >
                   <i className="bi bi-arrow-up-right"></i>
                 </a>
@@ -742,7 +742,7 @@ const Home = () => {
               <div className="" data-aos="zoom-in" data-aos-delay="100">
                 <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
                   <div className="p-6 border-b border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl">
+                    <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
                       <i className="bi bi-shield-check"></i>
                     </div>
                     <h4 className="text-lg font-semibold">
@@ -779,7 +779,7 @@ const Home = () => {
               <div className="" data-aos="zoom-in" data-aos-delay="200">
                 <div className="border border-blue-600 rounded-xl shadow-md hover:shadow-lg transition bg-white h-full flex flex-col">
                   <div className="p-6 border-b border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl">
+                    <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
                       <i className="bi bi-cpu"></i>
                     </div>
                     <h4 className="text-lg font-semibold">Sed do eiusmod</h4>
@@ -814,7 +814,7 @@ const Home = () => {
               <div className="" data-aos="zoom-in" data-aos-delay="300">
                 <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
                   <div className="p-6 border-b border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl">
+                    <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
                       <i className="bi bi-rocket-takeoff"></i>
                     </div>
                     <h4 className="text-lg font-semibold">Tempor incididunt</h4>
@@ -849,7 +849,7 @@ const Home = () => {
               <div className="" data-aos="zoom-in" data-aos-delay="400">
                 <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
                   <div className="p-6 border-b border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl">
+                    <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
                       <i className="bi bi-puzzle"></i>
                     </div>
                     <h4 className="text-lg font-semibold">Ut labore dolore</h4>
@@ -946,7 +946,7 @@ const Home = () => {
                   className="rounded-xl shadow-md"
                 />
 
-                <div className="absolute bottom-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-md">
+                <div className="absolute bottom-4 right-4 bg-[#5678D0] text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-md">
                   <i className="bi bi-award"></i>
                   <span>Industry Leader</span>
                 </div>
@@ -959,7 +959,7 @@ const Home = () => {
                 data-aos="zoom-in"
                 data-aos-delay="100"
               >
-                <div className="text-3xl w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-blue-600 text-white">
+                <div className="text-3xl w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-[#5678D0] text-white">
                   <i className="bi bi-lightning-charge"></i>
                 </div>
                 <h4 className="font-semibold text-lg mb-3">
@@ -971,7 +971,7 @@ const Home = () => {
                 </p>
 
                 <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
-                  <div className="h-full bg-blue-600 w-[95%]"></div>
+                  <div className="h-full bg-[#5678D0] w-[95%]"></div>
                 </div>
                 <span className="text-sm text-gray-700">95% Efficiency</span>
               </div>
@@ -981,7 +981,7 @@ const Home = () => {
                 data-aos="zoom-in"
                 data-aos-delay="200"
               >
-                <div className="text-3xl w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-blue-600 text-white">
+                <div className="text-3xl w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-[#5678D0] text-white">
                   <i className="bi bi-shield-shaded"></i>
                 </div>
                 <h4 className="font-semibold text-lg mb-3">
@@ -993,7 +993,7 @@ const Home = () => {
                 </p>
 
                 <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
-                  <div className="h-full bg-blue-600 w-full"></div>
+                  <div className="h-full bg-[#5678D0] w-full"></div>
                 </div>
                 <span className="text-sm text-gray-700">100% Secure</span>
               </div>
@@ -1003,7 +1003,7 @@ const Home = () => {
                 data-aos="zoom-in"
                 data-aos-delay="300"
               >
-                <div className="text-3xl w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-blue-600 text-white">
+                <div className="text-3xl w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-[#5678D0] text-white">
                   <i className="bi bi-layers"></i>
                 </div>
                 <h4 className="font-semibold text-lg mb-3">
@@ -1015,7 +1015,7 @@ const Home = () => {
                 </p>
 
                 <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
-                  <div className="h-full bg-blue-600 w-[88%]"></div>
+                  <div className="h-full bg-[#5678D0] w-[88%]"></div>
                 </div>
                 <span className="text-sm text-gray-700">88% Compatibility</span>
               </div>
@@ -1025,7 +1025,7 @@ const Home = () => {
                 data-aos="zoom-in"
                 data-aos-delay="400"
               >
-                <div className="text-3xl w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-blue-600 text-white">
+                <div className="text-3xl w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-[#5678D0] text-white">
                   <i className="bi bi-graph-up"></i>
                 </div>
                 <h4 className="font-semibold text-lg mb-3">Smart Analytics</h4>
@@ -1035,7 +1035,7 @@ const Home = () => {
                 </p>
 
                 <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
-                  <div className="h-full bg-blue-600 w-[92%]"></div>
+                  <div className="h-full bg-[#5678D0] w-[92%]"></div>
                 </div>
                 <span className="text-sm text-gray-700">92% Accuracy</span>
               </div>
@@ -1416,7 +1416,7 @@ const Home = () => {
                     >
                       <a
                         href="#"
-                        className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition"
+                        className="bg-[#5678D0] text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition"
                       >
                         Get Started Free
                       </a>
@@ -1472,7 +1472,7 @@ const Home = () => {
                   className={`cursor-pointer px-5 py-2 rounded-full text-sm font-medium transition
                 ${
                   activeFilter === filter.value
-                    ? "bg-blue-600 text-white shadow"
+                    ? "bg-[#5678D0] text-white shadow"
                     : "bg-white text-gray-700 border hover:bg-gray-100"
                 }`}
                   onClick={() => setActiveFilter(filter.value)}
@@ -1579,7 +1579,7 @@ const Home = () => {
 
                 <a
                   href="#"
-                  className="mt-6 inline-flex items-center justify-center w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                  className="mt-6 inline-flex items-center justify-center w-full bg-[#5678D0] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
                 >
                   Buy Now <i className="bi bi-arrow-right ml-2"></i>
                 </a>
@@ -1590,7 +1590,7 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
-                <div className="absolute top-3 right-3 bg-blue-600 text-white text-xs px-3 py-1 rounded-full shadow">
+                <div className="absolute top-3 right-3 bg-[#5678D0] text-white text-xs px-3 py-1 rounded-full shadow">
                   Most Popular
                 </div>
 
@@ -1681,7 +1681,7 @@ const Home = () => {
 
                 <a
                   href="#"
-                  className="mt-6 inline-flex items-center justify-center w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                  className="mt-6 inline-flex items-center justify-center w-full bg-[#5678D0] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
                 >
                   Buy Now <i className="bi bi-arrow-right ml-2"></i>
                 </a>
@@ -1794,7 +1794,7 @@ const Home = () => {
                       loading="lazy"
                     />
 
-                    <div className="absolute top-3 right-3 bg-blue-600 text-white text-sm px-3 py-1 rounded-full shadow">
+                    <div className="absolute top-3 right-3 bg-[#5678D0] text-white text-sm px-3 py-1 rounded-full shadow">
                       {member.role}
                     </div>
 
@@ -1869,7 +1869,7 @@ const Home = () => {
                     data-aos="fade-up"
                     data-aos-delay="300"
                   >
-                    <div className="bg-blue-600 text-white p-3 rounded-full text-xl">
+                    <div className="bg-[#5678D0] text-white p-3 rounded-full text-xl">
                       <i className="bi bi-geo-alt"></i>
                     </div>
                     <div>
@@ -1886,7 +1886,7 @@ const Home = () => {
                     data-aos="fade-up"
                     data-aos-delay="400"
                   >
-                    <div className="bg-blue-600 text-white p-3 rounded-full text-xl">
+                    <div className="bg-[#5678D0] text-white p-3 rounded-full text-xl">
                       <i className="bi bi-telephone"></i>
                     </div>
                     <div>
@@ -1903,7 +1903,7 @@ const Home = () => {
                     data-aos="fade-up"
                     data-aos-delay="500"
                   >
-                    <div className="bg-blue-600 text-white p-3 rounded-full text-xl">
+                    <div className="bg-[#5678D0] text-white p-3 rounded-full text-xl">
                       <i className="bi bi-envelope"></i>
                     </div>
                     <div>
@@ -1973,7 +1973,7 @@ const Home = () => {
                     <div className="text-center">
                       <button
                         type="submit"
-                        className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition"
+                        className="bg-[#5678D0] text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition"
                       >
                         Send Message
                       </button>
