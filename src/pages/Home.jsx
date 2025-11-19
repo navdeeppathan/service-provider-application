@@ -57,16 +57,6 @@ const Home = () => {
 
   { id: 2, key: "deep_cleaning", title: "Deep Cleaning", decs:"Deep, detailed cleaning for toughest stains & dirt.", icon:"bi bi-droplet-half", img:"https://images.unsplash.com/photo-1581579182249-f8f94c3f1a59?q=80&w=1200&auto=format&fit=crop" },
 
-  { id: 3, key: "bathroom_cleaning", title: "Bathroom Cleaning", decs:"Professional washroom and tiles cleaning service.", icon:"bi bi-water", img:"https://images.unsplash.com/photo-1581579182258-0e6a7bb2a2d2?q=80&w=1200&auto=format&fit=crop" },
-
-  { id: 4, key: "kitchen_cleaning", title: "Kitchen Cleaning", decs:"Stove, chimney, sink & full kitchen deep cleaning.", icon:"bi bi-egg-fried", img:"https://images.unsplash.com/photo-1544213456-b254f2f4b8f3?q=80&w=1200&auto=format&fit=crop" },
-
-  { id: 5, key: "sofa_cleaning", title: "Sofa Cleaning", decs:"Fabric, leather & cushion cleaning with machines.", icon:"bi bi-grid-3x3-gap", img:"https://images.unsplash.com/photo-1582719478212-1a6f5b6a8b4b?q=80&w=1200&auto=format&fit=crop" },
-
-  { id: 6, key: "mattress_cleaning", title: "Mattress Cleaning", decs:"Dust, mite & deep mattress sanitization.", icon:"bi bi-life-preserver", img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" },
-
-  { id: 7, key: "carpet_cleaning", title: "Carpet Cleaning", decs:"Carpet shampooing & vacuum deep cleaning.", icon:"bi bi-clipboard-check", img:"https://images.unsplash.com/photo-1600585154211-4fcb0c23c6a1?q=80&w=1200&auto=format&fit=crop" },
-
   { id: 8, key: "ac_service", title: "AC Repair & Service", decs:"AC service, repair, installation & gas filling.", icon:"bi bi-wind", img:"https://images.unsplash.com/photo-1582719478212-1a6f5b6a8b4b?q=80&w=1200&auto=format&fit=crop" },
 
   { id: 9, key: "washing_machine", title: "Washing Machine Repair", decs:"Front-load, top-load & automatic washer repair.", icon:"bi bi-arrow-repeat", img:"https://images.unsplash.com/photo-1581579182250-3b25f1b2a6d6?q=80&w=1200&auto=format&fit=crop" },
@@ -85,15 +75,12 @@ const Home = () => {
 
   { id: 16, key: "cctv", title: "CCTV Installation", decs:"Camera installation, configuration & maintenance.", icon:"bi bi-camera-video", img:"https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" },
 
-  { id: 17, key: "pest_control", title: "Pest Control", decs:"Termite, cockroach, mosquito & full home pest control.", icon:"bi bi-bug", img:"https://images.unsplash.com/photo-1587019151443-1e0ebb2a0b3a?q=80&w=1200&auto=format&fit=crop" },
 
   { id: 18, key: "geyser_repair", title: "Geyser Repair", decs:"Water heater installation & repair.", icon:"bi bi-thermometer-half", img:"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1200&auto=format&fit=crop" },
 
   { id: 19, key: "solar_service", title: "Solar Panel Service", decs:"Solar maintenance, cleaning & inverter check.", icon:"bi bi-sun", img:"https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1200&auto=format&fit=crop" },
 
-  { id: 20, key: "home_renovation", title: "Home Renovation", decs:"Interior, exterior, full home renovation service.", icon:"bi bi-bricks", img:"https://images.unsplash.com/photo-1555002925-7e3bfb81a0d0?q=80&w=1200&auto=format&fit=crop" },
 
-  { id: 21, key: "interior_design", title: "Interior Design", decs:"Modern interior designing for home & office.", icon:"bi bi-layers", img:"https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1200&auto=format&fit=crop" },
 
   { id: 22, key: "garden_maintenance", title: "Garden & Lawn Care", decs:"Plant care, trimming, landscaping & maintenance.", icon:"bi bi-tree", img:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop" },
 ];
