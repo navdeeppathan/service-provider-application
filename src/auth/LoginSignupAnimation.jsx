@@ -85,8 +85,7 @@ export default function LoginSignupAnimation() {
             text: "Login Successful",
             confirmButtonColor: "#0A3D8F",
           });
-          navigate("/home");
-          window.location.reload();
+          navigate("/");
 
           break;
 
@@ -118,6 +117,22 @@ export default function LoginSignupAnimation() {
   return (
     <div className="min-h-screen  flex items-center justify-center p-4">
       <style>{`
+
+      .loader {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
         @keyframes slideIn {
           from {
             transform: translateX(120%);
@@ -320,15 +335,19 @@ export default function LoginSignupAnimation() {
                     onClick={() => setShowPassword(!showPassword)}
                   />
                 </div>
+<button
+  className="login-btn flex justify-center items-center gap-3"
+  style={{ "--li": 2 }}
+  onClick={handleSubmit}
+  disabled={loading}
+>
+  {loading ? (
+    <span className="loader"></span>
+  ) : (
+    "Login"
+  )}
+</button>
 
-                <button
-                  className="login-btn"
-                  style={{ "--li": 2 }}
-                  onClick={handleSubmit}
-                  disabled={loading}
-                >
-                  Login
-                </button>
 
                 <div className="toggle-text" style={{ "--li": 3 }}>
                   Don't have an account?{" "}

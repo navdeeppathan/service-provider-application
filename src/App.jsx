@@ -26,16 +26,10 @@ function App() {
    <BrowserRouter>
   <Routes>
     {/* PUBLIC ROUTES */}
-    <Route
-      path="/"
-      element={
-        <PublicRoute>
-          <LoginSignupAnimation />
-        </PublicRoute>
-      }
-    />
+   <Route path="/" element={<Home />} />
 
-    <Route path="/home" element={<Home />} />
+
+    <Route path="/login" element={<LoginSignupAnimation />} />
     <Route path="/details" element={<ServiceDetails />} />
     <Route path="/categories" element={<CategoriesPage />} />
 

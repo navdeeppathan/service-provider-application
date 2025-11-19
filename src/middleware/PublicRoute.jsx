@@ -8,7 +8,7 @@ const PublicRoute = ({ children }) => {
 
   if (isAdmin) return <Navigate to="/admindashboard" replace />;
   if (isProvider) return <Navigate to="/providerdashboard" replace />;
-  if (isUser) return <Navigate to="/home" replace />;
+  if (isUser) return <Navigate to="/" replace />;
 
   return children; // user not logged in
 };

@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("home"); // ACTIVE STATE
+const userData = JSON.parse(localStorage.getItem("userData"));
 
+const [open, setOpen] = useState(false);
+ const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
@@ -18,15 +26,14 @@ export default function Header() {
       {/* HEADER */}
       <header
         className={`fixed top-0 w-full z-50 px-10 transition-all duration-500 ${
-          isScrolled ? "bg-black shadow-lg" : "bg-[#0f0000]"
+          isScrolled ? "bg-white shadow-lg" : "bg-[#FFF]"
         }`}
       >
         <div className="container mx-auto px-4 flex items-center justify-between h-20 text-white">
           {/* Logo */}
           <a href="/" className="flex items-center space-x-2">
-            <h1 className="text-2xl font-bold">
-              <span className="text-[#036DDA] italic">e</span>Business
-            </h1>
+          <img src="./Newlogo.png" alt="Logo" className="w-[100px] h-[100px]" />
+            
           </a>
 
           {/* Desktop Menu */}
@@ -39,8 +46,8 @@ export default function Header() {
                     href={`#${item}`}
                     onClick={() => setActive(item)}
                     className={`${
-                      active === item ? "text-white" : "text-white/70"
-                    } hover:text-white`}
+                      active === item ? "text-black" : "text-black/50"
+                    } hover:text-black`}
                   >
                     {item.charAt(0).toUpperCase() + item.slice(1)}
                   </a>
@@ -92,12 +99,48 @@ export default function Header() {
           </nav>
 
           {/* Desktop Button */}
-          <a
-            href="#about"
-            className="hidden xl:inline-block bg-[#036DDA] text-white px-6 py-2 rounded-[8px] shadow hover:bg-blue-700 transition"
-          >
-            Get Started
-          </a>
+         {!userData && (
+  <a
+    href="/login"
+    className="hidden xl:inline-block bg-[#036DDA] text-white px-6 py-2 rounded-[8px] shadow hover:bg-blue-700 transition"
+  >
+    Get Started
+  </a>
+)}
+ {userData && (
+          <div className="relative">
+            
+            {/* Profile Button */}
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => setOpen(!open)}
+            >
+              <i className="bi bi-person-circle text-2xl text-[#036DDA]"></i>
+              <span className="font-medium text-gray-700 hidden xl:block">
+                {userData.name}
+              </span>
+              <i className="bi bi-caret-down-fill text-sm"></i>
+            </div>
+
+            {/* Dropdown */}
+            {open && (
+              <div className="absolute right-0 mt-3 w-40 bg-white shadow-lg rounded-lg border py-2 z-50">
+                
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 flex items-center gap-2"
+                >
+                  <i className="bi bi-box-arrow-right"></i>
+                  Logout
+                </button>
+
+              </div>
+            )}
+
+          </div>
+        )}
+
+
 
           {/* Mobile Toggle */}
           <button
