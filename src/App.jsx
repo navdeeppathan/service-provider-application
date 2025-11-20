@@ -20,6 +20,15 @@ import ProviderPayments from "./provider/ProviderPayments";
 import ProtectedRoute from "./middleware/ProtectedRoute";
 import PublicRoute from "./middleware/PublicRoute";
 import AdminCategory from "./admin/AdminCategory";
+import CheckoutLayout from "./pages/Checkout/CheckoutLayout";
+import Profile from "./pages/Profile";
+import Dashboard from "./pages/Profile/Dashboard";
+import Orders from "./pages/Profile/Orders";
+import Wishlist from "./pages/Profile/Wishlist";
+import PaymentMethods from "./pages/Profile/PaymentMethods";
+import Addresses from "./pages/Profile/Addresses";
+import Reviews from "./pages/Profile/Reviews";
+import Help from "./pages/Profile/Help";
 
 function App() {
   return (
@@ -32,7 +41,17 @@ function App() {
     <Route path="/login" element={<LoginSignupAnimation />} />
     <Route path="/details" element={<ServiceDetails />} />
     <Route path="/categories" element={<CategoriesPage />} />
+    <Route path="/checkout" element={<CheckoutLayout />} />
+    <Route path="/profile" element={<Profile />} />
+    <Route path="/profile/dashboard" element={<Dashboard/>} />
+    <Route path="/profile/orders" element={<Orders/>} />
+    <Route path="/profile/wishlist" element={<Wishlist/>} />
+    <Route path="/profile/payments" element={<PaymentMethods/>} />
+    <Route path="/profile/addresses" element={<Addresses/>} />
+    <Route path="/profile/reviews" element={<Reviews/>} />
+    <Route path="/profile/help" element={<Help/>} />
 
+    
     {/* ADMIN ROUTES */}
     <Route
       path="/admindashboard"

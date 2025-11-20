@@ -155,7 +155,7 @@ export default function Provider() {
       {/* Govt Bar */}
       <div className="relative">
         <div className="w-10 h-32 bg-purple-600 rounded-t-xl"></div>
-        <div className="absolute top-0 left-0 w-10 h-4 bg-purple-700 rounded-t-xl"></div>
+        <div className="absolute top-0 left-0 w-10 h-4 bg-[#3b82f6] rounded-t-xl"></div>
       </div>
 
       {/* Private Bar */}

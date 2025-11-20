@@ -39,7 +39,7 @@ export default function Header() {
 
           {/* Logo */}
           <a href="/">
-            <img src="./Newlogo.png" alt="Logo" className="w-[100px] " />
+            <img src="/Newlogo.png" alt="Logo" className="w-[100px] " />
           </a>
 
           {/* Desktop Menu */}
