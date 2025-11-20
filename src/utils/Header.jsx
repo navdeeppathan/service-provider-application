@@ -51,7 +51,17 @@ export default function Header() {
                 <li key={item} className="group relative">
                   <a
                     href={`#${item}`}
-                    onClick={() => setActive(item)}
+                   onClick={(e) => {
+            e.preventDefault();   // stop normal anchor behavior
+            setActive(item);
+
+            // ✅ Only for About menu
+            if (item.toLowerCase() === "about") {
+              navigate("/abouts");
+            } else {
+              window.location.href = `#${item}`;
+            }
+          }}
                     className="hover:text-[#036DDA] transition"
                   >
                     {item.charAt(0).toUpperCase() + item.slice(1)}
