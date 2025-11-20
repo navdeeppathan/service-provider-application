@@ -44,50 +44,44 @@ export default function Header() {
             <img src="/Newlogo.png" alt="Logo" className="w-[100px] " />
           </a>
 
-          {/* Desktop Menu */}
-          <nav className="hidden xl:block">
-            <ul className="flex items-center space-x-8 text-black font-medium">
-              {menuItems.map((item) => (
-                <li key={item} className="group relative">
-                  <a
-                    href={`#${item}`}
-                   onClick={(e) => {
-            e.preventDefault();   // stop normal anchor behavior
-            setActive(item);
+        <nav className="hidden xl:block">
+  <ul className="flex items-center space-x-8 text-black font-medium">
+    {menuItems.map((item) => (
+      <li key={item} className="group relative">
+        <button
+          onClick={() => {
+            setActive(item);  // 👈 set active menu
 
-            // ✅ Only for About menu
             if (item.toLowerCase() === "about") {
               navigate("/abouts");
-            } 
-             if (item.toLowerCase() === "services") {
+            } else if (item.toLowerCase() === "services") {
               navigate("/servicecategories");
-            } 
-            if (item.toLowerCase() === "support") {
+            } else if (item.toLowerCase() === "support") {
               navigate("/support");
-            } 
-            
-            else {
-              window.location.href = `#${item}`;
+            } else {
+              navigate("/");
             }
           }}
-                    className="hover:text-[#036DDA] transition"
-                  >
-                    {item.charAt(0).toUpperCase() + item.slice(1)}
-                  </a>
-                  <span
-                    className={`content-[''] absolute h-[2px] bottom-[-15px] left-0 
-                      bg-[#036DDA] transition-all duration-300
-                      ${
-                        active === item
-                          ? "visible w-full"
-                          : "invisible w-0 group-hover:visible group-hover:w-full"
-                      }
-                    `}
-                  ></span>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          className={`
+            transition font-medium
+            ${active === item ? "text-[#036DDA]" : "text-black"}
+            hover:text-[#036DDA]
+          `}
+        >
+          {item.charAt(0).toUpperCase() + item.slice(1)}
+        </button>
+
+        {/* underline effect */}
+        <span
+          className={`absolute h-[2px] bottom-[-8px] left-0 
+          bg-[#036DDA] transition-all duration-300
+          ${active === item ? "w-full" : "w-0 group-hover:w-full"}`}
+        ></span>
+      </li>
+    ))}
+  </ul>
+</nav>
+
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-4">

@@ -418,7 +418,7 @@ const Home = () => {
                   </Link>
 
                   <Link
-                    href="#services"
+                    to="/servicecategories"
                     className="px-6 py-3 rounded-md font-semibold border-2 border-blue-600 text-blue-600 hover:bg-[#5678D0] hover:text-white transition"
                   >
                     Explore Services
@@ -563,6 +563,8 @@ const Home = () => {
               >
                 {allServices.map((service, index) => (
                   <SwiperSlide key={index}>
+                    <Link
+                        to={`/serviceproviderlist/${service.id}`}>
                     <article
                       className="relative h-[280px] min-h-[280px] flex flex-col justify-between text-center p-8 shadow-md border border-gray-200 rounded-2xl bg-white hover:shadow-2xl hover:scale-102 transition-all duration-300
   transition"
@@ -588,6 +590,7 @@ const Home = () => {
                         <i className="bi bi-arrow-up-right"></i>
                       </Link>
                     </article>
+                    </Link>
                   </SwiperSlide>
                 ))}
               </Swiper>
