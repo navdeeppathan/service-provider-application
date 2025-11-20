@@ -27,7 +27,7 @@ export default function Header() {
     "services",
     "Partners",
     "about",
-    "Support",
+    "support",
   ];
 
   return (
@@ -58,7 +58,15 @@ export default function Header() {
             // ✅ Only for About menu
             if (item.toLowerCase() === "about") {
               navigate("/abouts");
-            } else {
+            } 
+             if (item.toLowerCase() === "services") {
+              navigate("/servicecategories");
+            } 
+            if (item.toLowerCase() === "support") {
+              navigate("/support");
+            } 
+            
+            else {
               window.location.href = `#${item}`;
             }
           }}

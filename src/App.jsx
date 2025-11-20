@@ -32,6 +32,7 @@ import Help from "./pages/Profile/Help";
 import ServiceCategory from "./pages/ServiceCategory";
 import ServiceProviderList from "./pages/ServiceProviderList";
 import Abouts from "./pages/Abouts";
+import Support from "./pages/Support";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
     <Route path="/details" element={<ServiceDetails />} />
     <Route path="/categories" element={<CategoriesPage />} />
     <Route path="/abouts" element={<Abouts />} />
+    <Route path="/support" element={<Support />} />
     <Route path="/servicecategories" element={<ServiceCategory />} />
     <Route path="/serviceproviderlist/:id" element={<ServiceProviderList />} />
     <Route path="/checkout" element={<CheckoutLayout />} />
