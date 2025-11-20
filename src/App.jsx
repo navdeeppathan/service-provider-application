@@ -29,6 +29,8 @@ import PaymentMethods from "./pages/Profile/PaymentMethods";
 import Addresses from "./pages/Profile/Addresses";
 import Reviews from "./pages/Profile/Reviews";
 import Help from "./pages/Profile/Help";
+import ServiceCategory from "./pages/ServiceCategory";
+import ServiceProviderList from "./pages/ServiceProviderList";
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
     <Route path="/login" element={<LoginSignupAnimation />} />
     <Route path="/details" element={<ServiceDetails />} />
     <Route path="/categories" element={<CategoriesPage />} />
+    <Route path="/servicecategories" element={<ServiceCategory />} />
+    <Route path="/serviceproviderlist/:id" element={<ServiceProviderList />} />
     <Route path="/checkout" element={<CheckoutLayout />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/profile/dashboard" element={<Dashboard/>} />

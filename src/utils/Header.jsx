@@ -1,6 +1,3 @@
-
-
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,8 +6,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("home"); 
-
+  const [active, setActive] = useState("home");
 
   const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -25,7 +21,14 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuItems = ["home","Solutions"  ,"services",  "Partners", "about" ,"Support"];
+  const menuItems = [
+    "home",
+    "Solutions",
+    "services",
+    "Partners",
+    "about",
+    "Support",
+  ];
 
   return (
     <>
@@ -36,7 +39,6 @@ export default function Header() {
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-10 h-20">
-
           {/* Logo */}
           <a href="/">
             <img src="/Newlogo.png" alt="Logo" className="w-[100px] " />
@@ -45,7 +47,6 @@ export default function Header() {
           {/* Desktop Menu */}
           <nav className="hidden xl:block">
             <ul className="flex items-center space-x-8 text-black font-medium">
-
               {menuItems.map((item) => (
                 <li key={item} className="group relative">
                   <a
@@ -55,22 +56,23 @@ export default function Header() {
                   >
                     {item.charAt(0).toUpperCase() + item.slice(1)}
                   </a>
-                   <span
+                  <span
                     className={`content-[''] absolute h-[2px] bottom-[-15px] left-0 
                       bg-[#036DDA] transition-all duration-300
-                      ${active === item ? "visible w-full" : "invisible w-0 group-hover:visible group-hover:w-full"}
+                      ${
+                        active === item
+                          ? "visible w-full"
+                          : "invisible w-0 group-hover:visible group-hover:w-full"
+                      }
                     `}
                   ></span>
-
                 </li>
               ))}
-
             </ul>
           </nav>
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-4">
-
             {/* Desktop GET STARTED (show only if user not logged in) */}
             {!userData && (
               <a
@@ -96,7 +98,15 @@ export default function Header() {
                 </div>
 
                 {open && (
-                  <div className="absolute right-0 mt-3 w-40 bg-white shadow-lg rounded-lg border py-2 z-50">
+                  <div className="absolute right-0 mt-3 w-60 bg-white shadow-lg rounded-lg border-white py-2 z-50">
+                    <button
+                      onClick={() => navigate("/profile/dashboard")}
+                      className="w-full text-left px-4 py-2 text-black flex items-center gap-2"
+                    >
+                      <i className="bi bi-box-seam"></i>
+                      Profile Dashboard
+                    </button>
+
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 flex items-center gap-2"
@@ -116,7 +126,6 @@ export default function Header() {
             >
               <i className="bi bi-list"></i>
             </button>
-
           </div>
         </div>
       </header>
