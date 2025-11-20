@@ -159,9 +159,24 @@ export default function ServiceCategory() {
       if (currentPage <= 3) {
         pages = [1, 2, 3, 4, "...", totalPages];
       } else if (currentPage >= totalPages - 2) {
-        pages = [1, "...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+        pages = [
+          1,
+          "...",
+          totalPages - 3,
+          totalPages - 2,
+          totalPages - 1,
+          totalPages,
+        ];
       } else {
-        pages = [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
+        pages = [
+          1,
+          "...",
+          currentPage - 1,
+          currentPage,
+          currentPage + 1,
+          "...",
+          totalPages,
+        ];
       }
     }
     return pages;
@@ -173,30 +188,40 @@ export default function ServiceCategory() {
 
       <section id="services" className="py-30  px-10">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">Our Services</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">
+            Our Services
+          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Comprehensive home services — verified professionals, transparent pricing.
+            Comprehensive home services — verified professionals, transparent
+            pricing.
           </p>
         </div>
 
         <div className="container mx-auto px-4 mt-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {currentItems.map((service) => (
-              <article
-                key={service.id}
-                className="relative h-[280px] min-h-[280px] flex flex-col justify-between text-center p-8 shadow-md border border-gray-200 rounded-2xl bg-white hover:shadow-lg transition"
-              >
-                <div>
-                  <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-3xl mx-auto mb-4">
-                    <i className={service.icon}></i>
-                  </span>
-                  <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-                  <p className="text-gray-600 text-sm">{service.decs}</p>
-                </div>
-                <Link to={`/serviceproviderlist/${service.id}`} className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition">
-                  <i className="bi bi-arrow-up-right"></i>
-                </Link>
-              </article>
+              <Link to={`/serviceproviderlist/${service.id}`}>
+                <article
+                  key={service.id}
+                  className="relative h-[280px] min-h-[280px] flex flex-col justify-between text-center p-8 shadow-md border border-gray-200 rounded-2xl bg-white hover:shadow-lg transition"
+                >
+                  <div>
+                    <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-3xl mx-auto mb-4">
+                      <i className={service.icon}></i>
+                    </span>
+                    <h3 className="text-xl font-semibold mb-3">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm">{service.decs}</p>
+                  </div>
+                  <Link
+                    to={`/serviceproviderlist/${service.id}`}
+                    className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
+                  >
+                    <i className="bi bi-arrow-up-right"></i>
+                  </Link>
+                </article>
+              </Link>
             ))}
           </div>
 
@@ -213,7 +238,9 @@ export default function ServiceCategory() {
 
             {getPaginationNumbers().map((num, i) =>
               num === "..." ? (
-                <span key={i} className="px-3 py-2">...</span>
+                <span key={i} className="px-3 py-2">
+                  ...
+                </span>
               ) : (
                 <button
                   key={i}

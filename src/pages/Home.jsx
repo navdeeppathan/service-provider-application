@@ -644,7 +644,7 @@ const Home = () => {
                     {/* Footer */}
                     <div className="p-6 border-t border-gray-100">
                       <Link
-                        href="#"
+                        to="/servicecategories"
                         className="text-blue-600 font-medium hover:underline inline-flex items-center gap-1"
                       >
                         Explore Service <i className="bi bi-arrow-up-right"></i>
@@ -658,6 +658,8 @@ const Home = () => {
         </section>
 
         <section id="why-us" className="py-20 bg-[#F1F7FC] px-10">
+
+
           <div
             className="container mx-auto px-4 text-center mb-12"
             data-aos="fade-up"
@@ -677,6 +679,35 @@ const Home = () => {
             data-aos-delay="100"
           >
             <div className="grid lg:grid-cols-2 gap-10 items-center">
+
+               <div
+                className="flex justify-center"
+                data-aos="zoom-out"
+                data-aos-delay="300"
+              >
+                <Swiper
+                  spaceBetween={20}
+                  slidesPerView={1}
+                  autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                  }}
+                  loop={true}
+                  pagination={{ clickable: true }}
+                  modules={[Autoplay, Pagination, Navigation]}
+                  className="w-full"
+                >
+                  {images.map((img, index) => (
+                    <SwiperSlide key={index}>
+                      <img
+                        src={img}
+                        className="rounded-lg shadow-lg w-full h-[400px] hover:scale-[1.03] transition-transform duration-500"
+                        alt="Homexa slider"
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div
@@ -746,17 +777,7 @@ const Home = () => {
                 </div>
               </div>
 
-              <div
-                className="flex justify-center"
-                data-aos="zoom-out"
-                data-aos-delay="300"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?q=80&w=1200&auto=format&fit=crop"
-                  alt="Why Us"
-                  className="rounded-2xl shadow-lg w-full max-w-md"
-                />
-              </div>
+              
             </div>
           </div>
         </section>
