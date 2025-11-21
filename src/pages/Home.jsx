@@ -1013,7 +1013,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section id="team" className="py-20 bg-white px-10">
+        {/* <section id="team" className="py-20 bg-white px-10">
           <div
             className="container mx-auto px-4 text-center mb-14"
             data-aos="fade-up"
@@ -1046,9 +1046,7 @@ const Home = () => {
                       loading="lazy"
                     />
 
-                    {/* <div className="absolute bottom-3 right-3 bg-[#5678D0] text-white text-sm px-3 py-1 rounded-full shadow">
-                        {member.role}
-                      </div> */}
+                   
 
                     <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-4 opacity-0 hover:opacity-100 transition-opacity">
                       <Link
@@ -1085,7 +1083,7 @@ const Home = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
 
       <Footer />

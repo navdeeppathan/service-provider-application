@@ -382,54 +382,89 @@ const selectedService = allServices.find(s => s.id === selectedServiceId);
             </span>
           </div>
 
-          {providerList.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {providerList.map((provider, index) => (
-                <div
-                  key={index}
-                  className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-indigo-200"
-                >
-                  <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 border-b border-gray-100">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors">
-                        {provider.name}
-                      </h3>
-                      <div className="flex items-center gap-1 bg-yellow-100 px-3 py-1 rounded-full">
-                        <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
-                        <span className="font-semibold text-gray-800">{provider.rating}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-3 text-sm">
-                      <div className="flex items-center gap-1 text-gray-600">
-                        <Clock className="w-4 h-4 text-indigo-500" />
-                        <span>{provider.experience}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-gray-600">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span>{provider.jobs} Jobs</span>
-                      </div>
-                    </div>
-                  </div>
+         {providerList.length > 0 ? (
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {providerList.map((provider, index) => (
+      <div
+        key={index}
+        className="bg-white rounded-xl shadow-md border border-gray-200 flex flex-col justify-between"
+      >
+        {/* Top Section */}
+        <div className="flex gap-4">
 
-                  <div className="p-6">
-                    <button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl">
-                      Book Now
-                      <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
-                </div>
+          {/* Provider Image */}
+          <div className="relative  p-2">
+            <span className="absolute top-1 left-1 bg-orange-500 text-white text-xs px-2 py-1 rounded-md">
+              15% OFF
+            </span>
+
+            <img
+              src="/Home Renovation.jpg"
+              alt={provider.name}
+              className="w-25 h-42 rounded-lg object-cover border"
+            />
+          </div>
+
+          {/* Provider Info */}
+          <div className="flex-1  p-4">
+            <h3 className="text-lg font-semibold text-gray-800">
+              {provider.name}
+            </h3>
+
+            <p className="text-sm text-gray-500">
+               {provider.service || "Professional Service"}
+            </p>
+
+            <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
+              <span>⭐ {provider.rating}</span>
+              <span>•</span>
+              <span>{provider.experience}</span>
+            </div>
+
+            {/* Team Icons */}
+            <div className="flex items-center mt-2 space-x-[-10px]">
+              {[1, 2, 3].map((_, i) => (
+                <img
+                  key={i}
+                  className="w-7 h-7 rounded-full border-2 border-white"
+                  src="/Carpet Cleaning.jpg"
+                />
               ))}
+              <span className="text-xs text-gray-400 ml-2">Team Experts</span>
             </div>
-          ) : (
-            <div className="text-center py-20 bg-white rounded-2xl shadow-lg">
-              <div className="text-6xl mb-4">🔍</div>
-              <p className="text-xl text-gray-600 font-medium">
-                No providers found for this service
-              </p>
-              <p className="text-gray-500 mt-2">Try selecting a different service category</p>
-            </div>
-          )}
+
+             <div className="mt-4 flex items-center justify-between">
+
+          {/* Price */}
+          <div className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+            {provider.price || "170 AED / h"}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-3 text-gray-500 text-xl">
+            <button className="hover:text-blue-600 transition">
+              <i className="bi bi-share"></i>
+            </button>
+            <button className="hover:text-red-500 transition">
+              <i className="bi bi-heart"></i>
+            </button>
+          </div>
+
+        </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+       
+      </div>
+    ))}
+  </div>
+) : (
+  <div className="text-center py-20 bg-white rounded-xl shadow">
+    <p className="text-lg text-gray-500">No providers available</p>
+  </div>
+)}
+
         </div>
       </section>
 
