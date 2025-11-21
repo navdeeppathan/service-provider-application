@@ -6,7 +6,7 @@ import { Pagination, Autoplay, FreeMode } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Footer = () => {
@@ -45,36 +45,44 @@ const Footer = () => {
               </h4>
               <ul className="space-y-3">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="/"
                     className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
                     <i className="bi bi-chevron-right"></i> Home
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#about"
+                  <Link
+                    to="/abouts"
                     className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
                     <i className="bi bi-chevron-right"></i> About us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#services"
+                  <Link
+                    to="/servicecategories"
                     className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
                     <i className="bi bi-chevron-right"></i> Services
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#services"
+                  <Link
+                    to="/termandcondition"
                     className="flex items-center gap-2 hover:text-[#5678D0] transition"
                   >
-                    <i className="bi bi-chevron-right"></i> Terms of service
-                  </a>
+                    <i className="bi bi-chevron-right"></i> Terms & Conditions
+                  </Link>
+                </li>
+                 <li>
+                  <Link
+                    to="/privecepolicy"
+                    className="flex items-center gap-2 hover:text-[#5678D0] transition"
+                  >
+                    <i className="bi bi-chevron-right"></i> Privacy policy
+                  </Link>
                 </li>
               </ul>
             </div>

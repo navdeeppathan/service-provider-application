@@ -138,8 +138,6 @@ const Home = () => {
       ? portfolioItems
       : portfolioItems.filter((item) => item.category === activeFilter);
 
-  
-
   const allServices = [
     {
       id: 1,
@@ -276,8 +274,6 @@ const Home = () => {
       img: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop",
     },
   ];
-
-  
 
   const team = [
     {
@@ -563,33 +559,32 @@ const Home = () => {
               >
                 {allServices.map((service, index) => (
                   <SwiperSlide key={index}>
-                    <Link
-                        to={`/serviceproviderlist/${service.id}`}>
-                    <article
-                      className="relative h-[280px] min-h-[280px] flex flex-col justify-between text-center p-8 shadow-md border border-gray-200 rounded-2xl bg-white hover:shadow-2xl hover:scale-102 transition-all duration-300
+                    <Link to={`/serviceproviderlist/${service.id}`}>
+                      <article
+                        className="relative h-[280px] min-h-[280px] flex flex-col justify-between text-center p-8 shadow-md border border-gray-200 rounded-2xl bg-white hover:shadow-2xl hover:scale-102 transition-all duration-300
   transition"
-                    >
-                      <div>
-                        <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-3xl mx-auto mb-4">
-                          <i className={service.icon}></i>
-                        </span>
-
-                        <h3 className="text-xl font-semibold mb-3">
-                          {service.title}
-                        </h3>
-
-                        <p className="text-gray-600 text-sm leading-relaxed">
-                          {service.decs}
-                        </p>
-                      </div>
-
-                      <Link
-                        to={`/serviceproviderlist/${service.id}`}
-                        className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
                       >
-                        <i className="bi bi-arrow-up-right"></i>
-                      </Link>
-                    </article>
+                        <div>
+                          <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-3xl mx-auto mb-4">
+                            <i className={service.icon}></i>
+                          </span>
+
+                          <h3 className="text-xl font-semibold mb-3">
+                            {service.title}
+                          </h3>
+
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {service.decs}
+                          </p>
+                        </div>
+
+                        <Link
+                          to={`/serviceproviderlist/${service.id}`}
+                          className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
+                        >
+                          <i className="bi bi-arrow-up-right"></i>
+                        </Link>
+                      </article>
                     </Link>
                   </SwiperSlide>
                 ))}
@@ -658,8 +653,6 @@ const Home = () => {
         </section>
 
         <section id="why-us" className="py-20 bg-[#F1F7FC] px-10">
-
-
           <div
             className="container mx-auto px-4 text-center mb-12"
             data-aos="fade-up"
@@ -679,8 +672,7 @@ const Home = () => {
             data-aos-delay="100"
           >
             <div className="grid lg:grid-cols-2 gap-10 items-center">
-
-               <div
+              <div
                 className="flex justify-center"
                 data-aos="zoom-out"
                 data-aos-delay="300"
@@ -776,8 +768,6 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-
-              
             </div>
           </div>
         </section>
@@ -1096,8 +1086,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-
-       
       </main>
 
       <Footer />

@@ -33,6 +33,9 @@ import ServiceCategory from "./pages/ServiceCategory";
 import ServiceProviderList from "./pages/ServiceProviderList";
 import Abouts from "./pages/Abouts";
 import Support from "./pages/Support";
+import Termandcondition from "./pages/Termandcondition";
+import AllPolicy from "./pages/AllPolicy";
+import ServiceProviderListAll from "./pages/ServiceProviderListAll";
 
 function App() {
   return (
@@ -48,7 +51,10 @@ function App() {
     <Route path="/abouts" element={<Abouts />} />
     <Route path="/support" element={<Support />} />
     <Route path="/servicecategories" element={<ServiceCategory />} />
+    <Route path="/termandcondition" element={<Termandcondition />} />
+    <Route path="/privecepolicy" element={<AllPolicy />} />
     <Route path="/serviceproviderlist/:id" element={<ServiceProviderList />} />
+    <Route path="/serviceproviderlistall" element={<ServiceProviderListAll />} />
     <Route path="/checkout" element={<CheckoutLayout />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/profile/dashboard" element={<Dashboard/>} />
