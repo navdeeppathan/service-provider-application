@@ -26,7 +26,7 @@ const Successpage = () => {
      <Header/>
       
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50 py-23 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-xl mx-auto">
           
           {/* Main Success Card */}
           <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
@@ -52,7 +52,7 @@ const Successpage = () => {
 
             {/* Order Info Grid */}
             <div className="p-4">
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
                 
                 {/* Order Number */}
                 <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
