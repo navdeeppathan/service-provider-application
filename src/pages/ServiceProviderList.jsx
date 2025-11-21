@@ -63,7 +63,7 @@ export default function ServiceProviderList() {
       <Header />
 
       {/* Container: full width layout */}
-      <main className="bg-gray-50 min-h-screen">
+      <main className="bg-gray-50 min-h-screen mt-20">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-6">
 
           {/* DESKTOP TWO-COLUMN: uses grid with responsive columns.
