@@ -323,19 +323,19 @@ const selectedService = allServices.find(s => s.id === selectedServiceId);
         <div
           onClick={() => setSelectedServiceId(service.id)}
           className={`
-            cursor-pointer h-[190px] w-full 
-            flex flex-col items-center justify-center text-center 
-            rounded-2xl transition-all duration-300 p-4
+            cursor-pointer h-[150px] w-full 
+            flex flex-col items-center justify-top text-center 
+            rounded-2xl transition-all duration-300 
             ${
               selectedServiceId === service.id
-                ? "bg-[#5678D0] text-white shadow-2xl"
+                ? "bg-[#5678D0] text-white shadow-lg"
                 : "bg-[#F1F7FC] text-black shadow hover:shadow-2xl"
             }
           `}
         >
           <span
             className={`
-              w-14 h-14 rounded-full flex items-center justify-center text-2xl mb-3 transition-all 
+              w-14 h-14 rounded-full flex items-center justify-center mt-4 text-2xl mb-3 transition-all 
               ${
                 selectedServiceId === service.id
                   ? "bg-white text-[#5678D0]"
@@ -364,7 +364,7 @@ const selectedService = allServices.find(s => s.id === selectedServiceId);
                  <i className={selectedService.icon}></i>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-gray-800">{selectedService.title}</h3>
+                <h3 className="text-2xl font-semibold text-gray-800">{selectedService.title}</h3>
                 <p className="text-gray-600">{selectedService.decs}</p>
               </div>
             </div>
@@ -374,7 +374,7 @@ const selectedService = allServices.find(s => s.id === selectedServiceId);
         {/* 🔵 PROVIDER LIST */}
          <div>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 className="text-3xl font-semibold text-gray-800">
               Available Professionals
             </h2>
             <span className="text-sm text-gray-500 bg-gray-100 px-4 py-2 rounded-full">
@@ -391,12 +391,12 @@ const selectedService = allServices.find(s => s.id === selectedServiceId);
                 >
                   <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 border-b border-gray-100">
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors">
+                      <h3 className="text-xl font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors">
                         {provider.name}
                       </h3>
                       <div className="flex items-center gap-1 bg-yellow-100 px-3 py-1 rounded-full">
                         <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
-                        <span className="font-bold text-gray-800">{provider.rating}</span>
+                        <span className="font-semibold text-gray-800">{provider.rating}</span>
                       </div>
                     </div>
                     
