@@ -121,7 +121,7 @@ const Successpage = () => {
           
         </div>
       </div>
-<Footer/>
+{/* <Footer/> */}
      
     </>
   );
