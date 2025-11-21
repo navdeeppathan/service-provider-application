@@ -176,7 +176,7 @@ export default function ServiceProviderListAll() {
     <>
       <Header />
 
-      <section className="container mx-auto px-6 py-10">
+      <section className="container mx-auto px-6 py-10 mt-10">
 
         {/* CATEGORY SLIDER */}
         <div className="relative w-full mt-10 mb-12 px-4">
