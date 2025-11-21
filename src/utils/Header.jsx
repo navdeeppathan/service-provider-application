@@ -25,7 +25,7 @@ export default function Header() {
     "home",
     "Solutions",
     "services",
-    "Partners",
+    "partners",
     "about",
     "support",
   ];
@@ -58,6 +58,8 @@ export default function Header() {
               navigate("/servicecategories");
             } else if (item.toLowerCase() === "support") {
               navigate("/support");
+              } else if (item.toLowerCase() === "partners") {
+              navigate("/serviceproviderlistall");
             } else {
               navigate("/");
             }
