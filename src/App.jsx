@@ -36,6 +36,7 @@ import Support from "./pages/Support";
 import Termandcondition from "./pages/Termandcondition";
 import AllPolicy from "./pages/AllPolicy";
 import ServiceProviderListAll from "./pages/ServiceProviderListAll";
+import Successpage from "./pages/Checkout/Successpage";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
     <Route path="/serviceproviderlist/:id" element={<ServiceProviderList />} />
     <Route path="/serviceproviderlistall" element={<ServiceProviderListAll />} />
     <Route path="/checkout" element={<CheckoutLayout />} />
+    <Route path="/success" element={<Successpage />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/profile/dashboard" element={<Dashboard/>} />
     <Route path="/profile/orders" element={<Orders/>} />

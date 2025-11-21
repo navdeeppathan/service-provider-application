@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Header from "../utils/Header";
 import Footer from "../utils/Footer";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import Swal from "sweetalert2";
 
 /**
  * ServiceProviderList (Final)
@@ -51,6 +52,7 @@ export default function ServiceProviderList() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeTab, setActiveTab] = useState("About");
   const [readMore, setReadMore] = useState(false);
+  const navigate = useNavigate();
 
   const plans = [
     { name: "Classic", price: "150 AED", desc: "Basic service" },
@@ -58,6 +60,27 @@ export default function ServiceProviderList() {
     { name: "Platinum", price: "230 AED", desc: "Full service with priority" },
   ];
 
+  
+
+  const handleBook = async () => {
+  try {
+    const token = localStorage.getItem("token"); // 🔑 get token from localStorage
+
+    if (!token) {
+       Swal.fire({
+            icon: "warning",
+            title: "Login Required",
+            text: "Please log in first to continue.",
+            confirmButtonColor: "#0A3D8F", // Optional: custom button color
+          });
+      return;
+    }
+
+ 
+    navigate('/checkout')
+  } catch (error) {
+  }
+};
   return (
     <>
       <Header />
@@ -199,7 +222,7 @@ export default function ServiceProviderList() {
 
                 {/* Quick actions */}
                 <div className="bg-white rounded-lg p-3 shadow-sm flex items-center gap-3">
-                  <button className="flex-1 bg-[#1E57E0] text-white py-3 rounded-lg font-semibold">Book Service</button>
+                  <button onClick={handleBook} className="flex-1 bg-[#1E57E0] text-white py-3 rounded-lg font-semibold">Book Service</button>
                   <button className="w-12 h-12 bg-white border rounded-lg shadow flex items-center justify-center">
                     <i className="bi bi-chat-dots text-lg"></i>
                   </button>

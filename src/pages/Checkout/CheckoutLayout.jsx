@@ -7,10 +7,13 @@ import Step3Payment from "./Step3Payment";
 import Step4Review from "./Step4Review";
 import OrderSummary from "./OrderSummary";
 import { servicesCatalog } from "./data";
+import Swal from "sweetalert2";
+import Footer from "../../utils/Footer";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutLayout = () => {
     const [step, setStep] = useState(1);
-
+const navigate =useNavigate()
     // central booking state
     const [booking, setBooking] = useState({
         service: servicesCatalog[0], // default selected service
@@ -62,7 +65,8 @@ const CheckoutLayout = () => {
     const placeOrder = () => {
         // TODO: call API to create booking
         console.log("Placing booking:", booking);
-        alert("Booking placed — check console for payload (mock).");
+        Swal.fire("Booking placed — check console for payload (mock).");
+        navigate("/success")
         // After placing, go to review (or confirmation page)
         goto(4);
     };
@@ -71,7 +75,7 @@ const CheckoutLayout = () => {
         
         <div className="min-h-screen bg-gray-50">
             <Header />
-        <div className="container mx-auto px-6 py-12">
+        <div className="container mx-auto px-6 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-30">
             {/* Main steps area */}
             <div className="lg:col-span-8 bg-white rounded-xl shadow p-8">
@@ -138,6 +142,8 @@ const CheckoutLayout = () => {
             </div>
             </div>
         </div>
+
+         <Footer/>
         </div>
     );
 };
