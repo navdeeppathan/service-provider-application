@@ -15,10 +15,9 @@ import http from "../../service/http";
 const CheckoutLayout = () => {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { serviceid } = useParams();
 
-  const { cateid, subid } = useParams();
-  const [category, setCategory] = useState([]);
-  const [subcategories, setSubCategories] = useState([]);
   const [selectedSub, setSelectedSub] = useState(null);
 
   useEffect(() => {
@@ -27,33 +26,19 @@ const CheckoutLayout = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await http.get("/categories");
+      const res = await http.get(`/service/${serviceid}`);
 
-      // 1 Find correct category
-      const matchedCategory = res.data.data.find(
-        (item) => item.id === Number(cateid)
-      );
+      console.log("response:-", res.data.data);
 
-      setCategory(matchedCategory);
-
-      //  Set all subcategories
-      setSubCategories(matchedCategory?.subcategories || []);
-
-      //  Find correct subcategory by subid from URL
-      const matchedSub = matchedCategory?.subcategories?.find(
-        (s) => s.id === Number(subid)
-      );
-
-      setSelectedSub(matchedSub || null);
+      setSelectedSub(res.data.data || null);
     } catch (err) {
       console.log(err);
     }
   };
 
-  console.log("subject:-", selectedSub);
   // central booking state
   const [booking, setBooking] = useState({
-    service: servicesCatalog[0], // default selected service
+    service: selectedSub,
     customer: {
       fullName: "",
       email: "",
@@ -80,6 +65,15 @@ const CheckoutLayout = () => {
     notes: "",
   });
 
+  useEffect(() => {
+    if (selectedSub) {
+      setBooking((prev) => ({
+        ...prev,
+        service: selectedSub,
+      }));
+    }
+  }, [selectedSub]);
+
   const goNext = () => setStep((s) => Math.min(4, s + 1));
   const goBack = () => setStep((s) => Math.max(1, s - 1));
   const goto = (n) => setStep(n);
@@ -98,13 +92,52 @@ const CheckoutLayout = () => {
     });
   };
 
-  const placeOrder = () => {
+  console.log("booking", booking);
+
+  const placeOrder = async () => {
     // TODO: call API to create booking
     console.log("Placing booking:", booking);
+    const payload = {
+      provider_id: 1,
+      service_id: booking?.service?.id,
+      date: booking?.schedule?.date,
+      time: booking?.schedule?.time,
+      address:
+        booking?.address?.line1 +
+        " ," +
+        booking?.address?.line2 +
+        "," +
+        booking?.address?.city +
+        "," +
+        booking?.address?.state +
+        "," +
+        booking?.address?.pincode,
+    };
 
-    Swal.fire("Booking placed — check console for payload (mock).");
-    navigate("/success");
-    // After placing, go to review (or confirmation page)
+    console.log("payload:-", payload);
+    try {
+      setLoading(true);
+      const response = await http.post("/booking/create", payload);
+
+      console.log("Booking Success:", response.data);
+
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: response.data.message || "Booking created successfully!",
+      });
+      navigate(`/success?status=${response.data.data.id}`);
+    } catch (error) {
+      console.error("Booking Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response?.data?.message || "Something went wrong!",
+      });
+    } finally {
+      setLoading(false);
+    }
+
     goto(4);
   };
 

@@ -19,7 +19,7 @@ const OrderSummary = ({
 }) => {
   console.log(selectedSub);
   const selected = booking.service;
-  const base = selected.price;
+  const base = selected?.base_price;
   const qty = 1;
   const tax = Math.round(base * 0.1);
   const total = base * qty + tax;
@@ -30,20 +30,22 @@ const OrderSummary = ({
 
       <div className="flex items-center gap-3 mb-4">
         <img
-          src={`${selectedSub?.img}` || "/electrician services.jpg"}
+          src={`${selectedSub?.image}` || "/electrician services.jpg"}
           alt="service"
           className="w-10 h-10 object-cover rounded-md"
         />
         <div>
           <div className="font-normal text-sm">{selectedSub?.name || ""}</div>
-          <div className="text-xs text-gray-500">{selectedSub?.desc || ""}</div>
+          <div className="text-xs text-gray-500">
+            {selectedSub?.description || ""}
+          </div>
         </div>
       </div>
 
       <div className="border-t border-gray-200 pt-4">
         <div className="flex justify-between text-sm text-gray-600">
           <span>Subtotal</span>
-          <span>₹{Number(selectedSub?.price).toFixed(2)}</span>
+          <span>₹{Number(selectedSub?.base_price).toFixed(2)}</span>
         </div>
         <div className="flex justify-between text-sm text-gray-600 mt-2">
           <span>Tax</span>
@@ -52,28 +54,9 @@ const OrderSummary = ({
 
         <div className="flex justify-between border-t border-gray-200 py-1 text-sm font-semibold text-lg mt-4">
           <span>Total</span>₹
-          {(Number(selectedSub?.price || 0) + 150).toFixed(2)}
+          {(Number(selectedSub?.base_price || 0) + 150).toFixed(2)}
         </div>
       </div>
-
-      {/* <div className="mt-6">
-        <label className="block text-sm mb-2">Quick Select Service</label>
-        <select
-          value={selected.key}
-          onChange={(e) => {
-            const s = services.find((x) => x.key === e.target.value);
-            updateBooking("service", s);
-            gotoStep(2);
-          }}
-          className="w-full border text-sm rounded-lg p-2"
-        >
-          {services.map((s) => (
-            <option key={s.key} value={s.key}>
-              {s.title} — ₹{s.price}
-            </option>
-          ))}
-        </select>
-      </div> */}
 
       <div className="mt-6">
         <button

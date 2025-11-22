@@ -21,7 +21,7 @@ import Footer from "../utils/Footer";
 
 export default function ServiceProviderList() {
   // Mock data
-  const { cateid, subid } = useParams();
+  const { serviceid } = useParams();
   const [category, setCategory] = useState([]);
   const [subcategories, setSubCategories] = useState([]);
   const [selectedSub, setSelectedSub] = useState(null);
@@ -32,24 +32,11 @@ export default function ServiceProviderList() {
 
   const fetchCategories = async () => {
     try {
-      const res = await http.get("/categories");
+      const res = await http.get(`/service/${serviceid}`);
 
-      // 1 Find correct category
-      const matchedCategory = res.data.data.find(
-        (item) => item.id === Number(cateid)
-      );
+      console.log("response:-", res.data.data);
 
-      setCategory(matchedCategory);
-
-      //  Set all subcategories
-      setSubCategories(matchedCategory?.subcategories || []);
-
-      //  Find correct subcategory by subid from URL
-      const matchedSub = matchedCategory?.subcategories?.find(
-        (s) => s.id === Number(subid)
-      );
-
-      setSelectedSub(matchedSub || null);
+      setSelectedSub(res.data.data || null);
     } catch (err) {
       console.log(err);
     }
@@ -148,26 +135,6 @@ export default function ServiceProviderList() {
                 {/* Gradient Overlays */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
-                {/* Badges - Bottom Left */}
-                {/* <div className="absolute bottom-6 left-6 flex flex-wrap gap-3">
-                  <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-full font-medium text-sm shadow-lg backdrop-blur-sm">
-                    20% OFF Today
-                  </div>
-                  <div className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    <span className="font-medium text-gray-900">4.9</span>
-                    <span className="text-gray-500 text-sm">(2,450)</span>
-                  </div>
-                </div> */}
-
-                {/* Price Badge - Bottom Right */}
-                {/* <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg">
-                  <div className="text-xs text-gray-500 mb-1">Starting from</div>
-                  <div className="text-2xl font-medium text-blue-600">
-                    230 <span className="text-sm text-gray-500">AED/h</span>
-                  </div>
-                </div> */}
-
                 {/* Navigation Arrows */}
                 <button
                   onClick={() =>
@@ -242,102 +209,22 @@ export default function ServiceProviderList() {
                       {selectedSub?.name}
                     </h1>
                     <p className="text-gray-600 text-xs font-normal leading-relaxed">
-                      {selectedSub?.desc}
+                      {selectedSub?.description}
                     </p>
-                  </div>
-                </div>
-
-                {/* Team Section */}
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="flex -space-x-3">
-                    <img
-                      src="https://randomuser.me/api/portraits/men/32.jpg"
-                      className="w-6 h-6 rounded-full border-2 border-white shadow"
-                      alt="Expert 1"
-                    />
-                    <img
-                      src="https://randomuser.me/api/portraits/women/44.jpg"
-                      className="w-6 h-6 rounded-full border-2 border-white shadow"
-                      alt="Expert 2"
-                    />
-                    <img
-                      src="https://randomuser.me/api/portraits/men/68.jpg"
-                      className="w-6 h-6 rounded-full border-2 border-white shadow"
-                      alt="Expert 3"
-                    />
-                    <div className="w-6 h-6 rounded-full border-2 border-white shadow bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-[10px] font-normal">
-                      +15
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-xs font-medium text-gray-900">
-                      Expert Team
-                    </div>
-                    <div className="text-xs font-normal text-gray-500">
-                      Verified professionals
-                    </div>
+                    <p className="text-blue-600 font-medium text-sm mt-2">
+                      ₹{selectedSub?.base_price}
+                    </p>
                   </div>
                 </div>
               </div>
 
-              {/* Plans Selection */}
-              {/* <div className="bg-white rounded-2xl p-6 shadow hover:shadow-xl transition-shadow">
-                <h3 className="text-md font-medium text-gray-900 mb-4">
-                  Choose Your Plan
-                </h3>
-                <div className="space-y-3">
-                  {plans.map((plan, idx) => (
-                    <div
-                      key={idx}
-                      onClick={() => setSelectedPlan(idx)}
-                      className={`relative p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                        selectedPlan === idx
-                          ? "border-blue-500 bg-blue-50 shadow-md"
-                          : "border-gray-200 hover:border-blue-300 hover:shadow"
-                      }`}
-                    >
-                      {plan.popular && (
-                        <div className="absolute -top-3 left-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[10px] font-normal px-3 py-1 rounded-full">
-                          MOST POPULAR
-                        </div>
-                      )}
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-normal text-sm text-gray-900">
-                            {plan.name}
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            {plan.desc}
-                          </div>
-                          <div className="text-xs text-gray-400 mt-1 flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {plan.duration}
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-2xl font-medium text-blue-600">
-                            {plan.price}
-                          </div>
-                          <div className="text-xs text-gray-500">AED</div>
-                        </div>
-                      </div>
-                      {selectedPlan === idx && (
-                        <div className="absolute top-4 right-4 bg-blue-500 rounded-full p-1">
-                          <CheckCircle className="w-6 h-6 text-white" />
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div> */}
-
               {/* Action Buttons */}
               <div className="bg-white rounded-2xl p-6 shadow transform hover:shadow-xl transition-shadow space-y-3">
                 <button
-                  onClick={() => navigate(`/checkout/${cateid}/${subid}`)}
+                  onClick={() => navigate(`/checkout/${selectedSub?.id}`)}
                   className="w-full bg-gradient-to-r from-blue-400 cursor-pointer to-blue-700 hover:from-blue-700 text-sm hover:to-blue-800 text-white font-normal py-2 rounded-xl transition-all transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-2"
                 >
-                  Book Service Now
+                  Book Now
                   <ChevronRight className="w-4 h-4" />
                 </button>
 
@@ -348,7 +235,7 @@ export default function ServiceProviderList() {
               </div>
 
               {/* Stats */}
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6">
+              {/* <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
                     <div className="text-sm font-normal text-gray-900">
@@ -369,7 +256,7 @@ export default function ServiceProviderList() {
                     <div className="text-xs text-gray-600 mt-1">Bookings</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -54,14 +54,14 @@ function App() {
         <Route path="/termandcondition" element={<Termandcondition />} />
         <Route path="/privecepolicy" element={<AllPolicy />} />
         <Route
-          path="/serviceproviderlist/:cateid/:subid"
+          path="/serviceproviderlist/:serviceid"
           element={<ServiceProviderList />}
         />
         <Route
           path="/serviceproviderlistall/:id"
           element={<ServiceProviderListAll />}
         />
-        <Route path="/checkout/:cateid/:subid" element={<CheckoutLayout />} />
+        <Route path="/checkout/:serviceid" element={<CheckoutLayout />} />
         <Route path="/success" element={<Successpage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/dashboard" element={<Dashboard />} />

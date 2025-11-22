@@ -9,6 +9,7 @@ import {
   Clock,
   CheckCircle,
   ArrowRight,
+  ChevronLeft,
 } from "lucide-react";
 
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -23,6 +24,26 @@ import { RotatingLines } from "react-loader-spinner";
 
 export default function ServiceProviderListAll() {
   const { id } = useParams();
+  const [activeButton, setActiveButton] = useState("next");
+  useEffect(() => {
+    const prevBtn = document.querySelector(".custom-prev");
+    const nextBtn = document.querySelector(".custom-next");
+
+    const prevHandler = () => setActiveButton("prev");
+    const nextHandler = () => setActiveButton("next");
+
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener("click", prevHandler);
+      nextBtn.addEventListener("click", nextHandler);
+    }
+
+    return () => {
+      if (prevBtn && nextBtn) {
+        prevBtn.removeEventListener("click", prevHandler);
+        nextBtn.removeEventListener("click", nextHandler);
+      }
+    };
+  }, []);
 
   const [category, setCategory] = useState(null);
   const [subcategories, setSubCategories] = useState([]);
@@ -129,22 +150,18 @@ export default function ServiceProviderListAll() {
 
         <div className="relative w-full mt-4 mb-10">
           <Swiper
-            slidesPerView={3}
-            spaceBetween={24}
-            autoplay={{
-              delay: 1800,
-              disableOnInteraction: false,
+            spaceBetween={20}
+            navigation={{
+              nextEl: ".custom-next",
+              prevEl: ".custom-prev",
             }}
-            speed={800}
-            loop={true}
+            modules={[Navigation]}
             breakpoints={{
-              0: { slidesPerView: 2 },
-              480: { slidesPerView: 3 },
-              768: { slidesPerView: 4 },
-              1024: { slidesPerView: 5 },
+              320: { slidesPerView: 1 },
+              640: { slidesPerView: 2 },
+              1024: { slidesPerView: 4 },
+              1280: { slidesPerView: 4 },
             }}
-            modules={[Autoplay, Pagination, Navigation]}
-            className="pb-8"
           >
             {subcategories?.map((sub) => (
               <SwiperSlide key={sub.id}>
@@ -186,9 +203,26 @@ export default function ServiceProviderListAll() {
               </SwiperSlide>
             ))}
           </Swiper>
+
+          <div className="absolute -bottom-6 right-5 flex gap-2">
+            <button
+              className={`custom-prev cursor-pointer text-[#212529] w-9 h-9 flex items-center justify-center rounded-full transition-colors duration-300 ${
+                activeButton === "prev" ? "bg-[#212529]" : "bg-[#313234]"
+              }`}
+            >
+              <ChevronLeft />
+            </button>
+            <button
+              className={`custom-next cursor-pointer text-[#212529] w-9 h-9 flex items-center justify-center rounded-full transition-colors duration-300 ${
+                activeButton === "next" ? "bg-[#212529]" : "bg-[#313234]"
+              }`}
+            >
+              <ChevronRight />
+            </button>
+          </div>
         </div>
 
-        {selectedSub && (
+        {/* {selectedSub && (
           <div className="bg-white rounded-3xl shadow mt-4 overflow-hidden">
             <div className="grid md:grid-cols-2 gap-0">
               <div className="relative h-64 md:h-auto">
@@ -258,8 +292,8 @@ export default function ServiceProviderListAll() {
               </div>
             </div>
           </div>
-        )}
-        <SubCategoryDetails id={selectedSub?.id} />
+        )} */}
+        <SubCategoryDetails id={selectedSub?.id} name={selectedSub?.name} />
       </section>
 
       <Footer />
@@ -301,7 +335,7 @@ export default function ServiceProviderListAll() {
   );
 }
 
-const SubCategoryDetails = ({ id }) => {
+const SubCategoryDetails = ({ id, name }) => {
   const [services, setServices] = useState([]);
   const [selectedSub, setSelectedSub] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -341,7 +375,9 @@ const SubCategoryDetails = ({ id }) => {
   return (
     <div>
       {/* List of all sub-services */}
-      <h3 className="text-xl font-medium mt-10 mb-4">All Services</h3>
+      <h3 className="text-xl font-medium mt-20 mb-4 ">All Services</h3>
+      <h2 className="text-sm font-medium text-gray-900 mb-4">{name}</h2>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {services.map((item) => (
           <div
@@ -355,32 +391,37 @@ const SubCategoryDetails = ({ id }) => {
                 price: item.base_price,
               })
             }
-            className="cursor-pointer bg-white rounded-2xl shadow hover:shadow-lg p-4"
+            className="cursor-pointer bg-white rounded-2xl shadow hover:shadow-lg p-4 flex flex-col h-full"
           >
             <img
               src={item.image}
               className="w-full h-40 object-cover rounded-xl"
               alt=""
             />
+
             <h4 className="mt-3 text-base font-medium text-gray-800">
               {item.name}
             </h4>
-            <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+
+            <p className="text-gray-600 text-xs mt-1 line-clamp-2">
               {item.description}
             </p>
-            <p className="text-blue-600 font-semibold mt-2">
+
+            <p className="text-blue-600 font-medium text-sm mt-2">
               ₹{item.base_price}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to={`/checkout/${item.id}`}>
-                <button className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm font-normal py-2 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center group">
-                  Book Service Now
+            {/* ---- KEEP BUTTONS AT BOTTOM ---- */}
+            <div className="mt-auto pt-4 flex flex-col sm:flex-row gap-4">
+              <Link to={`/checkout/${item.id}`} className="flex-1">
+                <button className="w-full bg-gradient-to-r from-blue-600 cursor-pointer to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xs font-normal py-2 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center group">
+                  Book Now
                   <ArrowRight className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
                 </button>
               </Link>
-              <Link to={`/serviceproviderlist/${item.id}`}>
-                <button className="flex-1 bg-white border-2 border-gray-300 hover:border-blue-600 text-gray-800 hover:text-blue-600 text-sm font-normal py-2 px-8 rounded-xl transition-all duration-300 flex items-center justify-center">
+
+              <Link to={`/serviceproviderlist/${item.id}`} className="flex-1">
+                <button className="w-full bg-white border-2 border-gray-300 cursor-pointer hover:border-blue-600 text-gray-800 hover:text-blue-600 text-xs font-normal py-2 px-4 rounded-xl transition-all duration-300 flex items-center justify-center">
                   View Details
                   <ChevronRight className="ml-2 w-3 h-3" />
                 </button>

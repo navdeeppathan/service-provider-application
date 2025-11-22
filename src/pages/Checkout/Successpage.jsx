@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CheckCircle,
   Calendar,
@@ -7,19 +7,40 @@ import {
   FileText,
 } from "lucide-react";
 import Header from "../../utils/Header";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import http from "../../service/http";
 
 const Successpage = () => {
-  const orderDetails = {
-    orderNumber: "ORD-" + Math.random().toString(36).substr(2, 9).toUpperCase(),
-    date: new Date().toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }),
-    service: "Home Cleaning Service",
-    amount: "$150.00",
+  const [searchParams] = useSearchParams();
+  const status = searchParams.get("status");
+  const [selectedSub, setSelectedSub] = React.useState(null);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const res = await http.get(`/booking/details/${status}`);
+
+      console.log("response:-", res.data.data);
+
+      setSelectedSub(res.data.data || null);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  // const orderDetails = {
+  //   orderNumber: "ORD-" + Math.random().toString(36).substr(2, 9).toUpperCase(),
+  //   date: new Date().toLocaleDateString("en-US", {
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //   }),
+  //   service: "Home Cleaning Service",
+  //   amount: "$150.00",
+  // };
 
   return (
     <>
@@ -47,28 +68,34 @@ const Successpage = () => {
             <DetailItem
               icon={<FileText className="w-5 h-5 text-blue-600" />}
               label="Order ID"
-              value={orderDetails.orderNumber}
+              value={
+                "ORD-" + Math.random().toString(36).substr(2, 9).toUpperCase()
+              }
               bg="bg-blue-50"
             />
 
             <DetailItem
               icon={<Calendar className="w-5 h-5 text-purple-600" />}
               label="Date"
-              value={orderDetails.date}
+              value={new Date(selectedSub?.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
               bg="bg-purple-50"
             />
 
             <DetailItem
               icon={<Package className="w-5 h-5 text-orange-600" />}
               label="Service"
-              value={orderDetails.service}
+              value={selectedSub?.service?.name}
               bg="bg-orange-50"
             />
 
             <DetailItem
               icon={<CreditCard className="w-5 h-5 text-emerald-600" />}
               label="Total Paid"
-              value={orderDetails.amount}
+              value={`₹${selectedSub?.amount}`}
               bg="bg-emerald-50"
             />
           </div>
