@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../utils/Header";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../utils/Footer";
+import http from "../service/http";
 
 const portfolioItems = [
   // Home Cleaning
@@ -19,7 +20,6 @@ const portfolioItems = [
     decs: "Professional home cleaning service.",
     img: "/home_cleing.jpg",
   },
-  
 
   // Deep Cleaning
   {
@@ -29,7 +29,7 @@ const portfolioItems = [
     decs: "Intensive deep cleaning service.",
     img: "/deep cleaning.jpg",
   },
-  
+
   // Bathroom Cleaning
   {
     id: 7,
@@ -38,7 +38,6 @@ const portfolioItems = [
     decs: "Tiles & fittings cleaning.",
     img: "/bathroom cleaning.webp",
   },
-  
 
   // AC Repair
   {
@@ -48,7 +47,6 @@ const portfolioItems = [
     decs: "AC servicing with gas check.",
     img: "/ac repair service.webp",
   },
- 
 
   // Electrician
   {
@@ -58,7 +56,6 @@ const portfolioItems = [
     decs: "Switchboard installation.",
     img: "/electrician services.jpg",
   },
-  
 
   // Add similarly for all other categories...
 ];
@@ -66,6 +63,7 @@ const portfolioItems = [
 const Home = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("home-cleaning");
+  const [categories, setCategories] = useState([]);
 
   const filteredItems =
     activeFilter === "all"
@@ -269,6 +267,22 @@ const Home = () => {
     "https://images.unsplash.com/photo-1586105251261-72a756497a11?q=80&w=1200&auto=format&fit=crop",
     // "https://images.unsplash.com/photo-1598023695159-8f7c6d46cddd?q=80&w=1200&auto=format&fit=crop",
   ];
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      // setLoading(true);
+      const res = await http.get("/categories");
+      setCategories(res.data.data || []);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      // setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -491,9 +505,9 @@ const Home = () => {
                 modules={[Pagination, Navigation]}
                 className="mySwiper"
               >
-                {allServices.map((service, index) => (
+                {categories.map((service, index) => (
                   <SwiperSlide key={index}>
-                    <Link to={`/serviceproviderlist/${service.id}`}>
+                    <Link to={`/serviceproviderlistall/${service.id}`}>
                       <article
                         className="relative h-[280px] min-h-[280px] flex flex-col justify-between text-center p-8 shadow-md border border-gray-200 rounded-2xl bg-white hover:shadow-2xl hover:scale-102 transition-all duration-300
   transition"
@@ -504,7 +518,7 @@ const Home = () => {
                           </span>
 
                           <h3 className="text-xl font-semibold mb-3">
-                            {service.title}
+                            {service.name}
                           </h3>
 
                           <p className="text-gray-600 text-sm leading-relaxed">
@@ -513,7 +527,7 @@ const Home = () => {
                         </div>
 
                         <Link
-                          to={`/serviceproviderlist/${service.id}`}
+                          to={`/serviceproviderlistall/${service.id}`}
                           className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
                         >
                           <i className="bi bi-arrow-up-right"></i>

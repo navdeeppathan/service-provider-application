@@ -3,189 +3,118 @@ import Header from "../utils/Header";
 import Footer from "../utils/Footer";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { ChevronRight, Star, Clock, CheckCircle, ArrowRight } from "lucide-react";
+
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { ArrowRight, CheckCircle, Clock, Star } from "lucide-react";
+
+import { Link, useParams } from "react-router-dom";
+import http from "../service/http";
 
 export default function ServiceProviderListAll() {
+  const { id } = useParams();
 
-  const allServices = [
-    {
-      id: 1,
-      key: "home_cleaning",
-      title: "Home Cleaning",
-      decs: "Complete home cleaning with trained, background-verified staff.",
-      icon: "bi bi-house-check",
-      img: "https://images.unsplash.com/photo-1581579182254-0f3f5a1f8d3d?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 2,
-      key: "deep_cleaning",
-      title: "Deep Cleaning",
-      decs: "Deep, detailed cleaning for toughest stains & dirt.",
-      icon: "bi bi-droplet-half",
-      img: "https://images.unsplash.com/photo-1581579182249-f8f94c3f1a59?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 8,
-      key: "ac_service",
-      title: "AC Repair & Service",
-      decs: "AC service, repair, installation & gas filling.",
-      icon: "bi bi-wind",
-      img: "https://images.unsplash.com/photo-1582719478212-1a6f5b6a8b4b?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 9,
-      key: "washing_machine",
-      title: "Washing Machine Repair",
-      decs: "Front-load, top-load & automatic washer repair.",
-      icon: "bi bi-arrow-repeat",
-      img: "https://images.unsplash.com/photo-1581579182250-3b25f1b2a6d6?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 10,
-      key: "fridge_repair",
-      title: "Refrigerator Repair",
-      decs: "Cooling, gas refill, compressor fixing & more.",
-      icon: "bi bi-snow",
-      img: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 11,
-      key: "ro_service",
-      title: "RO / Water Purifier Service",
-      decs: "Filter change, servicing & purifier repair.",
-      icon: "bi bi-droplet",
-      img: "https://images.unsplash.com/photo-1600585154206-2f5c5d82c2ff?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 12,
-      key: "electrician",
-      title: "Electrician Services",
-      decs: "Wiring, switches, lights, MCB, fan & more.",
-      icon: "bi bi-lightning",
-      img: "https://images.unsplash.com/photo-1581093588401-9b2a6f7b6ef5?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 13,
-      key: "plumbing",
-      title: "Plumbing Services",
-      decs: "Tap leak repair, fitting, installation, blockage fix.",
-      icon: "bi bi-tools",
-      img: "https://images.unsplash.com/photo-1581579182279-6d0b6f4ee4be?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 14,
-      key: "carpenter",
-      title: "Carpenter Services",
-      decs: "Furniture fixing, repair, modular woodwork.",
-      icon: "bi bi-hammer",
-      img: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 15,
-      key: "painting",
-      title: "Painting Services",
-      decs: "Home/office painting, wall texture, waterproofing.",
-      icon: "bi bi-palette",
-      img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 16,
-      key: "cctv",
-      title: "CCTV Installation",
-      decs: "Camera installation, configuration & maintenance.",
-      icon: "bi bi-camera-video",
-      img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 18,
-      key: "geyser_repair",
-      title: "Geyser Repair",
-      decs: "Water heater installation & repair.",
-      icon: "bi bi-thermometer-half",
-      img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 19,
-      key: "solar_service",
-      title: "Solar Panel Service",
-      decs: "Solar maintenance, cleaning & inverter check.",
-      icon: "bi bi-sun",
-      img: "https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 21,
-      key: "interior_design",
-      title: "Interior Design",
-      decs: "Modern interior designing for home & office.",
-      icon: "bi bi-layers",
-      img: "https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 22,
-      key: "garden_maintenance",
-      title: "Garden & Lawn Care",
-      decs: "Plant care, trimming, landscaping & maintenance.",
-      icon: "bi bi-tree",
-      img: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop",
-    },
-  ];
-
-  const providersData = [
-    {
-      serviceId: 1,
-      list: [
-        { name: "Sharma Home Cleaning", rating: 4.8, experience: "5 Years" },
-        { name: "Sparkle Cleaners", rating: 4.6, experience: "3 Years" },
-        { name: "FreshNest Cleaning", rating: 4.7, experience: "4 Years" },
-      ],
-    },
-    {
-      serviceId: 2,
-      list: [
-        { name: "Deep Clean Experts", rating: 4.9, experience: "7 Years" },
-        { name: "UltraWash Deep Care", rating: 4.7, experience: "5 Years" },
-        { name: "Pro DeepClean Team", rating: 4.8, experience: "6 Years" },
-      ],
-    },
-    {
-      serviceId: 8,
-      list: [
-        { name: "CoolFix AC Service", rating: 4.8, experience: "6 Years" },
-        { name: "FreshAir AC Repair", rating: 4.5, experience: "4 Years" },
-        { name: "BlueStar Cooling Experts", rating: 4.7, experience: "5 Years" },
-      ],
-    },
-  ];
-
-  const [selectedServiceId, setSelectedServiceId] = useState(allServices[0].id);
-  const [providerList, setProviderList] = useState([]);
+  const [category, setCategory] = useState(null);
+  const [subcategories, setSubCategories] = useState([]);
+  const [selectedSub, setSelectedSub] = useState(null);
 
   useEffect(() => {
-    const matchedProviders =
-      providersData.find((p) => p.serviceId === selectedServiceId)?.list || [];
-    setProviderList(matchedProviders);
-  }, [selectedServiceId]);
+    fetchCategories();
+  }, []);
 
-  const selectedService = allServices.find(s => s.id === selectedServiceId);
+  const fetchCategories = async () => {
+    try {
+      const res = await http.get("/categories");
+
+      const matchedCategory = res.data.data.find(
+        (item) => item.id === Number(id)
+      );
+
+      setCategory(matchedCategory);
+      setSubCategories(matchedCategory?.subcategories || []);
+
+      if (matchedCategory?.subcategories.length > 0) {
+        setSelectedSub(matchedCategory.subcategories[0]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  if (!category) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-600">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <>
       <Header />
 
-      <section className="container mx-auto px-6 py-10 mt-10">
+      <section className="container mx-auto px-5 md:px-10 py-10 mt-10">
 
-        {/* CATEGORY SLIDER */}
-        <div className="relative w-full mt-10 mb-12 px-4">
+        
 
+         <div className="relative w-full h-[450px] overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${category?.img})`,
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-blue-800/75 to-transparent"></div>
+        </div>
+        
+        {/* Content */}
+        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+          <div className="max-w-2xl text-white">
+            <div className="inline-flex items-center bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <Star className="w-4 h-4 mr-2 text-yellow-300 fill-yellow-300" />
+              <span className="text-sm font-medium">Trusted by 10,000+ customers</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">
+              {category?.name}
+            </h1>
+            
+            <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+              {category?.decs}
+            </p>
+            
+            <div className="flex flex-wrap gap-4">
+              <div className="flex items-center bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <CheckCircle className="w-5 h-5 mr-2 text-green-300" />
+                <span className="font-medium">Verified Professionals</span>
+              </div>
+              <div className="flex items-center bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <Clock className="w-5 h-5 mr-2 text-blue-300" />
+                <span className="font-medium">Same Day Service</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Decorative Wave */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+            <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+          </svg>
+        </div>
+      </div>
+
+        {/* SUBCATEGORY SWIPER */}
+        <h3 className="text-2xl font-bold mt-10 mb-4">Available Services</h3>
+
+        <div className="relative w-full my-8">
           <button className="swiper-button-prev custom-prev"></button>
           <button className="swiper-button-next custom-next"></button>
 
           <Swiper
-            slidesPerView={2}
+            slidesPerView={3}
             spaceBetween={20}
             navigation={{
               nextEl: ".custom-next",
@@ -194,157 +123,136 @@ export default function ServiceProviderListAll() {
             breakpoints={{
               0: { slidesPerView: 2 },
               480: { slidesPerView: 3 },
-              640: { slidesPerView: 4 },
-              768: { slidesPerView: 5 },
-              1024: { slidesPerView: 6 },
+              768: { slidesPerView: 4 },
+              1024: { slidesPerView: 5 },
             }}
-            modules={[Navigation, Pagination]}
+            modules={[Navigation]}
           >
-            {allServices.map((service) => (
-              <SwiperSlide key={service.id} className="flex justify-center">
+            {subcategories?.map((sub) => (
+              <SwiperSlide key={sub.id}>
                 <div
-                  onClick={() => setSelectedServiceId(service.id)}
-                  className={`
-                    cursor-pointer h-[150px] w-full 
-                    flex flex-col items-center text-center 
-                    rounded-2xl transition-all duration-300 
-                    ${
-                      selectedServiceId === service.id
-                        ? "bg-[#5678D0] text-white shadow-lg"
-                        : "bg-[#F1F7FC] text-black shadow hover:shadow-2xl"
-                    }
-                  `}
-                >
-                  <span
-                    className={`
-                      w-14 h-14 rounded-full flex items-center justify-center mt-4 
-                      text-2xl mb-3 transition-all 
-                      ${
-                        selectedServiceId === service.id
-                          ? "bg-white text-[#5678D0]"
-                          : "bg-[#5678D0] text-white"
-                      }
-                    `}
-                  >
-                    <i className={service.icon}></i>
-                  </span>
-
-                  <span className="text-sm ">
-                    {service.title}
-                  </span>
+                key={sub.id}
+                onClick={() => setSelectedSub(sub)}
+                className={`
+                  group cursor-pointer rounded-2xl overflow-hidden transition-all duration-300 transform hover:scale-105
+                  ${selectedSub?.id === sub.id 
+                    ? "ring-4 ring-blue-500 shadow-2xl scale-105" 
+                    : "shadow-lg hover:shadow-2xl"
+                  }
+                `}
+              >
+                {/* <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={sub.img} 
+                    alt={sub.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className={`absolute inset-0 transition-opacity duration-300 ${
+                    selectedSub?.id === sub.id 
+                      ? "bg-blue-600/40" 
+                      : "bg-black/20 group-hover:bg-black/30"
+                  }`}></div>
+                  
+                  {selectedSub?.id === sub.id && (
+                    <div className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg">
+                      <CheckCircle className="w-6 h-6 text-blue-600" />
+                    </div>
+                  )}
+                </div> */}
+                
+                <div className={`p-5 transition-colors duration-300 ${
+                  selectedSub?.id === sub.id 
+                    ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white" 
+                    : "bg-white text-gray-900"
+                }`}>
+                  <h3 className="text-xl font-bold mb-2">{sub.name}</h3>
+                  <p className={`text-2xl font-bold ${
+                    selectedSub?.id === sub.id ? "text-white" : "text-blue-600"
+                  }`}>
+                    ₹{sub.price}
+                  </p>
                 </div>
+              </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
 
-        {/* SELECTED SERVICE */}
-        {selectedService && (
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-[#5678D0]">
-            <div className="flex items-center gap-4">
-              <div className="bg-white w-16 h-16 text-[#5678D0] rounded-xl flex items-center justify-center text-3xl">
-                <i className={selectedService.icon}></i>
-              </div>
+      
 
-              <div>
-                <h3 className="text-2xl  text-gray-800">
-                  {selectedService.title}
-                </h3>
-                <p className="text-gray-600">{selectedService.decs}</p>
+
+         {selectedSub && (
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <div className="grid md:grid-cols-2 gap-0">
+              {/* Image Section */}
+              <div className="relative h-64 md:h-auto">
+                <img 
+                  src={selectedSub.img} 
+                  alt={selectedSub.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              </div>
+              
+              {/* Content Section */}
+              <div className="p-8 md:p-12 flex flex-col justify-center">
+                <div className="inline-block bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-4 w-fit">
+                  Selected Service
+                </div>
+                
+                <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                  {selectedSub.name}
+                </h2>
+                
+                <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                  {selectedSub.desc}
+                </p>
+                
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-8">
+                  <div className="flex items-baseline">
+                    <span className="text-5xl font-bold text-blue-600">
+                      ₹{selectedSub.price}
+                    </span>
+                    <span className="text-gray-600 ml-2">/ service</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+<Link to='/checkout'>
+
+                  <button className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center group">
+                    Book Service Now
+                    <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  </button>
+                  </Link>
+                  <Link to={`/serviceproviderlist/${id}/${selectedSub.id}`}>
+                  <button className="flex-1 bg-white border-2 border-gray-300 hover:border-blue-600 text-gray-800 hover:text-blue-600 font-semibold py-4 px-8 rounded-xl transition-all duration-300 flex items-center justify-center">
+                    View Details
+                    <ChevronRight className="ml-2 w-5 h-5" />
+                  </button>
+                  </Link>
+                </div>
+
+                <div className="mt-8 pt-8 border-t border-gray-200">
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-gray-900">2-3h</div>
+                      <div className="text-sm text-gray-600">Duration</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-gray-900">4.8★</div>
+                      <div className="text-sm text-gray-600">Rating</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-gray-900">1000+</div>
+                      <div className="text-sm text-gray-600">Bookings</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         )}
-
-        {/* PROVIDER LIST */}
-        <div>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl text-gray-800">
-              Available Professionals
-            </h2>
-            <span className="text-sm text-gray-500 bg-gray-100 px-4 py-2 rounded-full">
-              {providerList.length} Providers
-            </span>
-          </div>
-
-          {providerList.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-              {providerList.map((provider, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-md border border-gray-200 flex flex-col md:flex-row w-full transition-all"
-                >
-                  {/* LEFT (IMAGE) */}
-                  <div className="relative p-2 w-full md:w-40">
-                    <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-md">
-                      15% OFF
-                    </span>
-
-                    <img
-                      src="/Home Renovation.jpg"
-                      alt={provider.name}
-                      className="w-full h-40 object-cover rounded-lg border"
-                    />
-                  </div>
-
-                  {/* RIGHT (DETAILS) */}
-                  <div className="flex-1 p-4">
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      {provider.name}
-                    </h3>
-
-                    <p className="text-sm text-gray-500">
-                      {provider.service || "Professional Service"}
-                    </p>
-
-                    <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
-                      <span>⭐ {provider.rating}</span>
-                      <span>•</span>
-                      <span>{provider.experience}</span>
-                    </div>
-
-                    {/* TEAM ICONS */}
-                    <div className="flex items-center mt-2 space-x-[-10px]">
-                      {[1, 2, 3].map((_, i) => (
-                        <img
-                          key={i}
-                          className="w-7 h-7 rounded-full border-2 border-white"
-                          src="/Carpet Cleaning.jpg"
-                        />
-                      ))}
-                      <span className="text-xs text-gray-400 ml-3">
-                        Team Experts
-                      </span>
-                    </div>
-
-                    {/* PRICE + ACTIONS */}
-                    <div className="mt-4 flex items-center justify-between">
-                      <div className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                        {provider.price || "170 AED / h"}
-                      </div>
-
-                      <div className="flex gap-3 text-gray-500 text-xl">
-                        <button className="hover:text-blue-600 transition">
-                          <i className="bi bi-share"></i>
-                        </button>
-                        <button className="hover:text-red-500 transition">
-                          <i className="bi bi-heart"></i>
-                        </button>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-            </div>
-          ) : (
-            <div className="text-center py-20 bg-white rounded-xl shadow">
-              <p className="text-lg text-gray-500">No providers available</p>
-            </div>
-          )}
-        </div>
       </section>
 
       <Footer />
@@ -353,20 +261,37 @@ export default function ServiceProviderListAll() {
         .custom-prev,
         .custom-next {
           position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          z-index: 50;
+          top: 40%;
+          z-index: 10;
+          background: white;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        .custom-prev { left: -40px; }
-        .custom-next { right: -40px; }
+
+        .custom-prev { left: -20px; }
+        .custom-next { right: -20px; }
+
+        .custom-prev:hover,
+        .custom-next:hover {
+          background: #3b82f6;
+        }
 
         .swiper-button-prev::after,
         .swiper-button-next::after {
           font-size: 18px;
-          color: #5678D0;
-          font-weight: bold;
+          color: #3b82f6;
+          font-weight: 700;
+        }
+
+        .custom-prev:hover::after,
+        .custom-next:hover::after {
+          color: white;
         }
       `}</style>
     </>
   );
 }
+
+

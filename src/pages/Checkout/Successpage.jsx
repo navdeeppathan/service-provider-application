@@ -19,7 +19,7 @@ const Successpage = () => {
     <>
       <Header />
 
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-blue-50 px-4 py-10">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-blue-50 px-4 py-25">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
 
           {/* ICON */}

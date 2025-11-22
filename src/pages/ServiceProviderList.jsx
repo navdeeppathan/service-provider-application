@@ -1,356 +1,411 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { 
+  ArrowLeft, Share2, Heart, Star, Clock, CheckCircle, 
+  MessageCircle, Users, Shield, Award, ChevronRight,
+  MapPin, TrendingUp
+} from "lucide-react";
+import { useParams } from "react-router-dom";
+import http from "../service/http";
 import Header from "../utils/Header";
 import Footer from "../utils/Footer";
-import { useNavigate, useParams } from "react-router-dom";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Thumbs } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
-import Swal from "sweetalert2";
-
-/**
- * ServiceProviderList (Final)
- * - Desktop: Two-column layout (left gallery ~60%, right details ~40%)
- * - Gallery height: Medium (~50vh) for desktop & tablet (G2)
- * - Mobile: stacked layout (keeps your original mobile UI look)
- * - First gallery image uses local uploaded path (provided in conversation)
- */
 
 export default function ServiceProviderList() {
-  const { id } = useParams();
-  const serviceId = parseInt(id || "1", 10);
-
-  const allServices = [
-    { id: 1, key: "home_cleaning", title: "Home Cleaning", decs: "Complete home cleaning with trained, background-verified staff.", icon: "bi bi-house-check", img: "https://images.unsplash.com/photo-1581579182254-0f3f5a1f8d3d?q=80&w=1200&auto=format&fit=crop" },
-    { id: 2, key: "deep_cleaning", title: "Deep Cleaning", decs: "Deep, detailed cleaning for toughest stains & dirt.", icon: "bi bi-droplet-half", img: "https://images.unsplash.com/photo-1581579182249-f8f94c3f1a59?q=80&w=1200&auto=format&fit=crop" },
-    { id: 8, key: "ac_service", title: "AC Repair & Service", decs: "AC service, repair, installation & gas filling.", icon: "bi bi-wind", img: "https://images.unsplash.com/photo-1582719478212-1a6f5b6a8b4b?q=80&w=1200&auto=format&fit=crop" },
-    { id: 9, key: "washing_machine", title: "Washing Machine Repair", decs: "Front-load, top-load & automatic washer repair.", icon: "bi bi-arrow-repeat", img: "https://images.unsplash.com/photo-1581579182250-3b25f1b2a6d6?q=80&w=1200&auto=format&fit=crop" },
-    { id: 10, key: "fridge_repair", title: "Refrigerator Repair", decs: "Cooling, gas refill, compressor fixing & more.", icon: "bi bi-snow", img: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?q=80&w=1200&auto=format&fit=crop" },
-    // ... other services
-  ];
-
-  const providersData = [
-    { serviceId: 1, list: [{ name: "Sharma Home Cleaning", rating: 4.8, experience: "5 Years" }, { name: "Sparkle Cleaners", rating: 4.6, experience: "3 Years" }] },
-    { serviceId: 2, list: [{ name: "Deep Clean Experts", rating: 4.9, experience: "7 Years" }] },
-    { serviceId: 8, list: [{ name: "CoolFix AC Service", rating: 4.8, experience: "6 Years" }] },
-  ];
-
-  const selectedService = allServices.find((s) => s.id === serviceId) || allServices[0];
-  const providerList = providersData.find((p) => p.serviceId === serviceId)?.list || [];
-
-  // Gallery images: first is your uploaded file path; rest are placeholders (Unsplash)
-  const gallery = [
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
-  ];
-
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [activeTab, setActiveTab] = useState("About");
-  const [readMore, setReadMore] = useState(false);
-  const navigate = useNavigate();
-
-  const plans = [
-    { name: "Classic", price: "150 AED", desc: "Basic service" },
-    { name: "Premium", price: "180 AED", desc: "Popular - adds more checks" },
-    { name: "Platinum", price: "230 AED", desc: "Full service with priority" },
-  ];
-
+  // Mock data
+  const { cateid, subid } = useParams();
   
 
-  const handleBook = async () => {
-  try {
-    const token = localStorage.getItem("token"); // 🔑 get token from localStorage
-
-    if (!token) {
-       Swal.fire({
-            icon: "warning",
-            title: "Login Required",
-            text: "Please log in first to continue.",
-            confirmButtonColor: "#0A3D8F", // Optional: custom button color
-          });
-      return;
-    }
-
+  const [category, setCategory] = useState([]);
+  const [subcategories, setSubCategories] = useState([]);
+   const [selectedSub, setSelectedSub] = useState(null);
  
-    navigate('/checkout')
-  } catch (error) {
+   useEffect(() => {
+     fetchCategories();
+   }, []);
+ 
+  const fetchCategories = async () => {
+  try {
+    const res = await http.get("/categories");
+
+    // 1️⃣ Find correct category
+    const matchedCategory = res.data.data.find(
+      (item) => item.id === Number(cateid)
+    );
+
+    setCategory(matchedCategory);
+
+    // 2️⃣ Set all subcategories
+    setSubCategories(matchedCategory?.subcategories || []);
+
+    // 3️⃣ Find correct subcategory by subid from URL
+    const matchedSub = matchedCategory?.subcategories?.find(
+      (s) => s.id === Number(subid)
+    );
+
+    setSelectedSub(matchedSub || null);
+
+  } catch (err) {
+    console.log(err);
   }
 };
+
+
+  const gallery = [
+    "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=800&fit=crop",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+    "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=800&fit=crop",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+    "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=800&fit=crop",
+  ];
+
+  const [currentImage, setCurrentImage] = useState(0);
+  const [activeTab, setActiveTab] = useState("About");
+  const [readMore, setReadMore] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(1);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const plans = [
+    { name: "Classic", price: "150", desc: "Basic service package", duration: "1-2 hours", popular: false },
+    { name: "Premium", price: "180", desc: "Most popular choice", duration: "2-3 hours", popular: true },
+    { name: "Platinum", price: "230", desc: "Complete service", duration: "3-4 hours", popular: false },
+  ];
+
+  const features = [
+    { icon: Shield, text: "100% Verified Professionals" },
+    { icon: Award, text: "Quality Guaranteed" },
+    { icon: Clock, text: "On-Time Service" },
+    { icon: CheckCircle, text: "Background Checked" },
+  ];
+
+  const moreServices = [
+    { img: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&h=300&fit=crop", title: "Carpentry Services", subtitle: "Professional carpentry work", rating: "4.8" },
+    { img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop", title: "Painting Services", subtitle: "Interior & exterior painting", rating: "4.9" },
+    { img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop", title: "Garden & Lawn Care", subtitle: "Complete landscaping solutions", rating: "4.7" },
+    { img: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&h=300&fit=crop", title: "Electrician Services", subtitle: "Wiring & electrical repairs", rating: "4.9" },
+  ];
+
   return (
-    <>
-      <Header />
-
-      {/* Container: full width layout */}
-      <main className="bg-gray-50 min-h-screen mt-20">
-        <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-6">
-
-          {/* DESKTOP TWO-COLUMN: uses grid with responsive columns.
-              On small screens it stacks (mobile view preserved). */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-            {/* LEFT: gallery (desktop: span 7/12 ~58%, right: 5/12 ~42%) */}
-            <div className="lg:col-span-7 col-span-1">
-              <div className="rounded-xl overflow-hidden bg-white shadow relative">
-                {/* Main Swiper gallery */}
-                <Swiper
-                  navigation
-                  thumbs={{ swiper: thumbsSwiper }}
-                  modules={[Navigation, Thumbs]}
-                  className="w-full"
-                  style={{ height: "50vh" }} // G2: medium height ~50vh
-                >
-                  {gallery.map((src, idx) => (
-                    <SwiperSlide key={idx}>
-                      <div className="w-full h-full">
-                        <img src={src} alt={`img-${idx}`} className="w-full h-full object-cover" />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-
-                {/* overlay controls */}
-                <div className="absolute top-4 left-4 flex gap-2">
-                  <button className="bg-white/90 p-2 rounded-full shadow"><i className="bi bi-arrow-left"></i></button>
-                </div>
-
-                <div className="absolute top-4 right-4 flex gap-3">
-                  <button className="bg-white/90 p-2 rounded-full shadow"><i className="bi bi-share"></i></button>
-                  <button className="bg-white/90 p-2 rounded-full shadow"><i className="bi bi-heart"></i></button>
-                </div>
-
-                {/* thumbnails (centered below the image) */}
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-[620px] px-4">
-                  <Swiper
-                    onSwiper={setThumbsSwiper}
-                    slidesPerView={4}
-                    spaceBetween={10}
-                    watchSlidesProgress
-                    className="!bg-transparent"
-                    breakpoints={{
-                      320: { slidesPerView: 3 },
-                      640: { slidesPerView: 4 },
-                      1024: { slidesPerView: 5 },
-                    }}
-                  >
-                    {gallery.map((src, i) => (
-                      <SwiperSlide key={`t-${i}`} className="!w-auto">
-                        <div className="w-20 h-14 rounded-lg overflow-hidden border-2 border-white shadow-sm">
-                          <img src={src} alt={`thumb-${i}`} className="w-full h-full object-cover" />
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
-
-                {/* badges overlay */}
-                <div className="absolute bottom-4 left-4 bg-white rounded-xl px-3 py-2 flex items-center gap-3 shadow">
-                  <div className="text-sm font-semibold text-gray-700">20% OFF</div>
-                  <div className="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1">
-                    <i className="bi bi-star-fill text-yellow-500"></i>
-                    <span className="text-sm font-semibold">4.9</span>
-                    <span className="text-xs text-gray-400">(2k)</span>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      
+<Header/>
+      <div className="max-w-7xl mx-auto px-15 py-25">
+        {/* Two Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          {/* LEFT: Gallery Section */}
+          <div className="lg:col-span-7">
+            {/* Main Image */}
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+              <div className="relative h-[60vh] bg-gray-900">
+                <img 
+                  src={gallery[currentImage]} 
+                  alt="Service"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                
+                {/* Gradient Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                
+                {/* Badges - Bottom Left */}
+                {/* <div className="absolute bottom-6 left-6 flex flex-wrap gap-3">
+                  <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg backdrop-blur-sm">
+                    20% OFF Today
                   </div>
-                </div>
+                  <div className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <span className="font-bold text-gray-900">4.9</span>
+                    <span className="text-gray-500 text-sm">(2,450)</span>
+                  </div>
+                </div> */}
 
-                <div className="absolute bottom-4 right-4 bg-white rounded-xl px-4 py-2 shadow flex items-baseline gap-3">
-                  <div className="text-sm text-gray-400">From</div>
-                  <div className="text-lg font-bold text-[#1E57E0]">230 AED <span className="text-sm font-medium text-gray-400">/ h</span></div>
-                </div>
+                {/* Price Badge - Bottom Right */}
+                {/* <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg">
+                  <div className="text-xs text-gray-500 mb-1">Starting from</div>
+                  <div className="text-2xl font-bold text-blue-600">
+                    230 <span className="text-sm text-gray-500">AED/h</span>
+                  </div>
+                </div> */}
+
+                {/* Navigation Arrows */}
+                <button 
+                  onClick={() => setCurrentImage((currentImage - 1 + gallery.length) % gallery.length)}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white transition-all opacity-0 group-hover:opacity-100"
+                >
+                  <ArrowLeft className="w-5 h-5 text-gray-800" />
+                </button>
+                <button 
+                  onClick={() => setCurrentImage((currentImage + 1) % gallery.length)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white transition-all opacity-0 group-hover:opacity-100"
+                >
+                  <ChevronRight className="w-5 h-5 text-gray-800" />
+                </button>
               </div>
-
-              {/* spacing for thumbnail overlap when stacked on mobile */}
-              <div className="h-10 lg:h-6" />
+              
+              {/* Thumbnails */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-3 px-4 ">
+                {gallery.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImage(idx)}
+                    className={`relative w-20 h-14 rounded-lg overflow-hidden transition-all ${
+                      currentImage === idx 
+                        ? 'ring-4 ring-blue-500 shadow-xl scale-110' 
+                        : 'opacity-60 hover:opacity-100 shadow-md'
+                    }`}
+                  >
+                    <img src={img} alt={`Thumb ${idx}`} className="w-full h-full object-cover " />
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* RIGHT: details */}
-            <div className="lg:col-span-5 col-span-1">
-              <div className="sticky top-6 space-y-4">
+            <div className="h-16"></div>
 
-                {/* Title & team */}
-                <div className="bg-white rounded-lg p-4 shadow-sm">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <h1 className="text-2xl lg:text-3xl font-bold leading-tight">{selectedService.title}</h1>
-                      <p className="text-gray-600 mt-2">{selectedService.decs}</p>
-
-                      <div className="flex items-center gap-3 mt-3 text-sm text-gray-600">
-                        <div className="flex -space-x-2">
-                          <img src="https://randomuser.me/api/portraits/men/32.jpg" className="w-8 h-8 rounded-full border-2 border-white" alt="t1" />
-                          <img src="https://randomuser.me/api/portraits/women/44.jpg" className="w-8 h-8 rounded-full border-2 border-white" alt="t2" />
-                          <img src="https://randomuser.me/api/portraits/men/68.jpg" className="w-8 h-8 rounded-full border-2 border-white" alt="t3" />
-                        </div>
-                        <span className="text-xs text-gray-500">Team Experts</span>
-                      </div>
-                    </div>
-
-                    <div className="hidden lg:flex lg:flex-col lg:items-end">
-                      <div className="text-sm text-gray-500">Starting at</div>
-                      <div className="text-xl font-bold text-[#1E57E0]">230 AED / h</div>
-                      <div className="text-sm text-gray-500 mt-2">⭐ 4.9 (2k)</div>
-                    </div>
+            {/* Features Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              {features.map((feature, idx) => (
+                <div key={idx} className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-shadow text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-3">
+                    <feature.icon className="w-6 h-6 text-blue-600" />
                   </div>
-
-                  {/* Mobile price row */}
-                  <div className="mt-3 lg:hidden flex items-center justify-between">
-                    <div>
-                      <div className="text-sm text-gray-500">Starting at</div>
-                      <div className="text-lg font-bold text-[#1E57E0]">230 AED / h</div>
-                    </div>
-                    <div className="text-sm text-gray-500">⭐ 4.9</div>
-                  </div>
+                  <div className="text-sm font-semibold text-gray-800">{feature.text}</div>
                 </div>
-
-                {/* Plans */}
-                <div className="bg-white rounded-lg p-3 shadow-sm">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {plans.map((p) => (
-                      <div key={p.name} className="border rounded-lg p-3 flex items-center justify-between">
-                        <div>
-                          <div className="text-sm font-semibold">{p.name}</div>
-                          <div className="text-xs text-gray-400">{p.desc}</div>
-                        </div>
-                        <div className="text-sm font-bold">{p.price}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Quick actions */}
-                <div className="bg-white rounded-lg p-3 shadow-sm flex items-center gap-3">
-                  <button onClick={handleBook} className="flex-1 bg-[#1E57E0] text-white py-3 rounded-lg font-semibold">Book Service</button>
-                  <button className="w-12 h-12 bg-white border rounded-lg shadow flex items-center justify-center">
-                    <i className="bi bi-chat-dots text-lg"></i>
-                  </button>
-                </div>
-
-                {/* small provider list preview */}
-                <div className="bg-white rounded-lg p-3 shadow-sm">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-sm font-semibold">Top Professionals</div>
-                      <div className="text-xs text-gray-400">Verified & background checked</div>
-                    </div>
-                    <div>
-                      <button className="text-sm text-[#1E57E0]">View all</button>
-                    </div>
-                  </div>
-
-                  <div className="mt-3 space-y-3">
-                    {providerList.slice(0, 3).map((p, i) => (
-                      <div key={i} className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-lg font-semibold">P</div>
-                        <div className="flex-1">
-                          <div className="font-medium">{p.name}</div>
-                          <div className="text-xs text-gray-500">⭐ {p.rating} • {p.experience}</div>
-                        </div>
-                        <div className="text-sm text-gray-700 font-semibold">170 AED</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* FULL-WIDTH TABS & CONTENT (below columns) */}
-          <div className="mt-8">
-            <div className="bg-white rounded-lg p-3 shadow-sm">
-              <div className="flex flex-wrap gap-3">
-                {["About", "Service", "Shop", "Gallery", "Packages", "Reviews"].map((tab) => (
+          {/* RIGHT: Details Section */}
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-24 space-y-6">
+              
+              {/* Service Info Card */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-3 leading-tight">
+                      {selectedSub?.name}
+                    </h1>
+                    <p className="text-gray-600 leading-relaxed">
+                      {selectedSub?.desc}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Team Section */}
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                  <div className="flex -space-x-3">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" className="w-10 h-10 rounded-full border-2 border-white shadow" alt="Expert 1" />
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" className="w-10 h-10 rounded-full border-2 border-white shadow" alt="Expert 2" />
+                    <img src="https://randomuser.me/api/portraits/men/68.jpg" className="w-10 h-10 rounded-full border-2 border-white shadow" alt="Expert 3" />
+                    <div className="w-10 h-10 rounded-full border-2 border-white shadow bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold">
+                      +15
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-gray-900">Expert Team</div>
+                    <div className="text-xs text-gray-500">Verified professionals</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Plans Selection */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Choose Your Plan</h3>
+                <div className="space-y-3">
+                  {plans.map((plan, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => setSelectedPlan(idx)}
+                      className={`relative p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                        selectedPlan === idx
+                          ? 'border-blue-500 bg-blue-50 shadow-md'
+                          : 'border-gray-200 hover:border-blue-300 hover:shadow'
+                      }`}
+                    >
+                      {plan.popular && (
+                        <div className="absolute -top-3 left-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                          MOST POPULAR
+                        </div>
+                      )}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-bold text-gray-900">{plan.name}</div>
+                          <div className="text-sm text-gray-500">{plan.desc}</div>
+                          <div className="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {plan.duration}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-2xl font-bold text-blue-600">{plan.price}</div>
+                          <div className="text-xs text-gray-500">AED</div>
+                        </div>
+                      </div>
+                      {selectedPlan === idx && (
+                        <div className="absolute top-4 right-4 bg-blue-500 rounded-full p-1">
+                          <CheckCircle className="w-5 h-5 text-white" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg space-y-3">
+                <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 rounded-xl transition-all transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-2">
+                  Book Service Now
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                
+                <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-4 rounded-xl transition-all flex items-center justify-center gap-2">
+                  <MessageCircle className="w-5 h-5" />
+                  Chat with Expert
+                </button>
+              </div>
+
+              {/* Stats */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6">
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">2-3h</div>
+                    <div className="text-xs text-gray-600 mt-1">Duration</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">4.9★</div>
+                    <div className="text-xs text-gray-600 mt-1">Rating</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">2.4k+</div>
+                    <div className="text-xs text-gray-600 mt-1">Bookings</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        {/* Tabs Section */}
+        <div className="mt-12">
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            {/* Tab Headers */}
+            <div className="border-b border-gray-200 bg-gray-50">
+              <div className="flex overflow-x-auto scrollbar-hide">
+                {["About", "Service Details", "Gallery", "Packages", "Reviews"].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-3 py-2 rounded-lg whitespace-nowrap ${activeTab === tab ? "bg-[#1E57E0] text-white" : "text-gray-600 bg-gray-100"}`}
+                    className={`px-6 py-4 font-semibold whitespace-nowrap transition-all ${
+                      activeTab === tab
+                        ? 'text-blue-600 border-b-2 border-blue-600 bg-white'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    }`}
                   >
                     {tab}
                   </button>
                 ))}
               </div>
+            </div>
 
-              <div className="mt-4 text-gray-700">
-                {activeTab === "About" && (
-                  <>
-                    <p className="text-sm md:text-base">{readMore ? fullAboutText() : shortAboutText()}</p>
-                    <button onClick={() => setReadMore((r) => !r)} className="mt-2 text-[#1E57E0] font-medium">
-                      {readMore ? "Read Less" : "Read More"}
-                    </button>
-                  </>
-                )}
-                {activeTab === "Service" && <p className="text-sm md:text-base">Service details, inclusions and exclusions listed here in clear bullet points or paragraphs.</p>}
-                {activeTab === "Shop" && <p className="text-sm md:text-base">Shop items and spare parts available for purchase.</p>}
-                {activeTab === "Gallery" && (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                    {gallery.map((g, i) => (
-                      <div key={i} className="h-36 rounded overflow-hidden">
-                        <img src={g} className="w-full h-full object-cover" alt={`g-${i}`} />
-                      </div>
+            {/* Tab Content */}
+            <div className="p-8">
+              {activeTab === "About" && (
+                <div className="prose max-w-none">
+                  <p className="text-gray-700 leading-relaxed text-lg">
+                    {readMore 
+                      ? "Reliable, professional services with verified technicians. Quick response and transparent pricing. We perform end-to-end checks, use quality parts, and maintain a full-service warranty on labour and spare parts as applicable. Our teams are background-checked and trained to ensure safety and satisfaction. Booking is simple, with flexible time slots and priority options for premium customers."
+                      : "Reliable, professional services with verified technicians. Quick response and transparent pricing. Read more for full details..."
+                    }
+                  </p>
+                  <button 
+                    onClick={() => setReadMore(!readMore)} 
+                    className="mt-4 text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-1"
+                  >
+                    {readMore ? "Read Less" : "Read More"}
+                    <ChevronRight className={`w-4 h-4 transition-transform ${readMore ? 'rotate-90' : ''}`} />
+                  </button>
+                </div>
+              )}
+              
+              {activeTab === "Service Details" && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-gray-900">What's Included</h3>
+                  <ul className="space-y-3">
+                    {["Complete system inspection", "Deep cleaning of filters", "Gas pressure check & refill", "Thermostat calibration", "Performance optimization"].map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-1" />
+                        <span className="text-gray-700">{item}</span>
+                      </li>
                     ))}
+                  </ul>
+                </div>
+              )}
+              
+              {activeTab === "Gallery" && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {gallery.map((img, idx) => (
+                    <div key={idx} className="aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+                      <img src={img} className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" alt={`Gallery ${idx}`} />
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              {activeTab === "Reviews" && (
+                <div className="space-y-6">
+                  {[1, 2, 3].map((review) => (
+                    <div key={review} className="bg-gray-50 rounded-xl p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <img src={`https://randomuser.me/api/portraits/men/${review}.jpg`} className="w-12 h-12 rounded-full" alt="Reviewer" />
+                        <div>
+                          <div className="font-semibold text-gray-900">John Doe</div>
+                          <div className="flex items-center gap-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-gray-700">Excellent service! Very professional and thorough. Highly recommend!</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* More Services */}
+        <div className="mt-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">More Services You'll Love</h2>
+            <button className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-1">
+              View All
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {moreServices.map((service, idx) => (
+              <div key={idx} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-pointer">
+                <div className="relative h-48 overflow-hidden">
+                  <img src={service.img} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt={service.title} />
+                  <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <span className="font-bold text-sm">{service.rating}</span>
                   </div>
-                )}
-                {activeTab === "Packages" && <p className="text-sm md:text-base">Package information and bundled offers with benefits and terms.</p>}
-                {activeTab === "Reviews" && <p className="text-sm md:text-base">Customer reviews and ratings (example content). ⭐⭐⭐⭐⭐</p>}
+                </div>
+                <div className="p-5">
+                  <h3 className="font-bold text-gray-900 text-lg mb-1">{service.title}</h3>
+                  <p className="text-sm text-gray-600">{service.subtitle}</p>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* More Services */}
-          <div className="mt-6">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-semibold">More Services</h3>
-              <button className="text-sm text-gray-500">View all</button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <ServiceCard img="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=400&auto=format&fit=crop" title="Carpentry Services" subtitle="Professional Carpentry" />
-              <ServiceCard img="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=400&auto=format&fit=crop" title="Painting Services" subtitle="Professional Painting" />
-              <ServiceCard img="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=400&auto=format&fit=crop" title="Garden & Lawn Care" subtitle="Landscaping & maintenance" />
-              <ServiceCard img="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=400&auto=format&fit=crop" title="Electrician Services" subtitle="Wiring & Repairs" />
-            </div>
+            ))}
           </div>
         </div>
-
-        {/* Sticky bottom booking bar (desktop visible, mobile visible) */}
-        <div className="fixed left-0 right-0 bottom-0 bg-gradient-to-r from-[#1E57E0] to-[#6B47FF] p-4 shadow-lg z-40">
-          <div className="max-w-[1400px] mx-auto flex items-center gap-4 px-4">
-            <div className="flex-1 text-white">
-              <div className="text-sm">Blue Air Conditioning Technician</div>
-              <div className="text-lg font-bold">230 AED / h</div>
-            </div>
-            <button className="bg-white text-[#1E57E0] px-6 py-3 rounded-lg font-semibold">Service Book</button>
-          </div>
-        </div>
-
-      </main>
-
-      <Footer />
-    </>
-  );
-}
-
-/* Helper components and texts */
-
-function ServiceCard({ img, title, subtitle }) {
-  return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-      <img src={img} className="w-full h-36 object-cover" alt={title} />
-      <div className="p-3">
-        <div className="font-semibold">{title}</div>
-        <div className="text-sm text-gray-500 mt-1">{subtitle}</div>
       </div>
+
+     <Footer/>
     </div>
   );
-}
-
-function shortAboutText() {
-  return "Reliable, professional services with verified technicians. Quick response and transparent pricing. Read more for full details...";
-}
-
-function fullAboutText() {
-  return "Reliable, professional services with verified technicians. Quick response and transparent pricing. We perform end-to-end checks, use quality parts, and maintain a full-service warranty on labour and spare parts as applicable. Our teams are background-checked and trained to ensure safety and satisfaction. Booking is simple, with flexible time slots and priority options for premium customers.";
 }

@@ -54,8 +54,8 @@ function App() {
     <Route path="/servicecategories" element={<ServiceCategory />} />
     <Route path="/termandcondition" element={<Termandcondition />} />
     <Route path="/privecepolicy" element={<AllPolicy />} />
-    <Route path="/serviceproviderlist/:id" element={<ServiceProviderList />} />
-    <Route path="/serviceproviderlistall" element={<ServiceProviderListAll />} />
+    <Route path="/serviceproviderlist/:cateid/:subid" element={<ServiceProviderList />} />
+    <Route path="/serviceproviderlistall/:id" element={<ServiceProviderListAll />} />
     <Route path="/checkout" element={<CheckoutLayout />} />
     <Route path="/success" element={<Successpage />} />
     <Route path="/profile" element={<Profile />} />
