@@ -14,7 +14,7 @@ import {
   MapPin,
   TrendingUp,
 } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import http from "../service/http";
 import Header from "../utils/Header";
 import Footer from "../utils/Footer";
@@ -127,6 +127,7 @@ export default function ServiceProviderList() {
     },
   ];
 
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <Header />
@@ -332,7 +333,10 @@ export default function ServiceProviderList() {
 
               {/* Action Buttons */}
               <div className="bg-white rounded-2xl p-6 shadow transform hover:shadow-xl transition-shadow space-y-3">
-                <button className="w-full bg-gradient-to-r from-blue-400 to-blue-700 hover:from-blue-700 text-sm hover:to-blue-800 text-white font-normal py-2 rounded-xl transition-all transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-2">
+                <button
+                  onClick={() => navigate(`/checkout/${cateid}/${subid}`)}
+                  className="w-full bg-gradient-to-r from-blue-400 cursor-pointer to-blue-700 hover:from-blue-700 text-sm hover:to-blue-800 text-white font-normal py-2 rounded-xl transition-all transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-2"
+                >
                   Book Service Now
                   <ChevronRight className="w-4 h-4" />
                 </button>

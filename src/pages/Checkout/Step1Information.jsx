@@ -1,7 +1,24 @@
 // src/pages/checkout/Step1Information.jsx
-import React from "react";
+import React, { useEffect } from "react";
 
 const Step1Information = ({ booking, updateBooking, goNext }) => {
+  const user = JSON.parse(localStorage.getItem("userData"));
+
+  // Auto-fill booking only when empty
+  useEffect(() => {
+    if (user) {
+      if (!booking.customer.fullName) {
+        updateBooking("customer.fullName", user.name || "");
+      }
+      if (!booking.customer.email) {
+        updateBooking("customer.email", user.email || "");
+      }
+      if (!booking.customer.phone) {
+        updateBooking("customer.phone", user.phone || "");
+      }
+    }
+  }, []);
+
   return (
     <div>
       <h3 className="text-lg font-medium mb-2">Customer Information</h3>
@@ -12,18 +29,12 @@ const Step1Information = ({ booking, updateBooking, goNext }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="text"
-          placeholder="First name"
-          value={booking.customer.firstName}
-          onChange={(e) => updateBooking("customer.firstName", e.target.value)}
+          placeholder="Full Name"
+          value={booking.customer.fullName}
+          onChange={(e) => updateBooking("customer.fullName", e.target.value)}
           className="border rounded-lg p-2"
         />
-        <input
-          type="text"
-          placeholder="Last name"
-          value={booking.customer.lastName}
-          onChange={(e) => updateBooking("customer.lastName", e.target.value)}
-          className="border rounded-lg p-2"
-        />
+
         <input
           type="email"
           placeholder="Email address"
@@ -31,6 +42,7 @@ const Step1Information = ({ booking, updateBooking, goNext }) => {
           onChange={(e) => updateBooking("customer.email", e.target.value)}
           className="border rounded-lg p-2 md:col-span-2"
         />
+
         <input
           type="tel"
           placeholder="Phone number"

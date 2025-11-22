@@ -19,6 +19,7 @@ import "swiper/css/navigation";
 
 import { Link, useParams } from "react-router-dom";
 import http from "../service/http";
+import { RotatingLines } from "react-loader-spinner";
 
 export default function ServiceProviderListAll() {
   const { id } = useParams();
@@ -188,9 +189,8 @@ export default function ServiceProviderListAll() {
         </div>
 
         {selectedSub && (
-          <div className="bg-white rounded-3xl shadow-2xl mt-4 overflow-hidden">
+          <div className="bg-white rounded-3xl shadow mt-4 overflow-hidden">
             <div className="grid md:grid-cols-2 gap-0">
-              {/* Image Section */}
               <div className="relative h-64 md:h-auto">
                 <img
                   src={selectedSub.img}
@@ -200,7 +200,6 @@ export default function ServiceProviderListAll() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               </div>
 
-              {/* Content Section */}
               <div className="p-6 flex flex-col justify-center">
                 <h2 className="text-xl font-medium text-gray-900 mb-4">
                   {selectedSub.name}
@@ -220,7 +219,7 @@ export default function ServiceProviderListAll() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/checkout">
+                  <Link to={`/checkout/${id}/${selectedSub.id}`}>
                     <button className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm font-normal py-2 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center group">
                       Book Service Now
                       <ArrowRight className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
@@ -260,6 +259,7 @@ export default function ServiceProviderListAll() {
             </div>
           </div>
         )}
+        <SubCategoryDetails id={selectedSub?.id} />
       </section>
 
       <Footer />
@@ -300,3 +300,95 @@ export default function ServiceProviderListAll() {
     </>
   );
 }
+
+const SubCategoryDetails = ({ id }) => {
+  const [services, setServices] = useState([]);
+  const [selectedSub, setSelectedSub] = useState(null);
+  const [loading, setLoading] = useState(false);
+  // Fetch API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const res = await http.get(`/services/subcategory/${id}`);
+
+        if (res.data.success) {
+          setServices(res.data.data);
+        }
+      } catch (err) {
+        console.log("API Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="inline-flex h-[20vh] w-full items-center justify-center">
+        <RotatingLines
+          strokeColor="#1E1E1E"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="20"
+          visible={true}
+        />
+      </div>
+    );
+  }
+  return (
+    <div>
+      {/* List of all sub-services */}
+      <h3 className="text-xl font-medium mt-10 mb-4">All Services</h3>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {services.map((item) => (
+          <div
+            key={item.id}
+            onClick={() =>
+              setSelectedSub({
+                id: item.id,
+                name: item.name,
+                img: item.image,
+                desc: item.description,
+                price: item.base_price,
+              })
+            }
+            className="cursor-pointer bg-white rounded-2xl shadow hover:shadow-lg p-4"
+          >
+            <img
+              src={item.image}
+              className="w-full h-40 object-cover rounded-xl"
+              alt=""
+            />
+            <h4 className="mt-3 text-base font-medium text-gray-800">
+              {item.name}
+            </h4>
+            <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+              {item.description}
+            </p>
+            <p className="text-blue-600 font-semibold mt-2">
+              ₹{item.base_price}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link to={`/checkout/${item.id}`}>
+                <button className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm font-normal py-2 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center group">
+                  Book Service Now
+                  <ArrowRight className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
+                </button>
+              </Link>
+              <Link to={`/serviceproviderlist/${item.id}`}>
+                <button className="flex-1 bg-white border-2 border-gray-300 hover:border-blue-600 text-gray-800 hover:text-blue-600 text-sm font-normal py-2 px-8 rounded-xl transition-all duration-300 flex items-center justify-center">
+                  View Details
+                  <ChevronRight className="ml-2 w-3 h-3" />
+                </button>
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};

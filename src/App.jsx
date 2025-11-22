@@ -40,75 +40,77 @@ import Successpage from "./pages/Checkout/Successpage";
 
 function App() {
   return (
-   <BrowserRouter>
-  <Routes>
-    {/* PUBLIC ROUTES */}
-   <Route path="/" element={<Home />} />
+    <BrowserRouter>
+      <Routes>
+        {/* PUBLIC ROUTES */}
+        <Route path="/" element={<Home />} />
 
+        <Route path="/login" element={<LoginSignupAnimation />} />
+        <Route path="/details" element={<ServiceDetails />} />
+        <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/abouts" element={<Abouts />} />
+        <Route path="/support" element={<Support />} />
+        <Route path="/servicecategories" element={<ServiceCategory />} />
+        <Route path="/termandcondition" element={<Termandcondition />} />
+        <Route path="/privecepolicy" element={<AllPolicy />} />
+        <Route
+          path="/serviceproviderlist/:cateid/:subid"
+          element={<ServiceProviderList />}
+        />
+        <Route
+          path="/serviceproviderlistall/:id"
+          element={<ServiceProviderListAll />}
+        />
+        <Route path="/checkout/:cateid/:subid" element={<CheckoutLayout />} />
+        <Route path="/success" element={<Successpage />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/dashboard" element={<Dashboard />} />
+        <Route path="/profile/orders" element={<Orders />} />
+        <Route path="/profile/wishlist" element={<Wishlist />} />
+        <Route path="/profile/payments" element={<PaymentMethods />} />
+        <Route path="/profile/addresses" element={<Addresses />} />
+        <Route path="/profile/reviews" element={<Reviews />} />
+        <Route path="/profile/help" element={<Help />} />
 
-    <Route path="/login" element={<LoginSignupAnimation />} />
-    <Route path="/details" element={<ServiceDetails />} />
-    <Route path="/categories" element={<CategoriesPage />} />
-    <Route path="/abouts" element={<Abouts />} />
-    <Route path="/support" element={<Support />} />
-    <Route path="/servicecategories" element={<ServiceCategory />} />
-    <Route path="/termandcondition" element={<Termandcondition />} />
-    <Route path="/privecepolicy" element={<AllPolicy />} />
-    <Route path="/serviceproviderlist/:cateid/:subid" element={<ServiceProviderList />} />
-    <Route path="/serviceproviderlistall/:id" element={<ServiceProviderListAll />} />
-    <Route path="/checkout" element={<CheckoutLayout />} />
-    <Route path="/success" element={<Successpage />} />
-    <Route path="/profile" element={<Profile />} />
-    <Route path="/profile/dashboard" element={<Dashboard/>} />
-    <Route path="/profile/orders" element={<Orders/>} />
-    <Route path="/profile/wishlist" element={<Wishlist/>} />
-    <Route path="/profile/payments" element={<PaymentMethods/>} />
-    <Route path="/profile/addresses" element={<Addresses/>} />
-    <Route path="/profile/reviews" element={<Reviews/>} />
-    <Route path="/profile/help" element={<Help/>} />
+        {/* ADMIN ROUTES */}
+        <Route
+          path="/admindashboard"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Admin />} />
+          <Route path="profile" element={<AdminProfile />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="providers" element={<AdminProviders />} />
+          <Route path="bookings" element={<AdminBookings />} />
+          <Route path="payments" element={<AdminPayments />} />
+          <Route path="category" element={<AdminCategory />} />
+        </Route>
 
-    
-    {/* ADMIN ROUTES */}
-    <Route
-      path="/admindashboard"
-      element={
-        <ProtectedRoute role="admin">
-          <AdminDashboard />
-        </ProtectedRoute>
-      }
-    >
-      <Route index element={<Admin />} />
-      <Route path="profile" element={<AdminProfile />} />
-      <Route path="users" element={<AdminUsers />} />
-      <Route path="providers" element={<AdminProviders />} />
-      <Route path="bookings" element={<AdminBookings />} />
-      <Route path="payments" element={<AdminPayments />} />
-      <Route path="category" element={<AdminCategory />} />
-     
-    </Route>
+        {/* PROVIDER ROUTES */}
+        <Route
+          path="/providerdashboard"
+          element={
+            <ProtectedRoute role="provider">
+              <ProviderDashboard />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Provider />} />
+          <Route path="profile" element={<ProviderProfile />} />
+          <Route path="users" element={<ProviderUsers />} />
+          <Route path="providers" element={<ProviderProviders />} />
+          <Route path="bookings" element={<ProviderBookings />} />
+          <Route path="payments" element={<ProviderPayments />} />
+        </Route>
 
-    {/* PROVIDER ROUTES */}
-    <Route
-      path="/providerdashboard"
-      element={
-        <ProtectedRoute role="provider">
-          <ProviderDashboard />
-        </ProtectedRoute>
-      }
-    >
-      <Route index element={<Provider />} />
-      <Route path="profile" element={<ProviderProfile />} />
-      <Route path="users" element={<ProviderUsers />} />
-      <Route path="providers" element={<ProviderProviders />} />
-      <Route path="bookings" element={<ProviderBookings />} />
-      <Route path="payments" element={<ProviderPayments />} />
-    </Route>
-
-    {/* DEFAULT */}
-    <Route path="*" element={<LoginSignupAnimation />} />
-  </Routes>
-</BrowserRouter>
-
+        {/* DEFAULT */}
+        <Route path="*" element={<LoginSignupAnimation />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

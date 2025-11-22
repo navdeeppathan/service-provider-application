@@ -1,5 +1,5 @@
 // src/pages/checkout/CheckoutLayout.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../utils/Header";
 import Step1Information from "./Step1Information";
 import Step2Address from "./Step2Address";
@@ -9,17 +9,53 @@ import OrderSummary from "./OrderSummary";
 import { servicesCatalog } from "./data";
 import Swal from "sweetalert2";
 import Footer from "../../utils/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import http from "../../service/http";
 
 const CheckoutLayout = () => {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+
+  const { cateid, subid } = useParams();
+  const [category, setCategory] = useState([]);
+  const [subcategories, setSubCategories] = useState([]);
+  const [selectedSub, setSelectedSub] = useState(null);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const res = await http.get("/categories");
+
+      // 1 Find correct category
+      const matchedCategory = res.data.data.find(
+        (item) => item.id === Number(cateid)
+      );
+
+      setCategory(matchedCategory);
+
+      //  Set all subcategories
+      setSubCategories(matchedCategory?.subcategories || []);
+
+      //  Find correct subcategory by subid from URL
+      const matchedSub = matchedCategory?.subcategories?.find(
+        (s) => s.id === Number(subid)
+      );
+
+      setSelectedSub(matchedSub || null);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  console.log("subject:-", selectedSub);
   // central booking state
   const [booking, setBooking] = useState({
     service: servicesCatalog[0], // default selected service
     customer: {
-      firstName: "",
-      lastName: "",
+      fullName: "",
       email: "",
       phone: "",
     },
@@ -65,6 +101,7 @@ const CheckoutLayout = () => {
   const placeOrder = () => {
     // TODO: call API to create booking
     console.log("Placing booking:", booking);
+
     Swal.fire("Booking placed — check console for payload (mock).");
     navigate("/success");
     // After placing, go to review (or confirmation page)
@@ -152,6 +189,7 @@ const CheckoutLayout = () => {
             <OrderSummary
               booking={booking}
               services={servicesCatalog}
+              selectedSub={selectedSub}
               updateBooking={updateBooking}
               gotoStep={goto}
             />

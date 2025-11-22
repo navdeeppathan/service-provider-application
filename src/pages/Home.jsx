@@ -7,6 +7,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../utils/Footer";
 import http from "../service/http";
@@ -434,13 +435,6 @@ const Home = () => {
                   }}
                   speed={800}
                   loop={true}
-                  breakpoints={{
-                    0: { slidesPerView: 2 },
-                    480: { slidesPerView: 3 },
-                    768: { slidesPerView: 4 },
-                    1024: { slidesPerView: 5 },
-                  }}
-                  pagination={{ clickable: true }}
                   modules={[Autoplay, Pagination, Navigation]}
                   className="pb-8"
                 >
@@ -488,6 +482,12 @@ const Home = () => {
                   768: { slidesPerView: 3 },
                   1024: { slidesPerView: 4 },
                 }}
+                autoplay={{
+                  delay: 1800,
+                  disableOnInteraction: false,
+                }}
+                speed={800}
+                loop={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
               >

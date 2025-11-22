@@ -11,15 +11,16 @@ const Step3Payment = ({ booking, updateBooking, goNext, goBack }) => {
 
       <div className="space-y-4">
         <label
-          className={`block border rounded-lg p-4 ${
+          className={`block border rounded-lg p-2 ${
             booking.payment.method === "card" ? "ring-2 ring-purple-200" : ""
           }`}
         >
           <input
             type="radio"
             name="payment"
-            checked={booking.payment.method === "card"}
-            onChange={() => updateBooking("payment.method", "card")}
+            disabled
+            // checked={booking.payment.method === "card"}
+            // onChange={() => updateBooking("payment.method", "card")}
           />{" "}
           <span className="ml-2 text-sm font-medium">Credit / Debit Card</span>
           {booking.payment.method === "card" && (
@@ -28,6 +29,7 @@ const Step3Payment = ({ booking, updateBooking, goNext, goBack }) => {
                 type="text"
                 placeholder="Name on card"
                 className="border rounded-lg p-2 text-sm font-normal"
+                disabled
                 value={booking.payment.cardName}
                 onChange={(e) =>
                   updateBooking("payment.cardName", e.target.value)
@@ -36,6 +38,7 @@ const Step3Payment = ({ booking, updateBooking, goNext, goBack }) => {
               <input
                 type="text"
                 placeholder="Card number"
+                disabled
                 className="border rounded-lg p-2 text-sm font-normal"
                 value={booking.payment.cardNumber}
                 onChange={(e) =>
@@ -46,6 +49,7 @@ const Step3Payment = ({ booking, updateBooking, goNext, goBack }) => {
                 <input
                   type="text"
                   placeholder="MM/YY"
+                  disabled
                   className="border rounded-lg p-2 text-sm font-normal"
                   value={booking.payment.expiry}
                   onChange={(e) =>
@@ -55,6 +59,7 @@ const Step3Payment = ({ booking, updateBooking, goNext, goBack }) => {
                 <input
                   type="text"
                   placeholder="CVV"
+                  disabled
                   className="border rounded-lg p-2 text-sm font-normal"
                   value={booking.payment.cvv}
                   onChange={(e) => updateBooking("payment.cvv", e.target.value)}
@@ -72,6 +77,7 @@ const Step3Payment = ({ booking, updateBooking, goNext, goBack }) => {
           <input
             type="radio"
             name="payment"
+            disabled
             checked={booking.payment.method === "upi"}
             onChange={() => updateBooking("payment.method", "upi")}
           />{" "}
@@ -95,18 +101,21 @@ const Step3Payment = ({ booking, updateBooking, goNext, goBack }) => {
             onChange={() => updateBooking("payment.method", "cod")}
           />{" "}
           <span className="ml-2 text-sm font-medium">
-            Pay on Service (Cash/Card)
+            Pay on Service (Cash)
           </span>
         </label>
       </div>
 
       <div className="mt-8 flex justify-between">
-        <button onClick={goBack} className="px-6 py-3 rounded-md border">
+        <button
+          onClick={goBack}
+          className="px-6 py-2 rounded-md text-sm font-normal border"
+        >
           Back
         </button>
         <button
           onClick={goNext}
-          className="px-6 py-3 rounded-md bg-[#3b82f6] text-white"
+          className="px-6 py-2 rounded-md text-sm font-normal cursor-pointer hover:bg-blue-600 bg-[#3b82f6] text-white"
         >
           Review & Confirm
         </button>
