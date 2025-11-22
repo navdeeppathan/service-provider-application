@@ -19,27 +19,31 @@ const OrderSummary = ({ booking, services, updateBooking, gotoStep }) => {
 
   return (
     <div className="bg-white rounded-xl shadow p-6 sticky top-20">
-      <h4 className="text-lg font-semibold mb-4">Order Summary</h4>
+      <h4 className="text-lg font-medium mb-4">Order Summary</h4>
 
       <div className="flex items-center gap-3 mb-4">
-        <img src="/mnt/data/f901c64e-4f72-464e-a6f6-9797ba9732e1.png" alt="service" className="w-16 h-16 object-cover rounded-md" />
+        <img
+          src="/electrician services.jpg"
+          alt="service"
+          className="w-10 h-10 object-cover rounded-md"
+        />
         <div>
-          <div className="font-semibold">{selected.title}</div>
-          <div className="text-sm text-gray-500">{selected.short}</div>
+          <div className="font-medium text-sm">{selected.title}</div>
+          <div className="text-xs text-gray-500">{selected.short}</div>
         </div>
       </div>
 
-      <div className="border-t pt-4">
-        <div className="flex justify-between text-gray-600">
+      <div className="border-t border-gray-200 pt-4">
+        <div className="flex justify-between text-sm text-gray-600">
           <span>Subtotal</span>
           <span>₹{base.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-gray-600 mt-2">
+        <div className="flex justify-between text-sm text-gray-600 mt-2">
           <span>Tax</span>
           <span>₹{tax.toFixed(2)}</span>
         </div>
 
-        <div className="flex justify-between font-semibold text-lg mt-4">
+        <div className="flex justify-between border-t border-gray-200 py-1 text-sm font-semibold text-lg mt-4">
           <span>Total</span>
           <span>₹{total.toFixed(2)}</span>
         </div>
@@ -50,18 +54,27 @@ const OrderSummary = ({ booking, services, updateBooking, gotoStep }) => {
         <select
           value={selected.key}
           onChange={(e) => {
-            const s = services.find(x => x.key === e.target.value);
+            const s = services.find((x) => x.key === e.target.value);
             updateBooking("service", s);
             gotoStep(2);
           }}
-          className="w-full border rounded-lg p-2"
+          className="w-full border text-sm rounded-lg p-2"
         >
-          {services.map((s) => <option key={s.key} value={s.key}>{s.title} — ₹{s.price}</option>)}
+          {services.map((s) => (
+            <option key={s.key} value={s.key}>
+              {s.title} — ₹{s.price}
+            </option>
+          ))}
         </select>
       </div>
 
       <div className="mt-6">
-        <button onClick={() => gotoStep(4)} className="w-full bg-[#3b82f6] text-white py-2 rounded-md">Go to Review</button>
+        <button
+          onClick={() => gotoStep(4)}
+          className="w-full bg-[#3b82f6] text-white text-sm cursor-pointer py-2 rounded-md"
+        >
+          Go to Review
+        </button>
       </div>
     </div>
   );

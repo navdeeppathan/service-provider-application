@@ -331,8 +331,8 @@ const Home = () => {
           id="hero"
           className="pt-[80px] pb-[20px] relative overflow-hidden bg-white px-10"
         >
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-12">
               {/* LEFT CONTENT */}
               <div
                 className="space-y-6 text-left md:text-left"
@@ -340,12 +340,12 @@ const Home = () => {
                 data-aos-delay="200"
               >
                 {/* Heading */}
-                <h2 className="text-[3rem] md:text-[2.5rem] sm:text-[2.5rem] xs:text-[2rem] font-semibold leading-[1.2] text-gray-900">
+                <h2 className="text-[2rem] md:text-[2rem] sm:text-[2rem] xs:text-[1rem] font-medium leading-[1.2] text-gray-900">
                   Trusted Professionals for Every Home Service
                 </h2>
 
                 {/* Paragraph */}
-                <p className="text-[1.1rem] text-gray-600 leading-relaxed">
+                <p className="text-sm text-gray-600 font-normal leading-relaxed">
                   Homexa connects you with trained, background-verified experts
                   for AC servicing, appliance repair, deep cleaning, plumbing,
                   electrical work, painting, pest control and more. Book
@@ -356,14 +356,14 @@ const Home = () => {
                 <div className="flex flex-wrap gap-4 md:flex-row sm:flex-col">
                   <Link
                     href="#contact"
-                    className="px-6 py-3 rounded-md font-semibold bg-[#5678D0] hover:bg-blue-700 text-white shadow transition"
+                    className="px-6 py-2 flex items-center justify-center rounded-md font-normal bg-[#4076ff] hover:bg-blue-700 text-white shadow transition"
                   >
                     Book a Service
                   </Link>
 
                   <Link
                     to="/servicecategories"
-                    className="px-6 py-3 rounded-md font-semibold border-2 border-blue-600 text-blue-600 hover:bg-[#5678D0] hover:text-white transition"
+                    className="px-6 py-2 flex items-center justify-center rounded-md font-normal border-2 border-blue-600 text-blue-600 hover:bg-[#5678D0] hover:text-white transition"
                   >
                     Explore Services
                   </Link>
@@ -373,7 +373,7 @@ const Home = () => {
                 <div className="flex gap-10 flex-wrap sm:gap-6">
                   {/* Stat 1 */}
                   <div className="text-center">
-                    <h3 className="text-3xl font-bold text-blue-600">
+                    <h3 className="text-xl font-normal text-blue-600">
                       <span
                         className="purecounter"
                         data-purecounter-start="0"
@@ -387,7 +387,7 @@ const Home = () => {
 
                   {/* Stat 2 */}
                   <div className="text-center">
-                    <h3 className="text-3xl font-bold text-blue-600">
+                    <h3 className="text-xl font-normal text-blue-600">
                       <span
                         className="purecounter"
                         data-purecounter-start="0"
@@ -403,7 +403,7 @@ const Home = () => {
 
                   {/* Stat 3 */}
                   <div className="text-center">
-                    <h3 className="text-3xl font-bold text-blue-600">
+                    <h3 className="text-xl font-normal text-blue-600">
                       <span
                         className="purecounter"
                         data-purecounter-start="0"
@@ -420,19 +420,6 @@ const Home = () => {
                 </div>
               </div>
 
-              {/* RIGHT IMAGE */}
-              {/* <div
-                  className="flex justify-center"
-                  data-aos="zoom-out"
-                  data-aos-delay="300"
-                >
-                  <img
-                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop"
-                    alt="Homexa service"
-                    className="rounded-lg shadow-lg w-full hover:scale-[1.03] transition-transform duration-500"
-                  />
-                </div> */}
-
               <div
                 className="flex justify-center"
                 data-aos="zoom-out"
@@ -442,13 +429,20 @@ const Home = () => {
                   spaceBetween={20}
                   slidesPerView={1}
                   autoplay={{
-                    delay: 2500,
+                    delay: 1800,
                     disableOnInteraction: false,
                   }}
+                  speed={800}
                   loop={true}
+                  breakpoints={{
+                    0: { slidesPerView: 2 },
+                    480: { slidesPerView: 3 },
+                    768: { slidesPerView: 4 },
+                    1024: { slidesPerView: 5 },
+                  }}
                   pagination={{ clickable: true }}
                   modules={[Autoplay, Pagination, Navigation]}
-                  className="w-full"
+                  className="pb-8"
                 >
                   {images.map((img, index) => (
                     <SwiperSlide key={index}>
@@ -467,68 +461,57 @@ const Home = () => {
 
         <section id="services" className="py-20 bg-[#F1F7FC] px-10">
           <div
-            className="container mx-auto px-4 text-center"
+            className="container mx-auto max-w-6xl text-center"
             data-aos="fade-up"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl font-medium text-gray-900 mb-3">
               Our Services
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 text-sm font-normal max-w-2xl mx-auto">
               Comprehensive home services — verified professionals, transparent
               pricing, and guaranteed results.
             </p>
           </div>
 
           <div
-            className="container mx-auto px-4 mt-12"
+            className="max-w-6xl mx-auto mt-12"
             data-aos="fade-up"
             data-aos-delay="100"
           >
             <div className="relative">
-              {/* CUSTOM ARROWS */}
-              <button className="swiper-button-prev custom-prev"></button>
-              <button className="swiper-button-next custom-next"></button>
-
               <Swiper
                 slidesPerView={1}
                 spaceBetween={25}
                 pagination={{ clickable: true }}
-                navigation={{
-                  nextEl: ".custom-next",
-                  prevEl: ".custom-prev",
-                }}
                 breakpoints={{
                   640: { slidesPerView: 2 },
                   768: { slidesPerView: 3 },
                   1024: { slidesPerView: 4 },
                 }}
-                modules={[Pagination, Navigation]}
+                modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
               >
                 {categories.map((service, index) => (
                   <SwiperSlide key={index}>
                     <Link to={`/serviceproviderlistall/${service.id}`}>
-                      <article
-                        className="relative h-[280px] min-h-[280px] flex flex-col justify-between text-center p-8 shadow-md border border-gray-200 rounded-2xl bg-white hover:shadow-2xl hover:scale-102 transition-all duration-300
-  transition"
-                      >
+                      <article className="relative h-[280px] min-h-[280px] flex flex-col justify-between text-center p-8 shadow-md border border-gray-200 rounded-2xl bg-white hover:shadow-2xl hover:scale-102 transition-all duration-300 transition">
                         <div>
                           <span className="w-16 h-16 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-3xl mx-auto mb-4">
                             <i className={service.icon}></i>
                           </span>
 
-                          <h3 className="text-xl font-semibold mb-3">
+                          <h3 className="text-lg font-medium mb-3">
                             {service.name}
                           </h3>
 
-                          <p className="text-gray-600 text-sm leading-relaxed">
+                          <p className="text-gray-600 text-xs leading-relaxed">
                             {service.decs}
                           </p>
                         </div>
 
                         <Link
                           to={`/serviceproviderlistall/${service.id}`}
-                          className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
+                          className="absolute bottom-4 right-4 w-8 h-8 rounded-full bg-[#5678D0] text-white flex items-center justify-center hover:bg-blue-700 transition"
                         >
                           <i className="bi bi-arrow-up-right"></i>
                         </Link>
@@ -543,7 +526,7 @@ const Home = () => {
           <div className="flex justify-center">
             <button
               onClick={() => navigate("/servicecategories")}
-              className="px-6 py-3 mt-12 bg-[#5678D0] text-white flex items-center gap-2 rounded-full hover:bg-blue-700 transition"
+              className="px-6 py-2 mt-12 font-normal text-sm cursor-pointer bg-[#5678D0] text-white flex items-center gap-2 rounded-full hover:bg-blue-700 transition"
             >
               View All Services
             </button>
@@ -603,21 +586,21 @@ const Home = () => {
             className="container mx-auto px-4 text-center mb-12"
             data-aos="fade-up"
           >
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-medium text-gray-900">
               Why Choose Homexa
             </h2>
-            <p className="text-gray-600 mt-2">
+            <p className="text-gray-600 text-sm mt-2">
               We focus on trust, transparency, and delivering excellent outcomes
               for homeowners.
             </p>
           </div>
 
           <div
-            className="container mx-auto px-4"
+            className="mx-auto max-w-6xl"
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="grid lg:grid-cols-2 gap-10 ">
               <div
                 className="flex justify-center"
                 data-aos="zoom-out"
@@ -653,13 +636,10 @@ const Home = () => {
                     data-aos-delay="200"
                     className="p-6 border border-gray-200 rounded-xl shadow-sm  hover:shadow-2xl hover:scale-102 transition bg-white"
                   >
-                    <div className="text-3xl font-bold text-blue-600 mb-2">
-                      01
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-lg font-medium mb-2">
                       Verified Experts
                     </h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-600 font-normal text-sm">
                       Trusted partners who meet Homexa's quality standards.
                     </p>
                   </div>
@@ -669,13 +649,10 @@ const Home = () => {
                     data-aos-delay="300"
                     className="p-6 border border-gray-200 rounded-xl shadow-sm  hover:shadow-2xl hover:scale-102 transition bg-white"
                   >
-                    <div className="text-3xl font-bold text-blue-600 mb-2">
-                      02
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-lg font-medium mb-2">
                       Transparent Pricing
                     </h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-600 font-normal text-sm">
                       Fixed packages with clear inclusions and optional add-ons.
                     </p>
                   </div>
@@ -685,13 +662,10 @@ const Home = () => {
                     data-aos-delay="400"
                     className="p-6 border border-gray-200 rounded-xl shadow-sm  hover:shadow-2xl hover:scale-102 transition bg-white"
                   >
-                    <div className="text-3xl font-bold text-blue-600 mb-2">
-                      03
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-lg font-medium mb-2">
                       Easy Scheduling
                     </h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-600 font-normal text-sm">
                       Same-day or scheduled appointments with SMS & email
                       updates.
                     </p>
@@ -702,13 +676,10 @@ const Home = () => {
                     data-aos-delay="500"
                     className="p-6 border border-gray-200 rounded-xl shadow-sm  hover:shadow-2xl hover:scale-102 transition bg-white"
                   >
-                    <div className="text-3xl font-bold text-blue-600 mb-2">
-                      04
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-lg font-medium mb-2">
                       Secure Payments
                     </h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-600 font-normal text-sm">
                       Multiple payment options with secure checkout and receipts
                     </p>
                   </div>
@@ -723,14 +694,14 @@ const Home = () => {
             className="container mx-auto px-4 mb-10 text-center"
             data-aos="fade-up"
           >
-            <h2 className="text-3xl font-bold">Recent Projects</h2>
-            <p className="text-gray-600 mt-2">
+            <h2 className="text-3xl font-medium">Recent Projects</h2>
+            <p className="text-gray-600 text-sm font-normal mt-2">
               Selected before-after projects and recent jobs completed by Homexa
               technicians.
             </p>
           </div>
 
-          <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
             <ul
               className="flex justify-center gap-4 mb-10 flex-wrap"
               data-aos="fade-up"
@@ -746,7 +717,7 @@ const Home = () => {
               ].map((filter) => (
                 <li
                   key={filter.value}
-                  className={`cursor-pointer px-5 py-2 rounded-full text-sm font-medium transition
+                  className={`cursor-pointer px-5 py-1 flex items-center justify-center rounded-full text-sm font-normal transition
                   ${
                     activeFilter === filter.value
                       ? "bg-[#5678D0] text-white shadow"
@@ -782,12 +753,12 @@ const Home = () => {
                   </Link>
 
                   <div className="p-4">
-                    <h4 className="text-lg font-semibold">
+                    <h4 className="text-md font-medium">
                       <Link href="#" className="hover:text-blue-600">
                         {item.title}
                       </Link>
                     </h4>
-                    <p className="text-gray-600 text-sm">{item.decs}</p>
+                    <p className="text-gray-600 text-xs">{item.decs}</p>
                   </div>
                 </div>
               ))}
@@ -800,15 +771,15 @@ const Home = () => {
             className="container mx-auto px-4 text-center mb-12"
             data-aos="fade-up"
           >
-            <h2 className="text-3xl font-bold">Service Packages</h2>
-            <p className="text-gray-600 mt-2 max-w-xl mx-auto">
+            <h2 className="text-3xl font-medium">Service Packages</h2>
+            <p className="text-gray-600 mt-2 max-w-xl font-normal text-sm mx-auto">
               Transparent packages for common home services. Choose a package or
               ask for a custom estimate.
             </p>
           </div>
 
           <div
-            className="container mx-auto px-4"
+            className="max-w-6xl mx-auto"
             data-aos="fade-up"
             data-aos-delay="100"
           >
@@ -818,25 +789,27 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
-                <h3 className="text-xl font-semibold text-gray-800">
+                <h3 className="text-md font-medium text-gray-800">
                   Home Cleaning — Basic
                 </h3>
 
                 <div className="mt-4 flex items-end">
-                  <span className="text-2xl font-bold text-blue-600">₹</span>
-                  <span className="text-4xl font-bold text-blue-600">799</span>
-                  <span className="text-gray-600 ml-1">/ single visit</span>
+                  <span className="text-lg font-medium text-blue-400">₹</span>
+                  <span className="text-lg font-medium text-blue-400">799</span>
+                  <span className="text-gray-600 text-sm font-normal ml-1">
+                    / single visit
+                  </span>
                 </div>
 
-                <p className="text-gray-600 mt-3">
+                <p className="text-gray-600 text-sm font-normal mt-3">
                   General cleaning, dusting, vacuuming, and bathroom wipe-down.
                 </p>
 
-                <h4 className="mt-6 font-semibold text-gray-700">
+                <h4 className="mt-6 font-normal text-sm text-gray-700">
                   Features Included:
                 </h4>
 
-                <ul className="space-y-2 mt-3 text-gray-700">
+                <ul className="space-y-2 mt-3 text-sm text-gray-700">
                   <li className="flex items-center gap-2">
                     <i className="bi bi-check-circle-fill text-blue-600"></i>
                     Up to 3 rooms
@@ -853,43 +826,48 @@ const Home = () => {
 
                 <Link
                   href="#"
-                  className="mt-6 inline-flex items-center justify-center w-full bg-[#5678D0] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                  className="mt-6 inline-flex items-center justify-center w-full bg-[#5678D0] text-white py-2 rounded-lg font-normal text-sm hover:bg-blue-700 transition"
                 >
                   Buy Now <i className="bi bi-arrow-right ml-2"></i>
                 </Link>
               </div>
 
               <div
-                className="bg-white shadow-xl border-white border-blue-500 rounded-xl p-8 relative"
+                className="bg-white shadow-xl rounded-xl p-8 relative"
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
-                <div className="absolute top-3 right-3 bg-[#5678D0] text-white text-xs px-3 py-1 rounded-full shadow">
+                {/* Centered Badge */}
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#5678D0] text-white text-xs px-4 py-1 rounded-full shadow flex items-center gap-1 z-10">
+                  {/* Crown Icon (Taj) */}
+                  <i className="bi bi-award-fill text-yellow-300 text-sm"></i>
                   Most Popular
                 </div>
 
-                <h3 className="text-xl font-semibold text-gray-800">
+                <h3 className="text-md font-medium text-gray-800">
                   AC Service — Premium
                 </h3>
 
                 <div className="mt-4 flex items-end">
-                  <span className="text-2xl font-bold text-blue-600">₹</span>
-                  <span className="text-4xl font-bold text-blue-600">
+                  <span className="text-lg font-medium text-blue-400">₹</span>
+                  <span className="text-lg font-medium text-blue-400">
                     1,499
                   </span>
-                  <span className="text-gray-600 ml-1">/ service</span>
+                  <span className="text-gray-600 text-sm font-normal ml-1">
+                    / service
+                  </span>
                 </div>
 
-                <p className="text-gray-600 mt-3">
+                <p className="text-gray-600 text-sm font-normal mt-3">
                   Gas top-up, cleaning, filter check, and minor repairs
                   included.
                 </p>
 
-                <h4 className="mt-6 font-semibold text-gray-700">
+                <h4 className="mt-6 font-normal text-sm text-gray-700">
                   Features Included:
                 </h4>
 
-                <ul className="space-y-2 mt-3 text-gray-700">
+                <ul className="space-y-2 mt-3 text-sm text-gray-700">
                   <li className="flex items-center gap-2">
                     <i className="bi bi-check-circle-fill text-blue-600"></i>
                     Certified AC technician
@@ -906,7 +884,7 @@ const Home = () => {
 
                 <Link
                   href="#"
-                  className="mt-6 inline-flex items-center justify-center w-full bg-gray-100 border py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+                  className="mt-6 inline-flex items-center justify-center w-full bg-gray-100 border py-2 rounded-lg font-normal text-sm hover:bg-gray-200 transition"
                 >
                   Buy Now <i className="bi bi-arrow-right ml-2"></i>
                 </Link>
@@ -917,26 +895,28 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="300"
               >
-                <h3 className="text-xl font-semibold text-gray-800">
+                <h3 className="text-md font-medium text-gray-800">
                   Plumbing — Standard
                 </h3>
 
                 <div className="mt-4 flex items-end">
-                  <span className="text-2xl font-bold text-blue-600">₹</span>
-                  <span className="text-4xl font-bold text-blue-600">999</span>
-                  <span className="text-gray-600 ml-1">/ visit</span>
+                  <span className="text-lg font-medium text-blue-400">₹</span>
+                  <span className="text-lg font-medium text-blue-400">999</span>
+                  <span className="text-gray-600 text-sm font-normal ml-1">
+                    / visit
+                  </span>
                 </div>
 
-                <p className="text-gray-600 mt-3">
+                <p className="text-gray-600 text-sm font-normal mt-3">
                   Leak fixes, faucet replacement, and drain cleaning by expert
                   plumbers
                 </p>
 
-                <h4 className="mt-6 font-semibold text-gray-700">
+                <h4 className="mt-6 font-normal text-sm text-gray-700">
                   Features Included:
                 </h4>
 
-                <ul className="space-y-2 mt-3 text-gray-700">
+                <ul className="space-y-2 mt-3 text-sm text-gray-700">
                   {[
                     "Certified plumber",
                     " Parts & labour estimate",
@@ -951,7 +931,7 @@ const Home = () => {
 
                 <Link
                   href="#"
-                  className="mt-6 inline-flex items-center justify-center w-full bg-[#5678D0] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                  className="mt-6 inline-flex items-center justify-center w-full bg-[#5678D0] text-white py-2 rounded-lg font-normal text-sm hover:bg-blue-700 transition"
                 >
                   Buy Now <i className="bi bi-arrow-right ml-2"></i>
                 </Link>
@@ -965,7 +945,7 @@ const Home = () => {
             className="container mx-auto px-4 text-center mb-14"
             data-aos="fade-up"
           >
-            <h2 className="text-4xl font-bold text-gray-800">Team</h2>
+            <h2 className="text-4xl font-medium text-gray-800">Team</h2>
             <p className="text-gray-600 mt-2">
               Necessitatibus eius consequatur ex aliquid fuga eum quidem sint
               consectetur velit
