@@ -19,7 +19,20 @@ const portfolioItems = [
     decs: "Professional home cleaning service.",
     img: "/home_cleing.jpg",
   },
-  
+  {
+    id: 2,
+    category: "home-cleaning",
+    title: "Home Cleaning 2",
+    decs: "Eco-friendly deep home cleaning.",
+    img: "/home_cleing.jpg",
+  },
+  {
+    id: 3,
+    category: "home-cleaning",
+    title: "Home Cleaning 3",
+    decs: "Full house hygiene maintenance.",
+    img: "/home_cleing.jpg",
+  },
 
   // Deep Cleaning
   {
@@ -29,7 +42,21 @@ const portfolioItems = [
     decs: "Intensive deep cleaning service.",
     img: "/deep cleaning.jpg",
   },
-  
+  {
+    id: 5,
+    category: "deep-cleaning",
+    title: "Deep Cleaning 2",
+    decs: "Kitchen & bathroom deep clean.",
+    img: "/deep cleaning.jpg",
+  },
+  {
+    id: 6,
+    category: "deep-cleaning",
+    title: "Deep Cleaning 3",
+    decs: "Full house deep cleaning.",
+    img: "/deep cleaning.jpg",
+  },
+
   // Bathroom Cleaning
   {
     id: 7,
@@ -38,7 +65,20 @@ const portfolioItems = [
     decs: "Tiles & fittings cleaning.",
     img: "/bathroom cleaning.webp",
   },
-  
+  {
+    id: 8,
+    category: "bathroom-cleaning",
+    title: "Bathroom Cleaning 2",
+    decs: "Hard stain removal cleaning.",
+    img: "/bathroom cleaning.webp",
+  },
+  {
+    id: 9,
+    category: "bathroom-cleaning",
+    title: "Bathroom Cleaning 3",
+    decs: "Shower & toilet cleaning.",
+    img: "/bathroom cleaning.webp",
+  },
 
   // AC Repair
   {
@@ -48,7 +88,20 @@ const portfolioItems = [
     decs: "AC servicing with gas check.",
     img: "/ac repair service.webp",
   },
- 
+  {
+    id: 11,
+    category: "ac-service",
+    title: "AC Repair 2",
+    decs: "Cooling problem fixed.",
+    img: "/ac repair service.webp",
+  },
+  {
+    id: 12,
+    category: "ac-service",
+    title: "AC Installation",
+    decs: "Split AC installation.",
+    img: "/ac repair service.webp",
+  },
 
   // Electrician
   {
@@ -58,7 +111,20 @@ const portfolioItems = [
     decs: "Switchboard installation.",
     img: "/electrician services.jpg",
   },
-  
+  {
+    id: 14,
+    category: "electrician",
+    title: "Electrician Work 2",
+    decs: "Fan repair & fittings.",
+    img: "/electrician services.jpg",
+  },
+  {
+    id: 15,
+    category: "electrician",
+    title: "Electric Panel Service",
+    decs: "MCB & wiring fixing.",
+    img: "/electrician services.jpg",
+  },
 
   // Add similarly for all other categories...
 ];
@@ -536,7 +602,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* <section id="alt-services" className="py-20 bg-white px-10">
+        <section id="alt-services" className="py-20 bg-white px-10">
           <div
             className="container mx-auto px-4"
             data-aos="fade-up"
@@ -550,7 +616,7 @@ const Home = () => {
                   data-aos-delay={(index + 1) * 100}
                 >
                   <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white h-full flex flex-col">
-                  
+                    {/* Header */}
                     <div className="p-6 border-b border-gray-100 flex items-center gap-4">
                       <div className="w-12 h-12 rounded-full bg-[#5678D0] text-white flex items-center justify-center text-xl">
                         <i className={service.icon}></i>
@@ -558,6 +624,7 @@ const Home = () => {
                       <h4 className="text-lg font-semibold">{service.title}</h4>
                     </div>
 
+                    {/* Content */}
                     <div className="p-6 flex-grow">
                       <p className="text-gray-600 mb-4">{service.decs}</p>
                       <div className="rounded-lg overflow-hidden">
@@ -569,6 +636,7 @@ const Home = () => {
                       </div>
                     </div>
 
+                    {/* Footer */}
                     <div className="p-6 border-t border-gray-100">
                       <Link
                         to="/servicecategories"
@@ -582,7 +650,7 @@ const Home = () => {
               ))}
             </div>
           </div>
-        </section> */}
+        </section>
 
         <section id="why-us" className="py-20 bg-[#F1F7FC] px-10">
           <div
@@ -728,7 +796,6 @@ const Home = () => {
                 { label: "Bathroom Cleaning", value: "bathroom-cleaning" },
                 { label: "AC Service", value: "ac-service" },
                 { label: "Electrician", value: "electrician" },
-                { label: "All", value: "all" },
               ].map((filter) => (
                 <li
                   key={filter.value}
